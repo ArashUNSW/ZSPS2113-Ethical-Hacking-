@@ -52,7 +52,7 @@ For local testing, connect both VMs to the same authorised **host-only** network
 Example lab subnet:
 
 ```text
-192.168.1.0/24
+192.168.1.0/24 
 ```
 
 > [!note]
@@ -82,14 +82,14 @@ Select the current week's lab.
 
 ```text
 Username: student
-Password: attacker
+Password: toor
 ```
 
 **Ubuntu-Server**
 
 ```text
-Username: student
-Password: server
+Username: root
+Password: Pa$$w0rd
 ```
 
 > [!alert]
