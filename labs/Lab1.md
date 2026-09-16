@@ -892,7 +892,7 @@ Before reporting a vulnerability, you would need to:
 Write a lab report using the following structure. 
 
 1. Lab Objective (80–100 words)
-Briefly state that the purpose was to configure an authorised penetration-testing environment using Kali-Attacker and Ubuntu-Server, verify networking, perform host discovery, identify open TCP ports and detect running services. These are the core objectives of Week 1. 
+Briefly state that the purpose was to configure an authorised penetration-testing environment using Kali-Attacker and Ubuntu-Server, verify networking, perform host discovery, identify open TCP ports and detect running services.
 
 2. Lab Setup and Network Configuration (150–200 words + screenshots)
 The summary of the lab setup and network configuration should include:
@@ -915,10 +915,9 @@ Identify which discovered address was confirmed as Ubuntu-Server. The lab requir
 nmap -sT -n -p- <UBUNTU_IP> -oN ubuntu-tcp-ports.txt
 
 Report your open ports in a small table:
-Port	State	Service	Product	Version
-22/tcp				
-80/tcp				
-
+| Port | State | Service | Product | Version | Reported version |
+|22/tcp|---|---|---|---|---|
+|80/tcp|  |  |  |  |  |
 Use your actual results.
 
 3.3 Service Detection
