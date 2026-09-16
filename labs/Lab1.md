@@ -887,29 +887,63 @@ Before reporting a vulnerability, you would need to:
 
 ---
 
-## Task 33 - Write a 100-150 Word Findings Summary
+## Task 33 - Lab Report – Suggested Structure (800 to 1500 words)
 
+Write a lab report using the following structure. 
+
+1. Lab Objective (80–100 words)
+Briefly state that the purpose was to configure an authorised penetration-testing environment using Kali-Attacker and Ubuntu-Server, verify networking, perform host discovery, identify open TCP ports and detect running services. These are the core objectives of Week 1. 
+
+2. Lab Setup and Network Configuration (150–200 words + screenshots)
+The summary of the lab setup and network configuration should include:
+•	Skillable/VirtualBox/VMware environment 
+•	Kali-Attacker and Ubuntu-Server 
+•	Host-only network 
+•	IP addresses/interfaces 
+•	Routing and connectivity test 
+Evidence: relevant screenshots of the VM/network setup and one of the IP/ping results. The lab requires both VMs to use the same authorised testing scope and network isolation, and to verify addressing, routing, and connectivity. 
+
+3. Reconnaissance and Results (300–350 words + screenshots)
+This should be the main section.
+
+3.1 Host Discovery
+Show the command and briefly explain the result:
+sudo nmap -sn -n <SUBNET> -oN host-discovery.txt
+Identify which discovered address was confirmed as Ubuntu-Server. The lab requires matching Ubuntu's console IP against the discovery results before further scanning. 
+
+3.2 TCP Port Scan
+nmap -sT -n -p- <UBUNTU_IP> -oN ubuntu-tcp-ports.txt
+
+Report your open ports in a small table:
+Port	State	Service	Product	Version
+22/tcp				
+80/tcp				
+
+Use your actual results.
+
+3.3 Service Detection
+nmap -sT -sV -n -p <OPEN_PORTS> <UBUNTU_IP> -oN ubuntu-services.txt
+Briefly report the detected services, products, and versions. The lab specifically says not to guess if a product or version cannot be identified. 
+
+4. Analysis, Troubleshooting and Limitations (250–300 words + screenshots)
+Combine these rather than creating three separate sections.
+Explain what your results mean; for example, the open ports show that network services were accessible from Kali-Attacker, but an open port does not confirm a vulnerability on its own.
+Describe any problem encountered, the diagnostic steps taken and how it was resolved, such as the VMs initially being on different subnets or needing temporary NAT access to install services. If no problems occurred, explain how the results were verified and identify one potential failure point. Then give 1–2 limitations, such as:
+•	only TCP ports were assessed; 
+•	UDP and detailed application security testing were outside this lab; 
+•	reported service versions do not automatically establish vulnerability. 
+These limitations are explicitly identified in the Week 1 instructions. 
+
+5. Findings Summary and Conclusion (150–200 words)
+Use the findings summary required by the lab as your conclusion, rather than writing a separate findings summary and a conclusion.
 Include:
-
-- number of responsive hosts;
-- confirmed Ubuntu-Server IP address;
-- open TCP ports;
-- detected services;
-- products and versions where identified;
-- uncertainty and limitations;
-- whether any vulnerability was validated;
-- references to saved evidence files.
-
-Suggested structure:
-
-```text
-Host discovery identified [number] responsive hosts within the authorised
-subnet. Ubuntu-Server was confirmed at [IP address]. TCP scanning identified
-[ports], with service detection reporting [services/products/versions].
-
-The results were limited by [uncertainties or coverage limitations]. These
-observations identify accessible services but do not establish a confirmed
-vulnerability. Further verification would include [specific checks].
+•	number of responsive hosts; 
+•	confirmed Ubuntu IP; 
+•	open TCP ports; 
+•	detected services/versions; 
+•	limitations; 
+•	whether a vulnerability was actually validated; 
+•	evidence filenames. 
 
 Supporting evidence is recorded in [file names].
 ```
