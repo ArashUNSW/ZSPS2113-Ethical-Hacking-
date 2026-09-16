@@ -403,10 +403,10 @@ Ignore the loopback interface `lo`.
 
 Record:
 
-| VM | Lab interface | IPv4 address/prefix |
-|---|---|---|
-| Kali-Attacker |  |  |
-| Ubuntu-Server |  |  |
+| VM | Lab interface | IPv4 address/prefix | Subnet |
+|---|---|---|---|
+| Kali-Attacker |  |  |  |
+| Ubuntu-Server |  |  |  |
 
 ---
 
