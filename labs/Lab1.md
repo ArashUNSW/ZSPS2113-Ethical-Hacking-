@@ -916,7 +916,6 @@ nmap -sT -n -p- <UBUNTU_IP> -oN ubuntu-tcp-ports.txt
 
 Report your open ports in a small table:
 
-**| Observation | Appropriate interpretation |**
 **| Port | State | Service | Product | Version | Reported version |**
 |22/tcp|---|---|---|---|---|
 |80/tcp|  |  |  |  |  |
