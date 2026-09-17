@@ -916,13 +916,16 @@ nmap -sT -n -p- <UBUNTU_IP> -oN ubuntu-tcp-ports.txt
 
 Report your open ports in a small table:
 
-**| Port | State | Service | Product | Version | Reported version |**
-|22/tcp|---|---|---|---|---|
-|80/tcp|  |  |  |  |  |
+| Port | State | Service | Product | Version | Reported version |
+|------|-------|---------|---------|---------| -----------------|
+|22/tcp | | | | |
+|80/tcp | | | | |
+
 Use your actual results.
 
 #### 3.3 Service Detection
 nmap -sT -sV -n -p <OPEN_PORTS> <UBUNTU_IP> -oN ubuntu-services.txt
+
 Briefly report the detected services, products, and versions. The lab specifically says not to guess if you can't identify a product or version. 
 
 ### 4. Analysis, Troubleshooting and Limitations (250–300 words + screenshots)
@@ -946,12 +949,8 @@ Include:
 - evidence filenames. 
 
 Supporting evidence is recorded in [file names].
-```
 
-> [!alert]
-> If you did not validate a vulnerability, state that clearly.
-
----
+If you did not validate a vulnerability, state that clearly.
 
 # Final Validation
 
