@@ -906,10 +906,10 @@ Evidence: relevant screenshots of the VM/network setup and one of the IP/ping re
 3. Reconnaissance and Results (300–350 words + screenshots)
 This should be the main section.
 
-3.1 Host Discovery
-Show the command and briefly explain the result:
-sudo nmap -sn -n <SUBNET> -oN host-discovery.txt
-Identify which discovered address was confirmed as Ubuntu-Server. The lab requires matching Ubuntu's console IP against the discovery results before further scanning. 
+  3.1 Host Discovery
+  Show the command and briefly explain the result:
+  sudo nmap -sn -n <SUBNET> -oN host-discovery.txt
+  Identify which discovered address was confirmed as Ubuntu-Server. The lab requires matching Ubuntu's console IP against the discovery results before further scanning. 
 
 3.2 TCP Port Scan
 nmap -sT -n -p- <UBUNTU_IP> -oN ubuntu-tcp-ports.txt
