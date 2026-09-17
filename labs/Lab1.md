@@ -896,11 +896,11 @@ Briefly state that the purpose was to configure an authorised penetration-testin
 
 2. Lab Setup and Network Configuration (150–200 words + screenshots)
 The summary of the lab setup and network configuration should include:
-•	Skillable/VirtualBox/VMware environment 
-•	Kali-Attacker and Ubuntu-Server 
-•	Host-only network 
-•	IP addresses/interfaces 
-•	Routing and connectivity test 
+- Skillable/VirtualBox/VMware environment 
+- Kali-Attacker and Ubuntu-Server 
+- Host-only network 
+- IP addresses/interfaces 
+- Routing and connectivity test 
 Evidence: relevant screenshots of the VM/network setup and one of the IP/ping results. The lab requires both VMs to use the same authorised testing scope and network isolation, and to verify addressing, routing, and connectivity. 
 
 3. Reconnaissance and Results (300–350 words + screenshots)
@@ -928,21 +928,21 @@ Briefly report the detected services, products, and versions. The lab specifical
 Combine these rather than creating three separate sections.
 Explain what your results mean; for example, the open ports show that network services were accessible from Kali-Attacker, but an open port does not confirm a vulnerability on its own.
 Describe any problem encountered, the diagnostic steps taken and how it was resolved, such as the VMs initially being on different subnets or needing temporary NAT access to install services. If no problems occurred, explain how the results were verified and identify one potential failure point. Then give 1–2 limitations, such as:
-•	only TCP ports were assessed; 
-•	UDP and detailed application security testing were outside this lab; 
-•	reported service versions do not automatically establish vulnerability. 
+- only TCP ports were assessed; 
+- UDP and detailed application security testing were outside this lab; 
+- reported service versions do not automatically establish vulnerability. 
 These limitations are explicitly identified in the Week 1 instructions. 
 
 5. Findings Summary and Conclusion (150–200 words)
 Use the findings summary required by the lab as your conclusion, rather than writing a separate findings summary and a conclusion.
 Include:
-•	number of responsive hosts; 
-•	confirmed Ubuntu IP; 
-•	open TCP ports; 
-•	detected services/versions; 
-•	limitations; 
-•	whether a vulnerability was actually validated; 
-•	evidence filenames. 
+- number of responsive hosts; 
+- confirmed Ubuntu IP; 
+- open TCP ports; 
+- detected services/versions; 
+- limitations; 
+- whether a vulnerability was actually validated; 
+- evidence filenames. 
 
 Supporting evidence is recorded in [file names].
 ```
