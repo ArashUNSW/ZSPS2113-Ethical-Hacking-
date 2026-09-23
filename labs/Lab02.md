@@ -483,7 +483,7 @@ curl -I http://<UBUNTU_IP>:3000/
 WebGoat:
 
 ```bash
-curl -I http://<UBUNTU_IP>:8080/WebGoat
+curl -I http://<UBUNTU_IP>:8081/WebGoat
 ```
 
 Record the results.
@@ -492,7 +492,7 @@ Record the results.
 |---|---:|---|---|
 | DVWA | 80 | Yes / No | |
 | Juice Shop | 3000 | Yes / No | |
-| WebGoat | 8080 | Yes / No | |
+| WebGoat | 8081 | Yes / No | |
 
 ---
 
