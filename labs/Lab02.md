@@ -168,7 +168,7 @@ F12
 or:
 
 ```text
-Firefox Menu > More tools > Web Developer Tools
+Firefox > Hamburger sign (top right corner) > More Tools > Web Developer Tools
 ```
 
 Confirm that you can see tools such as:
@@ -176,6 +176,9 @@ Confirm that you can see tools such as:
 - Inspector;
 - Console;
 - Network.
+
+Exit
+ctrl + c
 
 ---
 
@@ -370,7 +373,7 @@ sudo docker ps
 DVWA should normally be available from Kali using:
 
 ```text
-http://<UBUNTU_IP>/
+http://<UBUNTU_IP>:80/
 ```
 
 ---
@@ -417,7 +420,7 @@ Run it:
 
 ```bash
 sudo docker run -d --name webgoat \
--p 8080:8080 \
+-p 8081:8081 \
 webgoat/webgoat
 ```
 
@@ -430,7 +433,7 @@ sudo docker ps
 WebGoat should normally be available from Kali using:
 
 ```text
-http://<UBUNTU_IP>:8080/WebGoat
+http://<UBUNTU_IP>:8081/WebGoat
 ```
 
 ---
@@ -449,7 +452,9 @@ Look for the relevant application ports.
 |---|---:|---|
 | DVWA | 80 | `http://<UBUNTU_IP>/` |
 | Juice Shop | 3000 | `http://<UBUNTU_IP>:3000/` |
-| WebGoat | 8080 | `http://<UBUNTU_IP>:8080/WebGoat` |
+| WebGoat | 8081 | `http://<UBUNTU_IP>:8081/WebGoat` |
+
+WebGoat is running in a Docker container. Its internal port 8080 maps to host port 8081, and port 9090 maps to host port 9091. Therefore, you access WebGoat through port 8081 on the Ubuntu server. 
 
 Now confirm the containers:
 
@@ -666,14 +671,44 @@ Interpret common listening addresses as follows:
 
 The service is listening on available IPv4 interfaces and may be reachable from Kali-Attacker.
 
+Note: DVWA will run without the application name
+
+```bash
+curl http://127.0.0.1:80/
+```
+
+```bash
+curl http://127.0.0.1:8081/WebGoat
+```
+
+```bash
+curl http://127.0.0.1:3000/FruitShop
+```
+
+If the browser does not open automatically, just type the above URL without curl 
+```bash
+http://127.0.0.1:80/
+```
+
+```bash
+http://127.0.0.1:8081/WebGoat
+```
+
+```bash
+http://127.0.0.1:3000/FruitShop
+```
+
 ```text
 127.0.0.1:<PORT>
 ```
 
 The service is listening only on Ubuntu-Server's loopback interface and normally cannot be accessed directly from Kali-Attacker.
 
+We can access DVWA, WebGoat, and JuiceShop from Kali.
+Open Firefox and type each application
+
 ```text
-<UBUNTU_IP>:<PORT>
+<UBUNTU_IP>:<PORT>/<Application>
 ```
 
 The service is bound specifically to that Ubuntu-Server interface.
@@ -785,21 +820,24 @@ Record your observations.
 
 ## Task 27 - Identify Advertised HTTP Methods
 
+On Kali-Attacker, run for DVWA, Juice Shop, and WebGoat applications:
+Note: DVWA will run without the application name
+
 Run:
 
 ```bash
-curl -i -X OPTIONS http://<UBUNTU_IP>/
+curl -i -X OPTIONS http://<UBUNTU_IP>:<Application>
 ```
 
 Look for an:
 
 ```text
-Allow:
+Allow Methods:
 ```
 
 header.
 
-Record only methods that are actually advertised.
+Complete the table below, observe the normal purpose of three applications, and record only the methods that are actually advertised.
 
 | Method | Observed? | Normal purpose |
 |---|---|---|
@@ -1342,7 +1380,7 @@ Record the limitations that actually apply to your work.
 
 ---
 
-## Task 45 - Write a 150–200 Word Findings Summary
+## Task 45 - Write a 400–500 Word Findings Summary
 
 Your summary should include:
 
