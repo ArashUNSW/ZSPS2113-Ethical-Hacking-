@@ -61,7 +61,13 @@ On Kali-Attacker, open a terminal and run:
 
 ```bash
 mkdir -p ~/lab-evidence/week3
+```
+
+```bash
 cd ~/lab-evidence/week3
+```
+
+```bash
 pwd
 ```
 
