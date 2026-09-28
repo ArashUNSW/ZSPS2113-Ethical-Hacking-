@@ -316,11 +316,11 @@ password
 
 ### Knowledge Check
 
-5.  What changed between the failed and successful login?
+1.  What changed between the failed and successful login?
 
-6.  Was the username/password sent on every later request?
+2.  Was the username/password sent on every later request?
 
-7.  What appears to maintain the authenticated session?
+3.  What appears to maintain the authenticated session?
 
 # Part D – Examine Session Behaviour
 
@@ -335,8 +335,6 @@ Open Developer Tools → Storage/Application → Cookies. Record cookie names on
 | PHPSESSID  | Yes / No      | PHP session identifier        |
 | security   | Yes / No      | DVWA security-level selection |
 | Other      |               |                               |
-
-
 
 | **Note:** Do not submit the actual value of PHPSESSID. |
 |--------------------------------------------------------|
@@ -388,13 +386,13 @@ While you are logged in to DVWA:
 
 4. Compare the requests and record whether:
 
-- the same session-cookie name is used;
+  - the same session-cookie name is used;
 
-- the browser sends the session identifier automatically;
+  - the browser sends the session identifier automatically;
 
-- the username and password are sent again;
+  - the username and password are sent again;
 
-- the authenticated session remains active as you move between pages.
+  - the authenticated session remains active as you move between pages.
 
 Complete the table below:
 
@@ -407,7 +405,13 @@ Complete the table below:
 
 ### Interpretation
 
-Complete: After successful login, DVWA appears to maintain authentication using \_\_\_\_\_\_\_\_\_\_ rather than resending the username and password with every request.
+Complete the statement: After successful login, DVWA appears to maintain authentication using \_\_\_\_\_\_\_\_\_\_ rather than resending the username and password with every request.
+
+Answer: session cookie/session identifier
+
+### Evidence requirement
+
+Use Burp Suite evidence to support your answers. Do not include the actual session ID or password in screenshots or submitted work.
 
 # Part E – Establish the DVWA Security Levels
 
