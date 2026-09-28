@@ -146,6 +146,8 @@ sudo docker ps
 ```
 Look for the DVWA container and record the actual result.
 
+Complete the table below:
+
 | **Item**       | **Observed value** |
 |----------------|--------------------|
 | Container name |                    |
@@ -208,6 +210,8 @@ On Kali-Attacker
 curl -I http://<UBUNTU_IP>:80/
 ```
 
+Complete the table below:
+
 | **Item**                    | **Observed value** |
 |-----------------------------|--------------------|
 | Target IP                   |                    |
@@ -230,11 +234,13 @@ On Kali-Attacker
 
 1.  Open the DVWA login page in Firefox.
 
-2.  Open Developer Tools and select the Network panel.
+2.  Open Web Developer Tools and select the Network panel.
 
 3.  Reload the page.
 
 4.  Locate the request for login.php.
+
+Complete the table below:
 
 | **Item**           | **Observed value** |
 |--------------------|--------------------|
@@ -253,7 +259,9 @@ Take a screenshot of the Network panel showing the login request.
 
 On Kali-Attacker
 
-Using Browser Developer Tools, inspect the login form. Look for the form action, HTTP method, username field, password field, and hidden fields or tokens if present.
+Using Browser Developer Tools, inspect the login form. Look for the form action, HTTP method, username field, password field, and any hidden fields or tokens.
+
+Complete the table below:
 
 | **Form property**                | **Observed value** |
 |----------------------------------|--------------------|
@@ -273,6 +281,8 @@ Using Browser Developer Tools, inspect the login form. Look for the form action,
 On Kali-Attacker
 
 Enter an intentionally incorrect username/password combination. In Developer Tools → Network, locate the corresponding request.
+
+Complete the table below:
 
 | **Item**                | **Observed value** |
 |-------------------------|--------------------|
@@ -304,6 +314,7 @@ Password:
 ```bash
 password
 ```
+Complete the table below:
 
 | **Item**                           | **Observed value** |
 |------------------------------------|--------------------|
@@ -329,6 +340,8 @@ password
 On Kali-Attacker
 
 Open Developer Tools → Storage/Application → Cookies. Record cookie names only unless specifically instructed otherwise.
+
+Complete the table below:
 
 | **Cookie** | **Observed?** | **Likely functional purpose** |
 |------------|---------------|-------------------------------|
