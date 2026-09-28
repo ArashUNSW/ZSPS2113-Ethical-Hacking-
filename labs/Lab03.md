@@ -102,10 +102,10 @@ If DVWA exists but is stopped:
 sudo docker start dvwa
 ```
 
-If required, confirm the port:
+If dvwa is not listed, create it again:
 
 ```bash
-sudo ss -tlnp | grep ':80'
+sudo docker run -d --name dvwa -p 80:80 vulnerables/web-dvwa
 ```
 
 ## Task 3 – Verify DVWA Connectivity from Kali
