@@ -420,7 +420,7 @@ Run it:
 
 ```bash
 sudo docker run -d --name webgoat \
--p 8081:8081 \
+-p 8081:8080 \
 webgoat/webgoat
 ```
 
