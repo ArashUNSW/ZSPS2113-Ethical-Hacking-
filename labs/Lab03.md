@@ -291,6 +291,8 @@ password
 
 ## Task 8 – Identify DVWA Cookies
 
+On Kali-Attacker
+
 Open Developer Tools → Storage/Application → Cookies. Record cookie names only unless specifically instructed otherwise.
 
 | **Cookie** | **Observed?** | **Likely functional purpose** |
