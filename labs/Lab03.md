@@ -125,7 +125,7 @@ to exit the status view if required.
 
 ## Task 3 - Start DVWA
 
-Pull the DVWA image:
+On Ubuntu-Server. Pull the DVWA image:
 
 ```bash
 sudo docker pull vulnerables/web-dvwa
@@ -165,10 +165,12 @@ DVWA should normally be available from Kali using:
 http://<UBUNTU_IP>:80/
 ```
 
-## Task 3 – Verify DVWA Connectivity from Kali
+## Task 4 – Verify DVWA Connectivity
+
+On Kali-Attacker
 
 ```bash
-curl -I http://<UBUNTU_IP>/
+curl -I http://<UBUNTU_IP>:80/
 ```
 
 | **Item**                    | **Observed value** |
@@ -181,11 +183,15 @@ curl -I http://<UBUNTU_IP>/
 
 Then open DVWA in Firefox:
 
-`http://<UBUNTU_IP>/`
+```bash
+http://<UBUNTU_IP>:80/
+```
 
 # Part B – Establish the Authentication Baseline
 
-## Task 4 – Identify the DVWA Login Page
+## Task 5 – Identify the DVWA Login Page
+
+On Kali-Attacker
 
 1.  Open the DVWA login page in Firefox.
 
@@ -208,7 +214,9 @@ Then open DVWA in Firefox:
 
 Take a screenshot of the Network panel showing the login request.
 
-## Task 5 – Examine the Login Form
+## Task 6 – Examine the Login Form
+
+On Kali-Attacker
 
 Using Browser Developer Tools, inspect the login form. Look for the form action, HTTP method, username field, password field, and hidden fields or tokens if present.
 
@@ -227,7 +235,9 @@ Using Browser Developer Tools, inspect the login form. Look for the form action,
 
 ## Task 6 – Capture an Unsuccessful Login
 
-Enter an intentionally incorrect training username/password combination. In Developer Tools → Network, locate the corresponding request.
+On Kali-Attacker
+
+Enter an intentionally incorrect username/password combination. In Developer Tools → Network, locate the corresponding request.
 
 | **Item**                | **Observed value** |
 |-------------------------|--------------------|
@@ -244,7 +254,21 @@ What observable evidence tells you that authentication failed?
 
 ## Task 7 – Capture a Successful Login
 
+On Kali-Attacker
+
 Log in using the instructor-provided DVWA credentials. Do not include the password in screenshots or submitted evidence.
+
+Username: 
+
+```bash
+admin
+```
+
+Password: 
+
+```bash
+password
+```
 
 | **Item**                           | **Observed value** |
 |------------------------------------|--------------------|
