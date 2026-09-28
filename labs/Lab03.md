@@ -280,7 +280,7 @@ Complete the table below:
 
 On Kali-Attacker
 
-Enter an intentionally incorrect username/password combination. In Developer Tools → Network, locate the corresponding request.
+Enter an intentionally incorrect username/password combination. In Web Developer Tools → Network, locate the corresponding request.
 
 Complete the table below:
 
