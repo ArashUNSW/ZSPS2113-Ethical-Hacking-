@@ -79,14 +79,71 @@ Expected location:
 
 Take one screenshot showing the Week 3 evidence folder.
 
-## Task 2 – Verify the DVWA Target
+## Task 2 - Install and Start Docker
+
+If Docker is already installed and running in Skillable, continue to the next task.
 
 On Ubuntu-Server:
 
 ```bash
-sudo docker ps
+sudo apt update
 ```
 
+Install Docker:
+
+```bash
+sudo apt install docker.io -y
+```
+
+Enable and start Docker:
+
+```bash
+sudo systemctl enable --now docker
+```
+
+Verify the Docker version:
+
+```bash
+sudo docker --version
+```
+
+Check the service:
+
+```bash
+sudo systemctl status docker
+```
+
+Press:
+
+```text
+q
+```
+
+to exit the status view if required.
+
+---
+
+## Task 3 - Start DVWA
+
+Pull the DVWA image:
+
+```bash
+sudo docker pull vulnerables/web-dvwa
+```
+
+Start the container:
+
+```bash
+sudo docker run -d --name dvwa \
+-p 80:80 \
+vulnerables/web-dvwa
+```
+
+Check:
+
+```bash
+sudo docker ps
+```
 Look for the DVWA container and record the actual result.
 
 | **Item**       | **Observed value** |
@@ -102,10 +159,10 @@ If DVWA exists but is stopped:
 sudo docker start dvwa
 ```
 
-If dvwa is not listed, create it again:
+DVWA should normally be available from Kali using:
 
-```bash
-sudo docker run -d --name dvwa -p 80:80 vulnerables/web-dvwa
+```text
+http://<UBUNTU_IP>:80/
 ```
 
 ## Task 3 – Verify DVWA Connectivity from Kali
