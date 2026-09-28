@@ -417,7 +417,17 @@ Use Burp Suite evidence to support your answers. Do not include the actual sessi
 
 ## Task 13 – Locate DVWA Security Settings
 
-Within DVWA, open DVWA Security and identify the levels available in your environment.
+Within DVWA:
+
+1. Log in to DVWA.
+
+2. From the left-hand menu, select DVWA Security.
+
+3. Identify the security levels available in your environment.
+
+4. Record only the levels that are actually shown.
+
+Complete the table below:
 
 | **Security level** | **Available?** |
 |--------------------|----------------|
@@ -426,11 +436,25 @@ Within DVWA, open DVWA Security and identify the levels available in your enviro
 | High               | Yes / No       |
 | Impossible         | Yes / No       |
 
-For this lab, test Low, Medium and High.
+For this lab, you will test Low, Medium and High.
 
-## Task 12 – Confirm the Security Cookie
+## Task 14 – Confirm the Security Cookie
+
+1. In DVWA Security, set the security level to Low.
+
+2. Open Browser Developer Tools or Burp Suite.
+
+3. Navigate to another DVWA page so that a new request is generated.
+
+4. Inspect the request's Cookie header.
+
+5. Look for the DVWA security cookie, for example: security=low
+
+6. Repeat the process after changing the DVWA security level to Medium and High
 
 Set DVWA to Low. In Browser Developer Tools or Burp Suite, inspect a subsequent request and look for the security cookie. Repeat for Medium and High.
+
+Complete the table below:
 
 | **Selected level** | **Observed cookie value** |
 |--------------------|---------------------------|
@@ -444,58 +468,98 @@ What mechanism does DVWA appear to use to remember the selected security level?
 
 # Part F – Authentication Comparison Across Security Levels
 
-## Task 13 – Test Authentication at Low Security
+## Task 15 – Observe Behaviour at Low Security
 
-Set DVWA Security → Low. Perform one unsuccessful authentication observation and one successful login/session observation where appropriate. Inspect the requests using Burp Suite.
+Set:
+
+DVWA Security → Low
+
+While authenticated:
+
+1. Open the DVWA function selected for this lab.
+
+2. Perform the same authorised test action you will repeat at Medium and High.
+
+3. In Burp Suite → Proxy → HTTP history, locate the corresponding request.
+
+4. Inspect the request and response.
+
+5. Record only what is actually observed.
+
+Complete the table below:
 
 | **Low security observation**  | **Result** |
 |-------------------------------|------------|
-| Authentication request method |            |
+| HTTP method                   |            |
+| Request path                  |            |
 | Parameters observed           |            |
-| Session cookie observed       |            |
-| Security cookie               |            |
-| Error behaviour               |            |
+| Session cookie observed?      |  Yes / No  |
+| Security cookie value         |            |
+| Response status               |            |
+| Error/message behaviour       |            |
 | Redirect behaviour            |            |
 | Additional control observed   |            |
 
-## Task 14 – Test Authentication at Medium Security
+## Task 16 – Observe Behaviour at Medium Security
 
-Set DVWA Security → Medium. Perform one unsuccessful authentication observation and one successful login/session observation where appropriate. Inspect the requests using Burp Suite.
+Change:
+
+DVWA Security → Medium
+
+Repeat exactly the same test performed at Low security.
+
+In Burp Suite, inspect the corresponding request and response.
+
+Complete the table below:
 
 | **Medium security observation** | **Result** |
 |---------------------------------|------------|
-| Authentication request method   |            |
+| HTTP method                     |            |
+| Request path                    |            |
 | Parameters observed             |            |
-| Session cookie observed         |            |
-| Security cookie                 |            |
-| Error behaviour                 |            |
+| Session cookie observed?        |  Yes / No  |
+| Security cookie value           |            |
+| Response status                 |            |
+| Error/message behaviour         |            |
 | Redirect behaviour              |            |
 | Additional control observed     |            |
 
-| **Note:** Do not assume Medium is stronger in every observable area. Record only what actually changes. |
-|---------------------------------------------------------------------------------------------------------|
+| **Note:** Do not assume Medium is stronger in every observable area. Record only differences demonstrated by your evidence. |
+|-----------------------------------------------------------------------------------------------------------------------------|
 
-## Task 15 – Test Authentication at High Security
+## Task 17 – Observe Behaviour at High Security
 
-Set DVWA Security → High. Perform one unsuccessful authentication observation and one successful login/session observation where appropriate. Inspect the requests using Burp Suite.
+Change:
 
-| **High security observation** | **Result** |
-|-------------------------------|------------|
-| Authentication request method |            |
-| Parameters observed           |            |
-| Session cookie observed       |            |
-| Security cookie               |            |
-| Error behaviour               |            |
-| Redirect behaviour            |            |
-| Additional control observed   |            |
+DVWA Security → High
+
+Repeat the same test so you can compare the results fairly with Low and Medium.
+
+Complete the table below:
+
+| **High security observation**   | **Result** |
+|---------------------------------|------------|
+| HTTP method                     |            |
+| Request path                    |            |
+| Parameters observed             |            |
+| Session cookie observed?        |  Yes / No  |
+| Security cookie value           |            |
+| Response status                 |            |
+| Error/message behaviour         |            |
+| Redirect behaviour              |            |
+| Additional control observed     |            |
 
 # Part G – Compare Low, Medium and High Controls
 
 ## Task 16 – Build a Security-Level Comparison Table
 
+Using the evidence collected from the same DVWA function tested at Low, Medium and High security, complete the table below.
+
+Record only what you actually observed in Browser Developer Tools or Burp Suite.
+
 | **Control / behaviour**       | **Low** | **Medium** | **High** |
 |-------------------------------|---------|------------|----------|
-| Authentication method         |         |            |          |
+| HTTP method                   |         |            |          |
 | Session cookie present        |         |            |          |
 | Security cookie value         |         |            |          |
 | Hidden token observed         |         |            |          |
@@ -506,8 +570,18 @@ Set DVWA Security → High. Perform one unsuccessful authentication observation 
 | Noticeable delay/throttling   |         |            |          |
 | Other observed difference     |         |            |          |
 
-| **Note:** Use “Not observed” when a control is absent from your evidence. Do not infer that a control exists simply because the selected level is called High. |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Note:** Use Not observed when a control or difference is not present in your evidence. Do not assume that a control exists, or that it is stronger, simply because the selected level is called High. |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+### Knowledge Check
+
+Which behaviours remained the same across all three levels?
+
+Which controls changed as the security level increased?
+
+Which differences were directly visible in the request or response?
+
+Which conclusions would require further testing before you could confirm them?
 
 # Part H – Compare Requests in Burp Suite
 
