@@ -621,13 +621,13 @@ Take screenshots of the three requests. Protect passwords, PHPSESSID, authentica
 
 ## Task 20 – Observe Logout Behaviour
 
-11. While authenticated, identify your current session cookie.
+1. While authenticated, identify your current session cookie.
 
-12. Select Logout.
+2. Select Logout.
 
-13. Observe the request and response in Burp.
+3. Observe the request and response in Burp.
 
-14. Attempt to return to an authenticated DVWA page.
+4. Attempt to return to an authenticated DVWA page.
 
 | **Item**                                                | **Observed value** |
 |---------------------------------------------------------|--------------------|
@@ -640,11 +640,11 @@ Take screenshots of the three requests. Protect passwords, PHPSESSID, authentica
 
 ### Knowledge Check
 
-15. What evidence shows that the authenticated session ended?
+1. What evidence shows that the authenticated session ended?
 
-16. Did the browser still retain any DVWA-related cookies?
+2. Did the browser still retain any DVWA-related cookies?
 
-17. Is retaining a cookie equivalent to retaining an authenticated session?
+3. Is retaining a cookie equivalent to retaining an authenticated session?
 
 # Part J – Session vs Authentication
 
@@ -696,23 +696,23 @@ Then answer: Which controls became more restrictive as the security level increa
 
 ## Task 24 – Save Required Evidence
 
-18. Screenshot showing DVWA running.
+1. Screenshot showing DVWA running.
 
-19. Screenshot of unsuccessful login behaviour.
+2. Screenshot of unsuccessful login behaviour.
 
-20. Screenshot of successful login behaviour.
+3. Screenshot of successful login behaviour.
 
-21. Cookie-name evidence.
+4. Cookie-name evidence.
 
-22. Burp request at Low.
+5. Burp request at Low.
 
-23. Burp request at Medium.
+6. Burp request at Medium.
 
-24. Burp request at High.
+7. Burp request at High.
 
-25. Completed comparison table.
+8. Completed comparison table.
 
-26. Logout/session-termination evidence.
+9. Logout/session-termination evidence.
 
 Recommended evidence names:
 
@@ -806,41 +806,41 @@ The assessment was limited to controlled authentication and session observations
 
 # Knowledge Check
 
-45. What is the difference between authentication and session management?
+1. What is the difference between authentication and session management?
 
-46. Why does a web application use a session identifier after successful authentication?
+2. Why does a web application use a session identifier after successful authentication?
 
-47. What does PHPSESSID represent in DVWA?
+3. What does PHPSESSID represent in DVWA?
 
-48. What does the DVWA security cookie represent?
+4. What does the DVWA security cookie represent?
 
-49. Why should actual session identifiers be removed from screenshots?
+5. Why should actual session identifiers be removed from screenshots?
 
-50. How can Burp Suite help analyse authentication behaviour?
+6. How can Burp Suite help analyse authentication behaviour?
 
-51. What evidence distinguishes a successful login from an unsuccessful login?
+7. What evidence distinguishes a successful login from an unsuccessful login?
 
-52. Why should Low, Medium and High be compared using the same request or workflow?
+8. Why should Low, Medium and High be compared using the same request or workflow?
 
-53. Does a security level named High prove that the application is secure?
+9. Does a security level named High prove that the application is secure?
 
-54. Why should observed controls be separated from vulnerability conclusions?
+10. Why should observed controls be separated from vulnerability conclusions?
 
-55. What happens to the authenticated session after logout in your environment?
+11. What happens to the authenticated session after logout in your environment?
 
-56. Why might Browser Developer Tools and Burp Suite show complementary evidence?
+12. Why might Browser Developer Tools and Burp Suite show complementary evidence?
 
-57. What evidence shows that a session cookie is required for an authenticated request?
+13. What evidence shows that a session cookie is required for an authenticated request?
 
-58. Why is testing an invalid session ID different from testing another user’s session ID?
+14. Why is testing an invalid session ID different from testing another user’s session ID?
 
-59. What does a change in session identifier after login potentially indicate?
+15. What does a change in session identifier after login potentially indicate?
 
-60. What information can an Apache access log provide that complements Burp evidence?
+16. What information can an Apache access log provide that complements Burp evidence?
 
-61. Why should response timing tests use only a small controlled number of attempts?
+17. Why should response timing tests use only a small controlled number of attempts?
 
-62. What is the purpose of separating observed evidence, supported interpretation, security relevance and further verification required?
+18. What is the purpose of separating observed evidence, supported interpretation, security relevance and further verification required?
 
 # Summary
 
