@@ -169,7 +169,7 @@ http://<UBUNTU_IP>:80/
 
 ## Task 4 - Start Burp Suite
 
-On Ubuntu-Server.
+On Kali-Attacker.
 
 Check whether Burp Suite is available:
 
@@ -564,7 +564,7 @@ Complete the table below:
 
 # Part G – Compare Low, Medium and High Controls
 
-## Task 16 – Build a Security-Level Comparison Table
+## Task 18 – Build a Security-Level Comparison Table
 
 Using the evidence collected from the same DVWA function tested at Low, Medium and High security, complete the table below.
 
@@ -598,7 +598,7 @@ Which conclusions would require further testing before you could confirm them?
 
 # Part H – Compare Requests in Burp Suite
 
-## Task 17 – Capture One Request from Each Security Level
+## Task 19 – Capture One Request from Each Security Level
 
 Using Burp HTTP history, identify one comparable request for Low, Medium and High.
 
@@ -619,7 +619,7 @@ Take screenshots of the three requests. Protect passwords, PHPSESSID, authentica
 
 # Part I – Session Termination
 
-## Task 18 – Observe Logout Behaviour
+## Task 20 – Observe Logout Behaviour
 
 11. While authenticated, identify your current session cookie.
 
@@ -648,7 +648,7 @@ Take screenshots of the three requests. Protect passwords, PHPSESSID, authentica
 
 # Part J – Session vs Authentication
 
-## Task 19 – Distinguish Credentials from Sessions
+## Task 21 – Distinguish Credentials from Sessions
 
 | **Item**                         | **Authentication credential or session data?** | **Purpose** |
 |----------------------------------|------------------------------------------------|-------------|
@@ -665,7 +665,7 @@ What is the difference between authenticating a user and maintaining an authenti
 
 # Part K – Evidence Interpretation
 
-## Task 20 – Separate Evidence from Assumption
+## Task 22 – Separate Evidence from Assumption
 
 | **Observed evidence**                   | **Supported interpretation**                | **Unsupported assumption**         |
 |-----------------------------------------|---------------------------------------------|------------------------------------|
@@ -679,7 +679,7 @@ What is the difference between authenticating a user and maintaining an authenti
 
 # Part L – Findings Table
 
-## Task 21 – Summarise the Security-Level Differences
+## Task 23 – Summarise the Security-Level Differences
 
 | **Area**                 | **Low** | **Medium** | **High** | **Evidence source** |
 |--------------------------|---------|------------|----------|---------------------|
@@ -694,7 +694,7 @@ Then answer: Which controls became more restrictive as the security level increa
 
 # Part M – Evidence Collection
 
-## Task 22 – Save Required Evidence
+## Task 24 – Save Required Evidence
 
 18. Screenshot showing DVWA running.
 
@@ -730,7 +730,7 @@ Recommended evidence names:
 
 # Part N – Findings Summary
 
-## Task 23 – Write a 300–400 Word Findings Summary
+## Task 25 – Write a 400–500 Word Findings Summary
 
 Your summary should include:
 
@@ -768,7 +768,7 @@ Burp Suite confirmed \[request/cookie/response observations\]. Session testing s
 
 The assessment was limited to controlled authentication and session observations within DVWA. Findings therefore describe observed control behaviour and should not be interpreted as evidence of additional vulnerabilities unless separately validated.
 
-## Task 24 – Check Your Work
+## Task 26 – Check Your Work
 
 ☐ Verified DVWA is running.
 
@@ -803,289 +803,6 @@ The assessment was limited to controlled authentication and session observations
 ☐ Completed the findings summary.
 
 ☐ Remained within the authorised DVWA lab scope.
-
-# Part O – Advanced DVWA Authentication and Session Analysis
-
-| **Note:** These tasks are extensions for students who complete the core lab. They are still restricted to the instructor-authorised DVWA environment. |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-
-## Task 25 – Compare Authenticated and Unauthenticated Requests
-
-27. Choose one DVWA page that requires authentication.
-
-28. While logged in, capture the request in Burp Suite → Proxy → HTTP history.
-
-29. Send the request to Repeater and record the original response.
-
-30. Remove the PHPSESSID cookie from the copied request.
-
-31. Send the request again and compare the responses.
-
-| **Item**                 | **Authenticated request** | **Without session cookie** |
-|--------------------------|---------------------------|----------------------------|
-| HTTP status              |                           |                            |
-| Response length          |                           |                            |
-| Redirect observed        |                           |                            |
-| Page/content returned    |                           |                            |
-| Authentication required? |                           |                            |
-
-### Knowledge Check
-
-What evidence indicates that the application relies on the session cookie to identify an authenticated user?
-
-## Task 26 – Test Session Isolation Between Two Browsers
-
-Open DVWA in a normal Firefox window and a Firefox Private Browsing window. Log in separately in both windows. Record cookie names and whether the values differ. Do not include complete session values in submitted evidence.
-
-| **Observation**              | **Normal window** | **Private window** |
-|------------------------------|-------------------|--------------------|
-| PHPSESSID present            |                   |                    |
-| Session IDs identical?       |                   |                    |
-| security cookie present      |                   |                    |
-| Logged-in state independent? |                   |                    |
-
-Log out from only one window and observe whether the second session remains authenticated.
-
-### Question
-
-Does logging out of one browser session terminate the other session? Record only what your environment demonstrates.
-
-## Task 27 – Examine Session Invalidation After Logout
-
-32. Log in to DVWA.
-
-33. Capture an authenticated request in Burp.
-
-34. Send it to Repeater.
-
-35. Log out using the browser.
-
-36. Return to the previously captured request in Repeater.
-
-37. Send it again without changing it.
-
-| **Item**                       | **Before logout** | **After logout** |
-|--------------------------------|-------------------|------------------|
-| Status code                    |                   |                  |
-| Redirect                       |                   |                  |
-| Authenticated content returned |                   |                  |
-| Session accepted?              |                   |                  |
-
-### Interpretation
-
-Choose only the statement supported by your result: old session remained accepted; old session was rejected; result was inconclusive.
-
-## Task 28 – Compare Cookie Attributes
-
-Using Burp or Browser Developer Tools, inspect any Set-Cookie headers returned by DVWA. Look specifically for HttpOnly, Secure, SameSite, Path and expiry/max-age information.
-
-| **Cookie attribute** | **PHPSESSID**           | **security**            |
-|----------------------|-------------------------|-------------------------|
-| Path                 |                         |                         |
-| HttpOnly             | Observed / Not observed | Observed / Not observed |
-| Secure               | Observed / Not observed | Observed / Not observed |
-| SameSite             | Observed / Not observed | Observed / Not observed |
-| Expires / Max-Age    |                         |                         |
-
-| **Note:** For each missing attribute, record “Not observed”. Do not write that its absence automatically proves exploitation is possible. |
-|-------------------------------------------------------------------------------------------------------------------------------------------|
-
-## Task 29 – Compare the Same Request Across Low, Medium and High
-
-Choose one identical DVWA function. Capture the corresponding request at Low, Medium and High, and send each request to Burp Repeater.
-
-| **Feature**     | **Low** | **Medium** | **High** |
-|-----------------|---------|------------|----------|
-| HTTP method     |         |            |          |
-| Path            |         |            |          |
-| Parameters      |         |            |          |
-| Cookie names    |         |            |          |
-| Token present   |         |            |          |
-| Response status |         |            |          |
-| Response length |         |            |          |
-| Error/message   |         |            |          |
-| Delay observed  |         |            |          |
-
-### Challenge
-
-Identify the specific technical control that changed rather than simply writing “High is more secure”. Use only statements demonstrated by your evidence.
-
-## Task 30 – Controlled Security-Cookie Modification
-
-Capture an authorised DVWA request containing security=low and send it to Burp Repeater. Change only the security cookie to medium and then high, sending the request after each change.
-
-| **Cookie value sent** | **Response status** | **Application behaviour** | **Level reflected by application** |
-|-----------------------|---------------------|---------------------------|------------------------------------|
-| low                   |                     |                           |                                    |
-| medium                |                     |                           |                                    |
-| high                  |                     |                           |                                    |
-
-### Question
-
-Does the application appear to determine the selected security level from the client-supplied cookie? State this only if your evidence supports it.
-
-## Task 31 – Compare Valid and Invalid Session IDs
-
-Using a request copied to Burp Repeater, send the original authenticated request and record the response. Then replace the session ID with a clearly invalid test value and send the request again.
-
-`PHPSESSID=invalid-session-test`
-
-| **Note:** Do not test other users’ session identifiers. |
-|---------------------------------------------------------|
-
-| **Test**              | **Status** | **Redirect** | **Authenticated content?** |
-|-----------------------|------------|--------------|----------------------------|
-| Original session      |            |              |                            |
-| Invalid session value |            |              |                            |
-
-### Knowledge Check
-
-How does DVWA respond when it receives an unknown or invalid session identifier?
-
-## Task 32 – Examine Whether the Session ID Changes After Login
-
-38. Clear DVWA cookies.
-
-39. Visit the login page without authenticating.
-
-40. Record whether a PHPSESSID exists.
-
-41. Label the pre-login session as Session A rather than submitting its full value.
-
-42. Log in successfully.
-
-43. Inspect the session cookie again and label it Session B.
-
-44. Observe the session again after logout.
-
-| **Stage**    | **Session identifier observed?** | **Changed?** |
-|--------------|----------------------------------|--------------|
-| Before login |                                  |              |
-| After login  |                                  |              |
-| After logout |                                  |              |
-
-### Question
-
-Did the application issue a new session identifier after authentication?
-
-## Task 33 – Correlate Burp Evidence with Server Logs
-
-On Ubuntu-Server, inspect the DVWA Apache log from inside the container:
-
-```bash
-sudo docker exec -it dvwa bash
-tail -f /var/log/apache2/access.log
-```
-
-Generate one request from Kali through Burp and match the client-side request with the server-side log entry.
-
-| **Field**  | **Burp observation** | **Server log observation** |
-|------------|----------------------|----------------------------|
-| Source IP  |                      |                            |
-| Method     |                      |                            |
-| Resource   |                      |                            |
-| Status     |                      |                            |
-| User-Agent |                      |                            |
-| Timestamp  |                      |                            |
-
-### Question
-
-Which information is visible in Burp but not necessarily in the Apache access log?
-
-## Task 34 – Compare Response Timing for Failed Authentication
-
-Perform only a small controlled number of attempts, for example three per level. Record the approximate response time for an intentionally incorrect authentication attempt at Low, Medium and High.
-
-| **Security level** | **Attempt 1** | **Attempt 2** | **Attempt 3** | **Observable delay/control?** |
-|--------------------|---------------|---------------|---------------|-------------------------------|
-| Low                |               |               |               |                               |
-| Medium             |               |               |               |                               |
-| High               |               |               |               |                               |
-
-| **Note:** Do not perform password spraying, dictionary attacks or high-volume guessing. |
-|-----------------------------------------------------------------------------------------|
-
-### Question
-
-Does any security level introduce an observable delay or other response change after failed authentication?
-
-## Task 35 – Advanced Evidence-Based Finding
-
-Produce one structured finding using the following four sections:
-
-### Observed evidence
-
-Exactly what was seen. Example: After logout, replaying the previously captured request produced a redirect to the login page.
-
-### Supported interpretation
-
-What the evidence reasonably indicates. Example: The previously captured session was no longer accepted for that request.
-
-### Security relevance
-
-Why it matters. Example: Session invalidation helps prevent continued use of an authenticated session after logout.
-
-### Further verification required
-
-What has not been demonstrated. Example: Testing did not determine how the application handles concurrent sessions or expired sessions.
-
-# Troubleshooting
-
-## Problem – DVWA Is Not Reachable
-
-On Ubuntu-Server, check the container and listening port:
-
-```bash
-sudo docker ps
-sudo ss -tlnp | grep ':80'
-```
-
-On Kali-Attacker, confirm the correct target IP and test connectivity:
-
-```bash
-ip -br addr
-ip route
-curl -I http://<UBUNTU_IP>/
-```
-
-## Problem – DVWA Container Is Missing or Stopped
-
-```bash
-sudo docker ps -a
-```
-
-If the container exists but is stopped:
-
-```bash
-sudo docker start dvwa
-```
-
-| **Note:** Record the actual container state rather than assuming it is running. |
-|---------------------------------------------------------------------------------|
-
-## Problem – Burp Suite Is Not Available
-
-```bash
-which burpsuite
-```
-
-If installation is required and Internet access is instructor-approved:
-
-```bash
-sudo apt update
-sudo apt install burpsuite -y
-```
-
-## Problem – Burp Does Not Capture Browser Traffic
-
-- Confirm the browser proxy points to the Burp listener.
-- Confirm Proxy → Intercept and HTTP history are available.
-- Confirm the Burp listener is running on the expected local address/port.
-- Use the lab-configured browser profile if supplied by the instructor.
-
-## Problem – Login or Security-Level Behaviour Differs from the Lab Sheet
-
-Record the behaviour actually observed in your environment. Do not force the result to match an example. DVWA version, browser state, container state, cookies and database state may affect behaviour.
 
 # Knowledge Check
 
