@@ -6,27 +6,24 @@ Approximately 2 hours for the core activities. Allow additional time for Burp Su
 
 ## Learning Objectives
 
-- Verify that the authorised DVWA target is running and reachable.
+- Prepare and verify the authorised DVWA lab environment on Kali-Attacker and Ubuntu-Server.
 
-- Identify DVWA authentication-related requests and responses.
+- Identify DVWA login requests, form parameters, response behaviour and authentication outcomes.
 
-- Observe successful and unsuccessful login behaviour.
+- Distinguish user credentials from session data and identify the role of PHPSESSID and the DVWA security cookie.
 
-- Identify session cookies used by DVWA and distinguish credentials from session identifiers.
+- Use Browser Developer Tools and Burp Suite to inspect authentication requests, cookies, redirects and responses.
 
-- Inspect authentication and session traffic using Browser Developer Tools and Burp Suite.
+- Observe how DVWA maintains an authenticated session across requests and how the session behaves during logout.
 
-- Change DVWA security levels between Low, Medium and High and compare observable controls.
+- Compare the same authorised DVWA workflow at Low, Medium and High security levels using consistent evidence.
 
-- Compare request parameters, cookies, redirects, response status, response length and application behaviour across security levels.
+- Record only observable differences in methods, parameters, cookies, status codes, redirects, response lengths and application controls.
 
-- Observe logout and session-termination behaviour.
+- Protect passwords, session identifiers and tokens in submitted evidence, and separate observed evidence from unsupported vulnerability conclusions.
 
-- Protect passwords, session IDs, cookies and tokens in submitted evidence.
+- Produce an evidence-based comparison and findings summary supported by Browser Developer Tools and Burp Suite evidence.
 
-- Separate observed evidence from unsupported vulnerability conclusions.
-
-- Produce an evidence-based comparison of Low, Medium and High controls.
 
 ## Scenario
 
@@ -770,37 +767,39 @@ The assessment was limited to controlled authentication and session observations
 
 ## Task 26 – Check Your Work
 
-☐ Verified DVWA is running.
+☐ Created the Week 3 evidence folder and verified the required lab tools.
 
-☐ Confirmed Kali-to-DVWA connectivity.
+☐ Confirmed that the DVWA Docker container is running and reachable from Kali-Attacker.
 
-☐ Inspected the login page.
+☐ Inspected the DVWA login page and login form using Browser Developer Tools.
 
-☐ Observed an unsuccessful login.
+☐ Captured and compared an unsuccessful and a successful login.
 
-☐ Observed a successful login.
+☐ Identified the DVWA session cookie and security-level cookie without exposing their sensitive values.
 
-☐ Identified session cookie names.
+☐ Used Burp Suite HTTP history to inspect authenticated requests, cookies and responses.
 
-☐ Identified the DVWA security cookie.
+☐ Verified that the authenticated session persists across multiple DVWA pages.
 
-☐ Inspected authentication traffic in Burp Suite.
+☐ Identified the available DVWA security levels and confirmed the security cookie at Low, Medium and High.
 
-☐ Tested Low security.
+☐ Repeated the same authorised test workflow at Low, Medium and High security levels.
 
-☐ Tested Medium security.
+☐ Completed the Low/Medium/High comparison tables using only observed evidence.
 
-☐ Tested High security.
+☐ Captured one comparable Burp request for each tested security level.
 
-☐ Compared the three security levels.
+☐ Examined logout behaviour and recorded what happened to the authenticated session.
 
-☐ Examined logout/session termination.
+☐ Distinguished authentication credentials from session data.
 
-☐ Protected passwords and session identifiers in evidence.
+☐ Separated observed evidence, supported interpretation and unsupported assumptions.
 
-☐ Separated observations from assumptions.
+☐ Saved the required screenshots/evidence using the recommended filenames.
 
-☐ Completed the findings summary.
+☐ Completed the 400–500 word findings summary and stated relevant limitations.
+
+☐ Protected passwords, PHPSESSID values, tokens and other sensitive data in submitted evidence.
 
 ☐ Remained within the authorised DVWA lab scope.
 
@@ -808,43 +807,37 @@ The assessment was limited to controlled authentication and session observations
 
 1. What is the difference between authentication and session management?
 
-2. Why does a web application use a session identifier after successful authentication?
+2. What evidence in Browser Developer Tools can distinguish an unsuccessful login from a successful login?
 
-3. What does PHPSESSID represent in DVWA?
+3. Why is POST commonly used for a login request, and what evidence shows that DVWA uses it?
 
-4. What does the DVWA security cookie represent?
+4. What does PHPSESSID represent, and why should its actual value not appear in submitted screenshots?
 
-5. Why should actual session identifiers be removed from screenshots?
+5. What does the DVWA security cookie represent?
 
-6. How can Burp Suite help analyse authentication behaviour?
+6. How does the browser maintain an authenticated DVWA session after the initial login?
 
-7. What evidence distinguishes a successful login from an unsuccessful login?
+7. How can Burp Suite HTTP history complement Browser Developer Tools when analysing authentication and session behaviour?
 
-8. Why should Low, Medium and High be compared using the same request or workflow?
+8. Why should the same DVWA workflow be repeated at Low, Medium and High security levels?
 
-9. Does a security level named High prove that the application is secure?
+9. Which request or response fields are most useful when comparing the three security levels?
 
-10. Why should observed controls be separated from vulnerability conclusions?
+10. Does selecting High security prove that DVWA is secure? Explain using an evidence-based approach.
 
-11. What happens to the authenticated session after logout in your environment?
+11. What evidence can indicate that an authenticated session has ended after logout?
 
-12. Why might Browser Developer Tools and Burp Suite show complementary evidence?
+12. What is the difference between a username/password, PHPSESSID and the security cookie?
 
-13. What evidence shows that a session cookie is required for an authenticated request?
+13. Why should a missing control or different response not automatically be reported as a vulnerability?
 
-14. Why is testing an invalid session ID different from testing another user’s session ID?
+14. Why must passwords, session IDs and authentication tokens be protected in lab evidence?
 
-15. What does a change in session identifier after login potentially indicate?
-
-16. What information can an Apache access log provide that complements Burp evidence?
-
-17. Why should response timing tests use only a small controlled number of attempts?
-
-18. What is the purpose of separating observed evidence, supported interpretation, security relevance and further verification required?
+15. What limitations should be stated when findings are based only on controlled DVWA authentication and session testing?
 
 # Summary
 
-In this lab, you verified DVWA, observed authentication behaviour, identified session cookies, analysed login and logout traffic with Browser Developer Tools and Burp Suite, compared Low/Medium/High security levels, and documented evidence without exposing sensitive values. The advanced tasks extend this workflow into session dependence, concurrent sessions, cookie attributes, logout invalidation, security-cookie behaviour, session-ID lifecycle, client/server evidence correlation and controlled timing comparison.
+In this lab, you prepared and verified an authorised DVWA environment, examined the login form, and observed both unsuccessful and successful authentication behaviour. You used Browser Developer Tools and Burp Suite to inspect requests, responses, redirects, cookies and authenticated-session behaviour. You identified the role of PHPSESSID and the DVWA security cookie, observed session persistence and logout behaviour, and repeated the same authorised workflow at Low, Medium and High security levels. The comparison focused on evidence visible in HTTP methods, paths, parameters, cookies, status codes, redirects, response lengths and application behaviour. You also practised protecting passwords, session identifiers and tokens in submitted evidence, and separating direct observations from unsupported security conclusions. The final findings should therefore describe only what was demonstrated in the authorised DVWA environment and clearly state any limitations or areas requiring further verification.
 
 | **Note:** The objective is evidence-based analysis of the authorised DVWA training environment. A difference in behaviour or a missing control should not be converted directly into a vulnerability claim without appropriate validation. |
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
