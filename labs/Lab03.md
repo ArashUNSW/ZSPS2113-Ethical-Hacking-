@@ -1,4 +1,4 @@
-**Tutorial / Stage: DVWA Fundamentals \| Target: DVWA \| Suggested tools: Browser and Burp Suite**
+Week 4 Lab – Injection Testing: DVWA Fundamentals
 
 ## Estimated Time
 
