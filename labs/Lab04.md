@@ -77,6 +77,31 @@ First, identify Ubuntu's current lab IP, then confirm that the assigned DVWA or 
 sudo docker ps
 ```
 
+If any application is not running, stop it and start it again. For example, WebGoat is marked “unhealthy”. Its container is running, but its configured health check is failing. 
+You need to remove and recreate it:
+
+```bash
+sudo docker stop webgoat
+```
+
+```bash
+sudo docker rm webgoat
+```
+
+Then create it correctly:
+
+```bash
+sudo docker run -d --name webgoat \
+-p 8081:8080 \
+webgoat/webgoat
+```
+
+Then check:
+
+```bash
+sudo docker ps
+```
+
 5. For a clearer view of the container name, status and published ports, run:
 
 ```bash
