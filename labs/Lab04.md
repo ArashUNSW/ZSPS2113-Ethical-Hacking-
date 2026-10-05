@@ -202,13 +202,7 @@ Verify the published port and open the application in the browser.
 
 ### Task 3 – Confirm the Injection Lesson
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker browser.
-> **Instructions:** Log in to the assigned training application and navigate only to the instructor-designated SQL Injection and Command/Input lesson. For DVWA, also record the selected DVWA security level before testing.
-> **Commands / Inputs:** DVWA: Vulnerabilities -> SQL Injection or Command Injection. WebGoat: open the designated Injection lesson from the lesson menu.
-> **Expected evidence:** Record the application, lesson name, URL/path and visible input field.
-
-#### Step-by-step instructions
+Log in to the assigned training application and navigate only to the instructor-designated SQL Injection and Command/Input lesson. For DVWA, also record the selected DVWA security level before testing.
 
 1. Use the **Kali-Attacker browser**.
 2. Log in to the assigned training application using the instructor-provided account.
@@ -227,8 +221,6 @@ Verify the published port and open the application in the browser.
 8. Capture a screenshot of the lesson page before sending modified input.
 
 **Expected result:** the student can clearly identify the exact authorised lesson and input field to be tested.
-
-Locate only the instructor-designated lesson.
 
 Possible examples:
 
