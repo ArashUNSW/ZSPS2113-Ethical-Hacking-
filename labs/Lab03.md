@@ -486,7 +486,7 @@ DVWA Security → Low
 
 While authenticated:
 
-1. Open the DVWA function selected for this lab.
+1. Open the DVWA application selected for this lab.
 
 2. Perform the same authorised test action you will repeat at Medium and High.
 
