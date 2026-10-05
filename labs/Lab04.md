@@ -1,7 +1,3 @@
-**ZSPS2113 Ethical Hacking and Penetration Testing | Week 4 Lab**
-
-Authorised training environment only
-
 # Week 4 Lab – Injection Testing
 
 Tutorial / Stage: Injection Testing
