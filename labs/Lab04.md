@@ -4,7 +4,9 @@ Targets: DVWA / WebGoat
 
 Suggested tools: Browser, Burp Suite Proxy and Repeater
 
-## Estimated Time: Approximately 2 hours for core activities, with additional time for advanced extension tasks.
+## Estimated Time
+
+Approximately 2 hours for core activities, with additional time for advanced extension tasks.
 
 ## Learning Objectives
 
