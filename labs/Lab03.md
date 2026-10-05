@@ -1,4 +1,4 @@
-Week 4 Lab – Injection Testing: DVWA Fundamentals
+# Week 3 Lab – DVWA Fundamentals
 
 ## Estimated Time
 
