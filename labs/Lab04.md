@@ -305,13 +305,9 @@ Why is it important to record normal behaviour before modifying the request?
 
 ### Task 5 – Capture the Request in Burp Suite
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker running Burp Suite and the lab browser.
-> **Instructions:** Start Burp, browse to the authorised application through Burp, submit the baseline request and locate it in Proxy -> HTTP history. Use the Burp browser or the instructor-configured browser proxy.
-> **Commands / Inputs:** `burpsuite`. Typical local Burp proxy listener: 127.0.0.1:8080.
-> **Expected evidence:** Capture one baseline request/response showing the target path and parameter; redact passwords, session IDs and tokens.
+Kali-Attacker running Burp Suite and the lab browser.
 
-#### Step-by-step instructions
+Start Burp, browse to the authorised application through Burp, submit the baseline request and locate it in Proxy -> HTTP history. Use the Burp browser or the instructor-configured browser proxy.
 
 1. On **Kali-Attacker**, start Burp Suite:
 
@@ -358,6 +354,7 @@ Inspect:
 - cookies;
 - status;
 - response length.
+
 #### Evidence to capture
 
 Take one screenshot of the baseline request and response.
@@ -368,13 +365,8 @@ Do not expose passwords, session identifiers or authentication tokens.
 
 ### Task 6 – Identify the SQL Parameter
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker browser and Burp.
-> **Instructions:** Open the SQL injection lesson, submit a normal value, then inspect the resulting request to identify the exact user-controlled parameter and whether it is sent using GET or POST. Record the actual parameter used by your application version.
-> **Commands / Inputs:** For DVWA the SQL Injection lesson commonly uses an id parameter; WebGoat parameter names vary by lesson, so use the value actually observed in Burp.
-> **Expected evidence:** Record the parameter name, request method, normal value and normal response.
-
-#### Step-by-step instructions
+Kali-Attacker browser and Burp.
+Open the SQL injection lesson, submit a normal value, then inspect the resulting request to identify the exact user-controlled parameter and whether it is sent using GET or POST. Record the actual parameter used by your application version.
 
 1. Use the **Kali-Attacker browser and Burp**.
 2. Open the designated SQL injection lesson.
@@ -406,13 +398,9 @@ Record the user-controlled input.
 
 ### Task 7 – Test a SQL Metacharacter
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker browser or Burp Repeater.
-> **Instructions:** Change only the identified SQL parameter to a single quote and compare the response with the baseline. Do not change unrelated parameters, cookies or session values.
-> **Commands / Inputs:** Test input: '
-> **Expected evidence:** Record whether you observe a database/application error, altered content, changed record count or no difference.
+Kali-Attacker browser or Burp Repeater.
 
-#### Step-by-step instructions
+Change only the identified SQL parameter to a single quote and compare the response with the baseline. Do not change unrelated parameters, cookies or session values.
 
 1. Use the **Kali-Attacker browser or Burp Repeater**.
 2. Start from the baseline request captured in Task 6.
@@ -461,13 +449,9 @@ A changed response is a lead for further investigation, not automatic proof of S
 
 ### Task 8 – Send the SQL Request to Repeater
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker, Burp Suite Repeater.
-> **Instructions:** From Proxy -> HTTP history, send the SQL request to Repeater. Send the untouched baseline request at least once before modifying it so you know the request is reproducible.
-> **Commands / Inputs:** Burp: right-click request -> Send to Repeater -> Repeater -> Send.
-> **Expected evidence:** Keep the baseline response available for side-by-side comparison with later modified requests.
+Kali-Attacker, Burp Suite Repeater.
 
-#### Step-by-step instructions
+From Proxy -> HTTP history, send the SQL request to Repeater. Send the untouched baseline request at least once before modifying it so you know the request is reproducible.
 
 1. On **Kali-Attacker**, open Burp **Proxy → HTTP history**.
 2. Locate the baseline SQL request.
@@ -477,7 +461,7 @@ A changed response is a lead for further investigation, not automatic proof of S
 6. Before changing anything, click **Send** once.
 7. Confirm the baseline response in Repeater matches the original application behaviour.
 8. Keep this baseline response available for comparison.
-9. Duplicate the Repeater tab if useful so one copy remains unchanged.
+9. Duplicate the Repeater tab if useful, so one copy remains unchanged.
 
 **Expected result:** the original SQL request can be reproduced reliably in Repeater before modification.
 
@@ -497,13 +481,8 @@ Confirm that the response is reproducible.
 
 ### Task 9 – Compare Boolean Conditions
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker, Burp Repeater.
-> **Instructions:** Keep the request identical except for the SQL parameter. Send one condition expected to evaluate true and one expected to evaluate false. Compare status, body content and response length. Do not attempt database extraction.
-> **Commands / Inputs:** Controlled examples: ' OR '1'='1  and  ' OR '1'='2
-> **Expected evidence:** Capture the three comparable responses: baseline, true condition and false condition.
-
-#### Step-by-step instructions
+Kali-Attacker, Burp Repeater.
+Keep the request identical except for the SQL parameter. Send one condition expected to evaluate true and one expected to evaluate false. Compare status, body content and response length. Do not attempt database extraction.
 
 1. Use **Kali-Attacker → Burp Repeater**.
 2. Keep one tab containing the normal baseline request.
@@ -557,13 +536,13 @@ Capture the Repeater requests and the corresponding responses.
 
 ### Task 10 – Identify the Injection Point
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker, Burp Repeater and your evidence notes.
-> **Instructions:** Use the request/response comparison to identify exactly which parameter changes application behaviour. Describe only what your evidence supports, not what you assume the database contains.
+
+ Kali-Attacker, Burp Repeater and your evidence notes.
+ Use the request/response comparison to identify exactly which parameter changes application behaviour. Describe only what your evidence supports, not what you assume the database contains.
 > **Commands / Inputs:** No new payload is required. Reuse the baseline and controlled requests already captured.
 > **Expected evidence:** Write the affected parameter, method, normal behaviour and modified behaviour, with the relevant screenshot/request reference.
 
-#### Step-by-step instructions
+
 
 1. Use the evidence from Tasks 6–9; no new payload is required.
 2. In Burp Repeater, confirm which parameter was changed between the baseline and modified requests.
@@ -594,13 +573,13 @@ What evidence supports the conclusion that user input is influencing SQL query b
 
 ### Task 11 – Establish the Command Baseline
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker browser.
-> **Instructions:** Open the authorised command/input-handling lesson and submit a legitimate value that matches the field's intended purpose. For DVWA Command Injection, use a normal IP address first.
+
+ Kali-Attacker browser.
+ Open the authorised command/input-handling lesson and submit a legitimate value that matches the field's intended purpose. For DVWA Command Injection, use a normal IP address first.
 > **Commands / Inputs:** Normal example: 127.0.0.1
 > **Expected evidence:** Record parameter name, intended function, normal value and normal output.
 
-#### Step-by-step instructions
+
 
 1. Use the **Kali-Attacker browser**.
 2. Open the authorised command/input-handling lesson.
@@ -640,13 +619,13 @@ Use a normal value, for example:
 
 ### Task 12 – Capture the Request in Burp
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker, Burp Proxy and Repeater.
-> **Instructions:** Locate the normal command/input request in HTTP history, inspect where the user value appears, then send that request to Repeater without changing it.
+
+ Kali-Attacker, Burp Proxy and Repeater.
+ Locate the normal command/input request in HTTP history, inspect where the user value appears, then send that request to Repeater without changing it.
 > **Commands / Inputs:** Burp: Proxy -> HTTP history -> right-click request -> Send to Repeater.
 > **Expected evidence:** Record method, path, parameter and normal value; keep the baseline response for comparison.
 
-#### Step-by-step instructions
+
 
 1. Use **Kali-Attacker → Burp Proxy**.
 2. Submit the normal value from Task 11.
@@ -673,13 +652,9 @@ Identify where the user input appears.
 
 ### Task 13 – Perform a Harmless Command-Handling Test
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker, Burp Repeater, against the authorised DVWA/WebGoat lesson only.
-> **Instructions:** Change only the input parameter and append one harmless operating-system command. Use the smallest proof necessary and stop if you obtain clear evidence. Never modify files, users, permissions or services.
-> **Commands / Inputs:** Examples for the Linux lab target: 127.0.0.1; whoami  or  127.0.0.1 && whoami
-> **Expected evidence:** Capture the request and any additional output that demonstrates whether the second command was interpreted.
+Kali-Attacker, Burp Repeater, against the authorised DVWA/WebGoat lesson only.
 
-#### Step-by-step instructions
+Change only the input parameter and append one harmless operating-system command. Use the smallest proof necessary and stop if you obtain clear evidence. Never modify files, users, permissions or services.
 
 1. Use **Kali-Attacker → Burp Repeater** against the authorised vulnerable lesson only.
 2. Start with the baseline request from Task 12.
@@ -727,13 +702,9 @@ Do not use commands that:
 
 ### Task 14 – Compare Baseline and Modified Input
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker, Burp Repeater.
-> **Instructions:** Place the baseline and modified responses side by side and compare status, response length, normal application output and any additional command output.
-> **Commands / Inputs:** Reuse the Task 11 baseline and Task 13 controlled request.
-> **Expected evidence:** Complete the comparison table and capture the response section that contains the observable difference.
+Kali-Attacker, Burp Repeater.
 
-#### Step-by-step instructions
+Place the baseline and modified responses side by side and compare status, response length, normal application output and any additional command output.
 
 1. Use **Kali-Attacker → Burp Repeater**.
 2. Place the Task 11/12 baseline response and Task 13 modified response side by side.
@@ -764,13 +735,9 @@ Capture one Burp Repeater request/response demonstrating the observed behaviour.
 
 ### Task 15 – Confirm Reproducibility
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker, Burp Repeater.
-> **Instructions:** Repeat the same harmless request once to confirm that the result is reproducible. Do not escalate to additional commands after sufficient proof has been obtained.
-> **Commands / Inputs:** Resend the exact Task 13 request once.
-> **Expected evidence:** State the confirmed observation, affected parameter and evidence of command interpretation.
+Kali-Attacker, Burp Repeater.
 
-#### Step-by-step instructions
+Repeat the same harmless request once to confirm that the result is reproducible. Do not escalate to additional commands after sufficient proof has been obtained.
 
 1. Use **Kali-Attacker → Burp Repeater**.
 2. Resend the exact harmless request used in Task 13 once more.
@@ -794,19 +761,15 @@ Affected parameter:
 
 Evidence of command interpretation:
 
-Stop when sufficient evidence has been collected.
+Stop when you have collected sufficient evidence.
 
 ## Part E – Understand the Impact
 
 ### Task 16 – Separate Evidence from Assumption
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker evidence folder or your report workstation; no new probing is required.
-> **Instructions:** Review the screenshots and Burp responses already collected. For each observation, write one supported interpretation and one claim that would be unsupported by the current evidence.
-> **Commands / Inputs:** Optional note file: `nano ~/lab-evidence/week4/evidence-vs-assumption.txt`
-> **Expected evidence:** Complete the evidence/interpretation/assumption table using only results already demonstrated.
+Kali-Attacker evidence folder or your report workstation; no new probing is required.
 
-#### Step-by-step instructions
+Review the screenshots and Burp responses already collected. For each observation, write one supported interpretation and one claim that would be unsupported by the current evidence.
 
 1. No new probing is required.
 2. Use the **Kali-Attacker evidence folder** or your report workstation.
@@ -834,13 +797,9 @@ nano ~/lab-evidence/week4/evidence-vs-assumption.txt
 
 ### Task 17 – Assess Security Impact
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker evidence folder or report workstation.
-> **Instructions:** Assess the demonstrated issue against confidentiality, integrity, availability and privilege. Base each statement on the observed behaviour and clearly mark impacts that would require further verification.
-> **Commands / Inputs:** No additional testing command is required.
-> **Expected evidence:** Complete the impact table for SQL injection and command/input handling.
+Kali-Attacker evidence folder or report workstation.
 
-#### Step-by-step instructions
+Assess the demonstrated issue against confidentiality, integrity, availability and privilege. Base each statement on the observed behaviour and clearly mark impacts that would require further verification.
 
 1. No additional attack request is required.
 2. Review the demonstrated SQL and command/input behaviour.
@@ -888,19 +847,15 @@ What account or application privilege is involved?
 | Availability |  |  |
 | Privilege considerations |  |  |
 
-Do not claim an impact that was not demonstrated.
+Do not claim an impact you did not demonstrate.
 
 ## Part F – Remediation
 
 ### Task 18 – Understand SQL Injection Remediation
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker browser; use DVWA View Source or the WebGoat lesson explanation where provided.
-> **Instructions:** Review how the vulnerable lesson handles database input and identify where user data is combined with SQL. Compare that pattern with a parameterised/prepared-statement design. Do not edit the target container unless the instructor explicitly asks you to.
-> **Commands / Inputs:** Conceptual safe pattern: SELECT ... WHERE id = ? with the supplied value bound separately. Example PDO pattern: prepare(...); execute([$id]).
-> **Expected evidence:** Explain why separating SQL code from user data prevents the input from changing query structure.
+Kali-Attacker browser; use DVWA View Source or the WebGoat lesson explanation where provided.
 
-#### Step-by-step instructions
+Review how the vulnerable lesson handles database input and identify where user data is combined with SQL. Compare that pattern with a parameterised/prepared-statement design. Do not edit the target container unless the instructor explicitly asks you to.
 
 1. Use the **Kali-Attacker browser**.
 2. If using DVWA, open **View Source** for the SQL Injection lesson where available.
@@ -950,13 +905,9 @@ Parameterised queries reduce SQL injection risk because __________.
 
 ### Task 19 – Identify Command/Input Remediation
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker browser and lesson source/explanation; Ubuntu changes are not required unless specifically instructed.
-> **Instructions:** Identify how the lesson accepts command/input data. Propose a safer design: validate the expected format on the server, reject unexpected metacharacters, avoid invoking a shell, use a safer API and run with least privilege.
-> **Commands / Inputs:** For an IP-address field, an example validation concept is strict IP-format validation/allow-listing before the value is used.
-> **Expected evidence:** Complete the remediation table for unsafe shell construction, weak validation and excessive privileges.
+Kali-Attacker browser and lesson source/explanation; Ubuntu changes are not required unless specifically instructed.
 
-#### Step-by-step instructions
+Identify how the lesson accepts command/input data. Propose a safer design: validate the expected format on the server, reject unexpected metacharacters, avoid invoking a shell, use a safer API and run with least privilege.
 
 1. Use the lesson source/explanation and the evidence collected earlier.
 2. Identify the expected format of the command/input field.
@@ -995,13 +946,9 @@ Recommended controls include:
 
 ### Task 20 – Retest After Remediation
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker browser and Burp Repeater; DVWA security settings or the WebGoat remediated lesson.
-> **Instructions:** Where the training application provides a stronger/remediated implementation, repeat the exact same baseline and modified requests. Change only the control/security level, not the test case.
-> **Commands / Inputs:** DVWA: DVWA Security -> select the instructor-specified higher level, then resend the same Repeater request. WebGoat: use the lesson's fixed/remediated stage if available.
-> **Expected evidence:** Record before/after behaviour and identify the specific control that changed.
+Kali-Attacker browser and Burp Repeater; DVWA security settings or the WebGoat remediated lesson.
 
-#### Step-by-step instructions
+Where the training application provides a stronger/remediated implementation, repeat the exact same baseline and modified requests. Change only the control/security level, not the test case.
 
 1. Use **Kali-Attacker browser and Burp Repeater**.
 2. Retain the original baseline and modified requests.
@@ -1046,13 +993,9 @@ Instead write:
 
 ### Task 21 – Compare the Same Injection Test
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker browser and Burp Repeater; DVWA only.
-> **Instructions:** Set DVWA to Low, Medium and High one at a time. For each level, capture the same function and same test input. Keep separate Repeater tabs and compare only like-for-like requests.
-> **Commands / Inputs:** DVWA: DVWA Security -> Low / Medium / High. Verify the selected level in the application (and security cookie if visible).
-> **Expected evidence:** Complete the Low/Medium/High comparison table and use 'Not observed' where no control is demonstrated.
+Kali-Attacker browser and Burp Repeater; DVWA only.
 
-#### Step-by-step instructions
+Set DVWA to Low, Medium and High one at a time. For each level, capture the same function and same test input. Keep separate Repeater tabs and compare only like-for-like requests.
 
 1. This task applies to **DVWA**.
 2. Use the **Kali-Attacker browser and Burp Repeater**.
@@ -1100,13 +1043,9 @@ Do not infer a control because the level is named High.
 
 ### Task 22 – Save Required Evidence
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker evidence folder.
-> **Instructions:** Save screenshots and text evidence using the recommended filenames. Ensure no password, PHPSESSID, WebGoat token or other sensitive value is visible. Check that every file opens before finishing.
-> **Commands / Inputs:** `ls -lh ~/lab-evidence/week4`
-> **Expected evidence:** A complete, clearly named evidence set matching the task list.
+Kali-Attacker evidence folder.
 
-#### Step-by-step instructions
+Save screenshots and text evidence using the recommended filenames. Ensure no password, PHPSESSID, WebGoat token or other sensitive value is visible. Check that every file opens before finishing.
 
 1. Use the **Kali-Attacker evidence folder**.
 2. Review the evidence required by Tasks 1–21.
@@ -1165,13 +1104,9 @@ ls -lh ~/lab-evidence/week4
 
 ### Task 23 – Produce Evidence-Based Findings
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker or report workstation; use evidence already collected.
-> **Instructions:** For each injection type, summarise the target, parameter, baseline, modified input, observed response, supported interpretation, impact, remediation and retest result. Do not add claims that are not supported by screenshots or Burp evidence.
-> **Commands / Inputs:** Optional: `nano ~/lab-evidence/week4/10-findings-summary.txt`
-> **Expected evidence:** A completed two-column findings table for SQL injection and command/input handling.
+Kali-Attacker or report workstation; use evidence already collected.
 
-#### Step-by-step instructions
+For each injection type, summarise the target, parameter, baseline, modified input, observed response, supported interpretation, impact, remediation and retest result. Do not add claims that are not supported by screenshots or Burp evidence.
 
 1. No new probing is required.
 2. Use the evidence already collected.
@@ -1209,136 +1144,17 @@ nano ~/lab-evidence/week4/10-findings-summary.txt
 | Remediation |  |  |
 | Retest result |  |  |
 
-## Part K – Findings Summary
-
-### Task 24 – Write a 300–400 Word Findings Summary
-
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker evidence folder or report workstation.
-> **Instructions:** Write 300-400 words that connect the evidence into a concise professional finding summary. Reference the baseline, Burp comparison, demonstrated impact, remediation, retest and limitations.
-> **Commands / Inputs:** Optional: `nano ~/lab-evidence/week4/10-findings-summary.txt`
-> **Expected evidence:** A 300-400 word summary that clearly states whether each injection vulnerability was actually validated.
-
-#### Step-by-step instructions
-
-1. Use your Week 4 evidence and findings table.
-2. Create or open the summary file:
-
-```bash
-nano ~/lab-evidence/week4/10-findings-summary.txt
-```
-
-3. Write approximately **300–400 words**.
-4. Begin with the authorised target/application and designated lessons.
-5. Summarise the baseline behaviour.
-6. Summarise the SQL injection evidence.
-7. Summarise the command/input-handling evidence.
-8. Reference the Burp Repeater comparisons.
-9. State only the impacts demonstrated or clearly label potential impacts.
-10. Include remediation:
-    - parameterised queries/prepared statements;
-    - server-side validation/safer APIs;
-    - least privilege where relevant.
-11. State whether a retest was performed and what changed.
-12. Include limitations.
-13. State clearly whether an injection vulnerability was actually validated.
-14. Save the file.
-
-**Expected result:** a concise professional findings summary links evidence, interpretation, impact and remediation.
-
-Include:
-
-- authorised application tested;
-- target address;
-- designated lessons;
-- baseline behaviour;
-- SQL injection evidence;
-- command/input-handling evidence;
-- Burp Repeater observations;
-- security impact supported by evidence;
-- remediation recommendations;
-- retesting performed;
-- limitations;
-- whether an injection vulnerability was actually validated.
-#### Suggested structure
-
-Injection testing was conducted against the authorised DVWA/WebGoat training application using the browser and Burp Suite. Baseline requests showed [observation].
-
-SQL injection testing of the parameter [parameter] demonstrated [observed evidence]. Comparison of controlled true and false conditions produced [result].
-
-Command/input testing of [parameter] demonstrated [observed evidence]. The result suggests [supported interpretation].
-
-Recommended remediation includes parameterised queries for database access and server-side allow-list validation / safer APIs for command handling.
-
-Testing was limited to the designated training lessons. Findings therefore describe only behaviour directly observed during the authorised assessment.
-
-### Task 25 – Check Your Work
-
-> **Practical guidance**
-> **VM / Tool:** Both VMs for final checks: Kali-Attacker for evidence/application access; Ubuntu-Server for target/container state.
-> **Instructions:** Verify the target is still the authorised system, confirm required evidence is saved, and confirm no destructive change was made. Do not perform additional testing just to fill gaps after the assessment is complete.
-> **Commands / Inputs:** Kali: `ls -lh ~/lab-evidence/week4`; `curl -I http://<UBUNTU_IP>:<PORT>/`. Ubuntu: `sudo docker ps`.
-> **Expected evidence:** Completed checklist with all required items confirmed.
-
-#### Step-by-step instructions
-
-1. Use **Kali-Attacker** for the evidence/application checks and **Ubuntu-Server** for the target/container check.
-2. On Kali, verify the evidence folder:
-
-```bash
-ls -lh ~/lab-evidence/week4
-```
-
-3. Confirm the authorised application still responds:
-
-```bash
-curl -I http://<UBUNTU_IP>:<PORT>/
-```
-
-4. On Ubuntu, confirm the assigned container is still in the expected state:
-
-```bash
-sudo docker ps
-```
-
-5. Work through the checklist one item at a time.
-6. Confirm no destructive action was performed.
-7. Confirm sensitive values were removed from screenshots.
-8. Do not perform additional testing merely to fill missing checklist items after the authorised assessment is complete.
-
-**Expected result:** all required evidence and reporting tasks are complete and the target remains within the authorised state.
-
-- [ ] Created Week 4 evidence folder
-- [ ] Verified DVWA/WebGoat target
-- [ ] Confirmed designated injection lesson
-- [ ] Captured baseline request
-- [ ] Identified user-controlled parameter
-- [ ] Tested SQL metacharacter
-- [ ] Compared controlled Boolean conditions
-- [ ] Used Burp Repeater
-- [ ] Tested designated command/input lesson
-- [ ] Used only harmless proof-of-concept commands
-- [ ] Recorded observable impact
-- [ ] Distinguished evidence from assumptions
-- [ ] Recommended parameterised queries
-- [ ] Recommended server-side input validation
-- [ ] Retested where supported
-- [ ] Protected passwords/session identifiers
-- [ ] Saved required evidence
-- [ ] Completed findings summary
-- [ ] Remained within the authorised training scope
-
 ## Part L – Injection Analysis
 
 ### Task 26 – Compare the Same SQL Injection Request Across Security Levels
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker browser and Burp Repeater; DVWA only.
-> **Instructions:** Capture the same SQL injection request at Low, Medium and High. Duplicate the request into separate Repeater tabs and keep method, parameter and input constant; only the security level should change.
+
+ Kali-Attacker browser and Burp Repeater; DVWA only.
+ Capture the same SQL injection request at Low, Medium and High. Duplicate the request into separate Repeater tabs and keep method, parameter and input constant; only the security level should change.
 > **Commands / Inputs:** DVWA Security -> Low, Medium, High. Re-send the same request at each level.
 > **Expected evidence:** Record response status/length, records returned, error message and the exact validation/control difference observed.
 
-#### Step-by-step instructions
+
 
 1. This advanced task applies to **DVWA**.
 2. Use **Kali-Attacker browser and Burp Repeater**.
@@ -1377,13 +1193,13 @@ Identify the specific technical control that changes. Do not simply state that �
 
 ### Task 27 – Perform Controlled Boolean-Based Response Analysis
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker, Burp Repeater.
-> **Instructions:** Run a disciplined three-request comparison: baseline, true Boolean condition, false Boolean condition. Use response length and visible content as evidence even if no SQL error is displayed. Do not enumerate tables or extract data.
+
+ Kali-Attacker, Burp Repeater.
+ Run a disciplined three-request comparison: baseline, true Boolean condition, false Boolean condition. Use response length and visible content as evidence even if no SQL error is displayed. Do not enumerate tables or extract data.
 > **Commands / Inputs:** Examples: baseline normal value; ' OR '1'='1 ; ' OR '1'='2
 > **Expected evidence:** Complete the comparison table and explain what the response differences support.
 
-#### Step-by-step instructions
+
 
 1. Use **Kali-Attacker → Burp Repeater**.
 2. Prepare three comparable requests:
@@ -1435,13 +1251,13 @@ If the page displays no SQL error, what evidence could still indicate that the a
 
 ### Task 28 – Examine Encoded Input Handling
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker, Burp Repeater (and Burp Decoder if useful).
-> **Instructions:** Compare the same logical input in its normal and URL-encoded forms. Inspect the actual request sent because browsers/Burp may automatically encode query parameters. Change only the encoding, not the meaning of the test.
+
+ Kali-Attacker, Burp Repeater (and Burp Decoder if useful).
+ Compare the same logical input in its normal and URL-encoded forms. Inspect the actual request sent because browsers/Burp may automatically encode query parameters. Change only the encoding, not the meaning of the test.
 > **Commands / Inputs:** Examples: single quote ' -> %27 ; space -> %20 or +. Burp Decoder can be used to encode/decode the test string.
 > **Expected evidence:** Record original value, encoded value, server response and whether application behaviour changes.
 
-#### Step-by-step instructions
+
 
 1. Use **Kali-Attacker → Burp Repeater**; Burp Decoder may also be used.
 2. Start with one authorised request already captured.
@@ -1485,13 +1301,13 @@ Do not claim that encoding bypasses a control unless your evidence demonstrates 
 
 ### Task 29 – Compare Harmless Command Separators
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker, Burp Repeater, against the authorised Linux training lesson only.
-> **Instructions:** Send a small controlled set of separator variants using the same harmless whoami command. One request per separator is sufficient; stop after collecting the comparison evidence.
+
+ Kali-Attacker, Burp Repeater, against the authorised Linux training lesson only.
+ Send a small controlled set of separator variants using the same harmless whoami command. One request per separator is sufficient; stop after collecting the comparison evidence.
 > **Commands / Inputs:** 127.0.0.1; whoami   |   127.0.0.1 && whoami   |   127.0.0.1 | whoami
 > **Expected evidence:** Record which separators are accepted and whether additional output appears. Do not use shells, file changes, privilege escalation or service-control commands.
 
-#### Step-by-step instructions
+
 
 1. Use **Kali-Attacker → Burp Repeater** against the authorised Linux training lesson only.
 2. Start from the normal baseline request.
@@ -1551,13 +1367,13 @@ Record which input forms are actually interpreted by the application.
 
 ### Task 30 – Correlate Burp Evidence with Server Logs
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker for the Burp request and Ubuntu-Server for server-side logs.
-> **Instructions:** On Ubuntu, open the relevant application log, then generate one controlled request from Kali through Burp and match the method, path, status and timestamp. Remember that standard web access logs may not record POST bodies.
+
+ Kali-Attacker for the Burp request and Ubuntu-Server for server-side logs.
+ On Ubuntu, open the relevant application log, then generate one controlled request from Kali through Burp and match the method, path, status and timestamp. Remember that standard web access logs may not record POST bodies.
 > **Commands / Inputs:** DVWA: `sudo docker exec -it dvwa bash`; `tail -f /var/log/apache2/access.log`. WebGoat: `sudo docker logs --tail 50 -f webgoat (or the actual container name)`. Use Ctrl+C to stop log follow; exit to leave the container shell.
 > **Expected evidence:** Complete the Burp-versus-server-log table and identify information visible in Burp that is absent from the standard log.
 
-#### Step-by-step instructions
+
 
 1. Use **Kali-Attacker** for Burp and **Ubuntu-Server** for server logs.
 2. On Ubuntu, identify the running application container:
@@ -1626,15 +1442,132 @@ Generate one controlled injection request from Kali through Burp.
 
 Which parts of the request are visible in Burp but not necessarily recorded in the standard access log?
 
+## Part K – Findings Summary
+
+### Task 24 – Write a 300–400 Word Findings Summary
+
+Kali-Attacker evidence folder or report workstation.
+
+Write 300-400 words that connect the evidence into a concise professional finding summary. Reference the baseline, Burp comparison, demonstrated impact, remediation, retest and limitations.
+
+1. Use your Week 4 evidence and findings table.
+2. Create or open the summary file:
+
+```bash
+nano ~/lab-evidence/week4/10-findings-summary.txt
+```
+
+3. Write approximately **300–400 words**.
+4. Begin with the authorised target/application and designated lessons.
+5. Summarise the baseline behaviour.
+6. Summarise the SQL injection evidence.
+7. Summarise the command/input-handling evidence.
+8. Reference the Burp Repeater comparisons.
+9. State only the impacts demonstrated or clearly label potential impacts.
+10. Include remediation:
+    - parameterised queries/prepared statements;
+    - server-side validation/safer APIs;
+    - least privilege where relevant.
+11. State whether a retest was performed and what changed.
+12. Include limitations.
+13. State clearly whether an injection vulnerability was actually validated.
+14. Save the file.
+
+**Expected result:** a concise professional findings summary links evidence, interpretation, impact and remediation.
+
+Include:
+
+- authorised application tested;
+- target address;
+- designated lessons;
+- baseline behaviour;
+- SQL injection evidence;
+- command/input-handling evidence;
+- Burp Repeater observations;
+- security impact supported by evidence;
+- remediation recommendations;
+- retesting performed;
+- limitations;
+- whether an injection vulnerability was actually validated.
+
+#### Suggested structure
+
+Injection testing was conducted against the authorised DVWA/WebGoat training application using the browser and Burp Suite. Baseline requests showed [observation].
+
+SQL injection testing of the parameter [parameter] demonstrated [observed evidence]. Comparison of controlled true and false conditions produced [result].
+
+Command/input testing of [parameter] demonstrated [observed evidence]. The result suggests [supported interpretation].
+
+Recommended remediation includes parameterised queries for database access and server-side allow-list validation / safer APIs for command handling.
+
+Testing was limited to the designated training lessons. Findings therefore describe only behaviour directly observed during the authorised assessment.
+
+### Task 25 – Check Your Work
+
+
+ Both VMs for final checks: Kali-Attacker for evidence/application access; Ubuntu-Server for target/container state.
+ Verify the target is still the authorised system, confirm required evidence is saved, and confirm no destructive change was made. Do not perform additional testing just to fill gaps after the assessment is complete.
+> **Commands / Inputs:** Kali: `ls -lh ~/lab-evidence/week4`; `curl -I http://<UBUNTU_IP>:<PORT>/`. Ubuntu: `sudo docker ps`.
+> **Expected evidence:** Completed checklist with all required items confirmed.
+
+
+
+1. Use **Kali-Attacker** for the evidence/application checks and **Ubuntu-Server** for the target/container check.
+2. On Kali, verify the evidence folder:
+
+```bash
+ls -lh ~/lab-evidence/week4
+```
+
+3. Confirm the authorised application still responds:
+
+```bash
+curl -I http://<UBUNTU_IP>:<PORT>/
+```
+
+4. On Ubuntu, confirm the assigned container is still in the expected state:
+
+```bash
+sudo docker ps
+```
+
+5. Work through the checklist one item at a time.
+6. Confirm no destructive action was performed.
+7. Confirm sensitive values were removed from screenshots.
+8. Do not perform additional testing merely to fill missing checklist items after the authorised assessment is complete.
+
+**Expected result:** all required evidence and reporting tasks are complete and the target remains within the authorised state.
+
+- [ ] Created Week 4 evidence folder
+- [ ] Verified DVWA/WebGoat target
+- [ ] Confirmed designated injection lesson
+- [ ] Captured baseline request
+- [ ] Identified user-controlled parameter
+- [ ] Tested SQL metacharacter
+- [ ] Compared controlled Boolean conditions
+- [ ] Used Burp Repeater
+- [ ] Tested designated command/input lesson
+- [ ] Used only harmless proof-of-concept commands
+- [ ] Recorded observable impact
+- [ ] Distinguished evidence from assumptions
+- [ ] Recommended parameterised queries
+- [ ] Recommended server-side input validation
+- [ ] Retested where supported
+- [ ] Protected passwords/session identifiers
+- [ ] Saved required evidence
+- [ ] Completed findings summary
+- [ ] Remained within the authorised training scope
+
+
 ### Task 31 – Produce an Evidence-Based Injection Finding
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker evidence folder or report workstation; no further probing is required.
-> **Instructions:** Create one professional finding with five sections: observed evidence, supported interpretation, security relevance, recommended remediation and further verification required. Reference specific task evidence rather than restating assumptions.
+
+ Kali-Attacker evidence folder or report workstation; no further probing is required.
+ Create one professional finding with five sections: observed evidence, supported interpretation, security relevance, recommended remediation and further verification required. Reference specific task evidence rather than restating assumptions.
 > **Commands / Inputs:** Optional: `nano ~/lab-evidence/week4/11-advanced-finding.txt`
 > **Expected evidence:** A complete evidence-based finding that clearly states what was demonstrated and what was not tested.
 
-#### Step-by-step instructions
+
 
 1. No additional probing is required.
 2. Use the **Kali-Attacker evidence folder** or report workstation.
