@@ -155,8 +155,8 @@ Complete the table below:
 
 Log in to the assigned training application and navigate only to the instructor-designated SQL Injection and Command/Input lesson. For DVWA, also record the selected DVWA security level before testing.
 
-1. Use the **Kali-Attacker browser**.
-2. Log in to the assigned training application using the instructor-provided account, username: admin & password: password
+1. Use the **Kali-Attacker** and open browser.
+2. Log in to the DVWA application using the instructor-provided account, username: admin & password: password
 3. Navigate only to the designated injection lesson.
 4. If using DVWA, record the selected security level before testing.
 5. For DVWA, locate:
