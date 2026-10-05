@@ -57,17 +57,9 @@ cd ~/lab-evidence/week4
 pwd
 ```
 
-5. Confirm the directory exists and check its permissions:
+**Expected result:** The working folder should be similar to:
 
-```bash
-ls -ld .
-```
-
-**Expected result:** the working folder should be similar to:
-
-```text
 /home/<your-user>/lab-evidence/week4
-```
 
 #### Evidence to capture
 
@@ -79,20 +71,7 @@ Ubuntu-Server terminal for the containers; Kali-Attacker browser/terminal for th
 
 First, identify Ubuntu's current lab IP, then confirm that the assigned DVWA or WebGoat container is running and note its published port. From Kali, test HTTP reachability and then open the application in the browser.
 
-1. On **Ubuntu-Server**, identify the current lab IP address:
-
-```bash
-ip -br addr
-```
-
-2. Locate the IPv4 address on the lab interface, for example:
-
-```text
-ens32    UP    192.168.1.100/24
-```
-
-3. Record the IP address without the prefix length, for example `192.168.1.100`.
-4. Still on **Ubuntu-Server**, check the running containers:
+1. **Ubuntu-Server**, check the running containers:
 
 ```bash
 sudo docker ps
