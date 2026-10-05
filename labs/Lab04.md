@@ -30,7 +30,7 @@ Ubuntu-Server hosts the authorised training applications.
 
 DVWA / WebGoat are deliberately vulnerable applications.
 
-Burp Suite Repeater is used to reproduce and modify requests.
+Use Burp Suite Repeater to reproduce and modify requests.
 
 > **Alert:** Do not test university systems, public websites, other students' systems, or any application that has not been explicitly authorised.
 
@@ -77,7 +77,7 @@ First, identify Ubuntu's current lab IP, then confirm that the assigned DVWA or 
 sudo docker ps
 ```
 
-If any application is not running, stop it and start it again. For example, WebGoat is marked “unhealthy”. Its container is running, but its configured health check is failing. 
+If any application isn't running, stop it and restart it. For example, WebGoat is marked “unhealthy”. Its container is running, but its configured health check is failing. 
 You need to remove and recreate it:
 
 ```bash
@@ -102,58 +102,26 @@ Then check:
 sudo docker ps
 ```
 
-5. For a clearer view of the container name, status and published ports, run:
-
-```bash
-sudo docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
-```
-
-6. If the assigned application is not shown, check all containers:
-
-```bash
-sudo docker ps -a
-```
-
-7. If the assigned container exists but is stopped, start only the application assigned by the instructor.
-
-For DVWA:
-
-```bash
-sudo docker start dvwa
-```
-
-For WebGoat:
-
-```bash
-sudo docker start webgoat
-```
-
-8. Verify that the container is now running:
-
-```bash
-sudo docker ps
-```
-
-9. Record the published host port shown in the `PORTS` column. Typical lab examples are:
+2. Record the published host port shown in the `PORTS` column. Typical lab examples are:
 
 ```text
 DVWA      0.0.0.0:80->80/tcp
 WebGoat   0.0.0.0:8081->8080/tcp
 ```
 
-10. Move to **Kali-Attacker** and test DVWA reachability, replacing `<UBUNTU_IP>` with the address recorded above:
+3. On **Kali-Attacker**, test DVWA reachability:
 
 ```bash
 curl -I http://<UBUNTU_IP>/
 ```
 
-11. If WebGoat is assigned, use the published host port. A common lab example is:
+4. If WebGoat is assigned, use the published host port. A common lab example is:
 
 ```bash
 curl -I http://<UBUNTU_IP>:8081/WebGoat
 ```
 
-12. Open the assigned application in the Kali browser.
+5. Open the assigned application in the Kali browser.
 
 DVWA example:
 
@@ -167,8 +135,8 @@ WebGoat example:
 http://<UBUNTU_IP>:8081/WebGoat
 ```
 
-13. Record the application, Ubuntu IP, container name, container status, published port, HTTP status and any redirect observed.
-14. Capture one screenshot showing the authorised application loaded in the browser.
+6. Record the application, Ubuntu IP, container name, container status, published port, HTTP status and any redirect observed.
+7. Capture one screenshot showing the authorised application loaded in the browser.
 
 > If the expected container does not exist, do not create a replacement unless the instructor specifically asks you to do so.
 
