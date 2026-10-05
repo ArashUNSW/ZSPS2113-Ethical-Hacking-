@@ -154,37 +154,25 @@ Complete the table below:
 ### Task 3 – Confirm the SQL Injection on DVWA and WebGoat
 
 **DVWA**
+
 After logging in to DVWA with the instructor-provided account (username: admin; password: password), use the left-hand menu.
 
-1. For SQL Injection:
-
-Select the SQL Injection vulnerability from the left-hand menu
-
-The page normally contains an input field such as User ID
-
-The browser address bar will show a path similar to:
+1. For SQL Injection: select the SQL Injection vulnerability from the left-hand menu. The page normally contains an input field such as User ID
+2. The browser address bar will show a path similar to:
 
 ```text
 http://<DVWA-IP>/vulnerabilities/sqli/
 ```
 
-2. For Command Injection:
-
-Select the Command Injection vulnerability from the left-hand menu
-
-The page normally contains an input field such as Enter an IP address
-
-The browser address bar will show a path similar to:
+3. For Command Injection: select the Command Injection vulnerability from the left-hand menu. The page normally contains an input field such as Enter an IP address
+4. The browser address bar will show a path similar to:
 
 ```text
 http://<DVWA-IP>/vulnerabilities/exec/
 ```
 
-3. For the DVWA security level:
-
-Select DVWA Security from the left-hand menu
-
-The page shows the currently selected level, such as:
+5. For the DVWA security level: select DVWA Security from the left-hand menu
+6. The page shows the currently selected level, such as:
    - Low
    - Medium
    - High
@@ -199,17 +187,12 @@ Complete the table below:
 | URL/path |  |
 | DVWA security level, if applicable |  |
 
-Capture a screenshot of the lesson page before sending modified input.
+Capture a screenshot of the lesson page before sending modified input for the tasks below.
 
 **WebGoat**
 
-4. Login or create a login to WebGoat:
-
-Use the navigation panel on the left.
-
-Look under categories related to Injection.
-
-Depending on the WebGoat version, the lesson may be named something like:
+7. Login or create a login to WebGoat. Use the navigation panel on the left. Look under categories related to Injection.
+8. Depending on the WebGoat version, the lesson may be named something like:
    - SQL Injection
    - SQL Injection (Intro)
    - SQL Injection (Advanced)
@@ -229,7 +212,7 @@ Complete the table below:
 
 ### Task 4 – Capture a Normal Request
 
-Submit one normal, expected value before changing any input. This establishes the baseline against which every later request will be compared.
+Submit one normal, expected value before changing any input. This establishes the baseline against which you will compare every later request.
 
 1. Use the **Kali-Attacker browser** with Browser Developer Tools or Burp Proxy available.
 2. Open the authorised injection lesson.
