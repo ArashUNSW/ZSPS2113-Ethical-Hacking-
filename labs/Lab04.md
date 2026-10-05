@@ -241,13 +241,7 @@ Possible examples:
 
 ### Task 4 – Capture a Normal Request
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker browser with Browser Developer Tools or Burp Proxy.
-> **Instructions:** Submit one normal, expected value before changing any input. This establishes the baseline against which every later request will be compared.
-> **Commands / Inputs:** SQL baseline example: 1. Command/input baseline example: 127.0.0.1.
-> **Expected evidence:** Record method, path, parameter, normal value, response status/length and normal application behaviour.
-
-#### Step-by-step instructions
+Submit one normal, expected value before changing any input. This establishes the baseline against which every later request will be compared.
 
 1. Use the **Kali-Attacker browser** with Browser Developer Tools or Burp Proxy available.
 2. Open the authorised injection lesson.
