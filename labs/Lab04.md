@@ -151,34 +151,58 @@ Complete the table below:
 | HTTP status |  |
 | Application page loads? | Yes / No |
 
-### Task 3 – Confirm the Injection Lesson
+### Task 3 – Confirm the SQL Injection on DVWA and WebGoat
 
-Log in to the assigned training application and navigate only to the instructor-designated SQL Injection and Command/Input lesson. For DVWA, also record the selected DVWA security level before testing.
+**DVWA**
+After logging in to DVWA with the instructor-provided account (username: admin; password: password), use the left-hand menu.
 
-1. Use the **Kali-Attacker** and open browser.
-2. Log in to the DVWA application using the instructor-provided account, username: admin & password: password
-3. Navigate only to the designated injection lesson.
-4. If using DVWA, record the selected security level before testing.
-5. For DVWA, locate:
-   - **Vulnerabilities → SQL Injection**; and/or
-   - **Vulnerabilities → Command Injection**.
-6. For WebGoat, open only the instructor-designated Injection lesson from the lesson menu.
-7. Record:
-   - application name;
-   - lesson/module name;
-   - current URL/path;
-   - visible input field;
-   - DVWA security level, if applicable.
-8. Capture a screenshot of the lesson page before sending modified input.
+1. For SQL Injection:
+Select the SQL Injection vulnerability from the left-hand menu 
+The page normally contains an input field such as User ID
+The browser address bar will show a path similar to:
+```text
+http://<DVWA-IP>/vulnerabilities/sqli/
+```
 
-**Expected result:** the student can clearly identify the exact authorised lesson and input field to be tested.
+2. For Command Injection:
+Select the Command Injection vulnerability from the left-hand menu
+The page normally contains an input field such as Enter an IP address
+The browser address bar will show a path similar to:
+```text
+http://<DVWA-IP>/vulnerabilities/exec/
+```
 
-Possible examples:
+3. For the DVWA security level:
+Select DVWA Security from the left-hand menu
+The page shows the currently selected level, such as:
+   - Low
+   - Medium
+   - High
+   - Impossible
 
-- DVWA → SQL Injection
-- DVWA → Command Injection
-- WebGoat → designated SQL Injection lesson
-- WebGoat → designated command/input lesson
+Complete the table below:
+
+| Item | Observation |
+| --- | --- |
+| Application |  |
+| Lesson/module |  |
+| URL/path |  |
+| DVWA security level, if applicable |  |
+
+5. Capture a screenshot of the lesson page before sending modified input.
+
+**WebGoat**
+
+Login or create a login to WebGoat:
+
+Use the navigation panel on the left.
+Look under categories related to Injection.
+Depending on the WebGoat version, the lesson may be named something like:
+   - SQL Injection
+   - SQL Injection (Intro)
+   - SQL Injection (Advanced)
+   - Command Injection
+   - OS Command Injection
 
 Complete the table below:
 
