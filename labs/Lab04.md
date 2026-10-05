@@ -157,23 +157,33 @@ Complete the table below:
 After logging in to DVWA with the instructor-provided account (username: admin; password: password), use the left-hand menu.
 
 1. For SQL Injection:
-Select the SQL Injection vulnerability from the left-hand menu 
+
+Select the SQL Injection vulnerability from the left-hand menu
+
 The page normally contains an input field such as User ID
+
 The browser address bar will show a path similar to:
+
 ```text
 http://<DVWA-IP>/vulnerabilities/sqli/
 ```
 
 2. For Command Injection:
+
 Select the Command Injection vulnerability from the left-hand menu
+
 The page normally contains an input field such as Enter an IP address
+
 The browser address bar will show a path similar to:
+
 ```text
 http://<DVWA-IP>/vulnerabilities/exec/
 ```
 
 3. For the DVWA security level:
+
 Select DVWA Security from the left-hand menu
+
 The page shows the currently selected level, such as:
    - Low
    - Medium
@@ -189,14 +199,16 @@ Complete the table below:
 | URL/path |  |
 | DVWA security level, if applicable |  |
 
-5. Capture a screenshot of the lesson page before sending modified input.
+Capture a screenshot of the lesson page before sending modified input.
 
 **WebGoat**
 
-Login or create a login to WebGoat:
+4. Login or create a login to WebGoat:
 
 Use the navigation panel on the left.
+
 Look under categories related to Injection.
+
 Depending on the WebGoat version, the lesson may be named something like:
    - SQL Injection
    - SQL Injection (Intro)
