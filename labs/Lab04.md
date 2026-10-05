@@ -403,57 +403,72 @@ One specific user-controlled SQL parameter is identified from the observed reque
 
 ### Task 7 – Test a SQL Metacharacter
 
-Kali-Attacker browser or Burp Repeater.
+## Task 7 – Test a SQL Metacharacter
 
-Change only the identified SQL parameter to a single quote and compare the response with the baseline. Do not change unrelated parameters, cookies or session values.
+The purpose of this task is to determine whether a single SQL metacharacter changes the application's observable behaviour when it is supplied to the user-controlled parameter identified in Task 6.
+
+A single quote (`'`) is commonly used as a simple diagnostic input because it may affect SQL parsing if the application places user input directly into a query. However, a changed response is only an indication for further investigation and does **not** by itself confirm SQL injection.
 
 1. Use the **Kali-Attacker browser or Burp Repeater**.
-2. Start from the baseline request captured in Task 6.
-3. Change only the identified SQL parameter to:
+
+2. Start from the normal baseline request captured in Task 6.
+
+3. Change **only** the identified SQL parameter value to:
 
 ```text
 '
 ```
 
-4. Keep the method, path, cookies and all unrelated parameters unchanged.
-5. Send the request.
-6. Compare the response with the baseline.
-7. Look for:
+4. Keep all other request elements unchanged, including:
+
+   - HTTP method;
+   - request path;
+   - cookies;
+   - session values;
+   - tokens;
+   - unrelated parameters.
+
+5. Send the modified request.
+
+6. Compare the response with the baseline request from Task 6.
+
+7. Look for any observable difference, such as:
+
    - database error text;
    - application error text;
-   - altered content;
-   - different record count;
-   - different status or response length;
+   - altered page content;
+   - different number of records;
+   - different HTTP status code;
+   - different response length;
    - no observable difference.
-8. Record the actual result rather than forcing the response to match an example.
-9. Capture evidence if the response changes.
 
-**Expected result:** the student records whether the quote character changes observable server behaviour. A difference is a lead, not automatic proof of SQL injection.
+8. Record the **actual result** from your environment. Do not force the result to match an example.
 
-**Submit**
+9. Capture evidence if the response differs from the baseline.
 
-```text
-'
-```
+### Evidence to capture
 
-**Observe the response.**
+If the response changes, capture one screenshot showing:
 
-**Look for**
+- the modified parameter value;
+- the response status;
+- the response length;
+- the relevant response content or error message.
 
-- database error;
-- application error;
-- different content;
-- altered number of records;
-- no observable difference.
+Do not expose passwords, session identifiers or authentication tokens.
 
-Complete the table below:
+### Complete the table
 
-| Test | Input | Observation |
-| --- | --- | --- |
-| Baseline | Normal value |  |
-| Quote test | ' |  |
+| **Test** | **Input** | **Response status** | **Response length** | **Observed behaviour** |
+|---|---|---|---|---|
+| Baseline | Normal value from Task 6 | | | |
+| Quote test | `'` | | | |
 
-A changed response is a lead for further investigation, not automatic proof of SQL injection.
+### Expected result
+
+The student records whether the single quote changes the observable server or application behaviour.
+
+A changed response is a **lead for further investigation**, not automatic proof of SQL injection. A normal or unchanged response also does not prove that SQL injection is impossible.
 
 ### Task 8 – Send the SQL Request to Repeater
 
