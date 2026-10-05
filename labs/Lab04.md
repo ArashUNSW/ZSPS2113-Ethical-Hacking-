@@ -77,7 +77,7 @@ First, identify Ubuntu's current lab IP, then confirm that the assigned DVWA or 
 sudo docker ps
 ```
 
-If any application isn't running, stop it and restart it. For example, WebGoat is marked “unhealthy”. Its container is running, but its configured health check is failing. 
+If any application isn't running, go back to Lab03 and run the applications. For example, if WebGoat is marked “unhealthy”. Its container is running, but its configured health check is failing. 
 You need to remove and recreate it:
 
 ```bash
