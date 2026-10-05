@@ -59,7 +59,9 @@ pwd
 
 **Expected result:** The working folder should be similar to:
 
+```text
 /home/<your-user>/lab-evidence/week4
+```
 
 #### Evidence to capture
 
@@ -135,34 +137,11 @@ WebGoat example:
 http://<UBUNTU_IP>:8081/WebGoat
 ```
 
-6. Record the application, Ubuntu IP, container name, container status, published port, HTTP status and any redirect observed.
-7. Capture one screenshot showing the authorised application loaded in the browser.
+6. Capture one screenshot showing the authorised application loaded in the browser.
 
 > If the expected container does not exist, do not create a replacement unless the instructor specifically asks you to do so.
 
-Only use the application assigned by your instructor.
-
-#### DVWA
-
-```bash
-curl -I http://<UBUNTU_IP>/
-```
-
-If required:
-
-```bash
-sudo docker ps
-```
-
-#### WebGoat
-
-If WebGoat has already been provided:
-
-```bash
-sudo docker ps
-```
-
-Verify the published port and open the application in the browser.
+Complete the table below:
 
 | Item | Observed value |
 | --- | --- |
@@ -200,7 +179,8 @@ Possible examples:
 - DVWA → Command Injection
 - WebGoat → designated SQL Injection lesson
 - WebGoat → designated command/input lesson
-**Record**
+
+Complete the table below:
 
 | Item | Observation |
 | --- | --- |
@@ -260,6 +240,8 @@ Example command/input value:
 ```
 
 Using Browser Developer Tools or Burp:
+
+Complete the table below:
 
 | Item | Observation |
 | --- | --- |
@@ -362,6 +344,8 @@ Open the designated SQL injection lesson.
 
 Record the user-controlled input.
 
+Complete the table below:
+
 | Property | Observation |
 | --- | --- |
 | Parameter name |  |
@@ -413,6 +397,9 @@ Change only the identified SQL parameter to a single quote and compare the respo
 - different content;
 - altered number of records;
 - no observable difference.
+
+Complete the table below:
+
 | Test | Input | Observation |
 | --- | --- | --- |
 | Baseline | Normal value |  |
@@ -496,6 +483,8 @@ Then compare with:
 ' OR '1'='2
 ```
 
+Complete the table below:
+
 | Feature | Baseline | True condition | False condition |
 | --- | --- | --- | --- |
 | Status |  |  |  |
@@ -549,8 +538,6 @@ What evidence supports the conclusion that user input is influencing SQL query b
 > **Commands / Inputs:** Normal example: 127.0.0.1
 > **Expected evidence:** Record parameter name, intended function, normal value and normal output.
 
-
-
 1. Use the **Kali-Attacker browser**.
 2. Open the authorised command/input-handling lesson.
 3. Identify the intended purpose of the input field.
@@ -578,7 +565,7 @@ Use a normal value, for example:
 127.0.0.1
 ```
 
-**Record**
+Complete the table below:
 
 | Item | Observation |
 | --- | --- |
@@ -589,13 +576,9 @@ Use a normal value, for example:
 
 ### Task 12 – Capture the Request in Burp
 
+Kali-Attacker, Burp Proxy and Repeater.
 
- Kali-Attacker, Burp Proxy and Repeater.
- Locate the normal command/input request in HTTP history, inspect where the user value appears, then send that request to Repeater without changing it.
-> **Commands / Inputs:** Burp: Proxy -> HTTP history -> right-click request -> Send to Repeater.
-> **Expected evidence:** Record method, path, parameter and normal value; keep the baseline response for comparison.
-
-
+Locate the normal command/input request in HTTP history, inspect where the user value appears, then send that request to Repeater without changing it.
 
 1. Use **Kali-Attacker → Burp Proxy**.
 2. Submit the normal value from Task 11.
@@ -612,6 +595,8 @@ Use a normal value, for example:
 Locate the request in Burp and send it to Repeater.
 
 Identify where the user input appears.
+
+Complete the table below:
 
 | Item | Observation |
 | --- | --- |
@@ -690,6 +675,8 @@ Place the baseline and modified responses side by side and compare status, respo
 
 **Expected result:** the baseline and modified requests are compared using objective response evidence.
 
+Complete the table below:
+
 | Feature | Normal input | Modified input |
 | --- | --- | --- |
 | HTTP status |  |  |
@@ -758,6 +745,8 @@ nano ~/lab-evidence/week4/evidence-vs-assumption.txt
 
 **Expected result:** the report separates evidence from assumptions and avoids overstating exploitability.
 
+Complete the table below:
+
 | Observed evidence | Supported interpretation | Unsupported assumption |
 | --- | --- | --- |
 | True/false SQL responses differ | Input may influence query logic | Entire database is compromised |
@@ -808,7 +797,7 @@ Could misuse affect application/service availability?
 
 What account or application privilege is involved?
 
-**Complete**
+Complete the table below:
 
 | Impact area | SQL Injection | Command/Input Handling |
 | --- | --- | --- |
@@ -939,6 +928,8 @@ Where the training application provides a stronger/remediated implementation, re
 
 If the training application provides a remediated or higher-security version, repeat the same request.
 
+Complete the table below:
+
 | Behaviour | Before remediation | After remediation |
 | --- | --- | --- |
 | Normal input works |  |  |
@@ -995,6 +986,9 @@ If DVWA is used, repeat the same controlled workflow at:
 - Low;
 - Medium;
 - High.
+
+Complete the table below:
+
 | Feature | Low | Medium | High |
 | --- | --- | --- | --- |
 | Same parameter tested |  |  |  |
@@ -1102,6 +1096,8 @@ nano ~/lab-evidence/week4/10-findings-summary.txt
 
 **Expected result:** the findings table provides a concise evidence-based record for both injection categories.
 
+Complete the table below:
+
 | Area | SQL Injection | Command/Input Handling |
 | --- | --- | --- |
 | Target |  |  |
@@ -1141,6 +1137,8 @@ Capture the same SQL injection request at Low, Medium and High. Duplicate the re
 Using DVWA, select one SQL injection request and capture the same request at Low, Medium and High security.
 
 Send each request to Burp Repeater.
+
+Complete the table below:
 
 | Feature | Low | Medium | High |
 | --- | --- | --- | --- |
@@ -1201,6 +1199,8 @@ with:
 
 Do not attempt database extraction.
 
+Complete the table below:
+
 | Test | Status | Response length | Visible difference | Interpretation |
 | --- | --- | --- | --- | --- |
 | Baseline |  |  |  |  |
@@ -1244,6 +1244,8 @@ Capture an authorised request in Burp Repeater and compare how the application h
 - URL-encoded input;
 - the same special character represented in encoded form.
 For example, compare how a single quote appears before and after URL encoding.
+
+Complete the table below:
 
 | Test | Value sent | Server response | Application behaviour |
 | --- | --- | --- | --- |
@@ -1308,6 +1310,8 @@ Examples:
 ```
 
 Do not use file modification, shells, privilege escalation, or service-control commands.
+
+Complete the table below:
 
 | Separator | Accepted? | Additional output? | Response difference |  |
 | --- | --- | --- | --- | --- |
@@ -1378,6 +1382,8 @@ tail -f /var/log/apache2/access.log
 ```
 
 Generate one controlled injection request from Kali through Burp.
+
+Complete the table below:
 
 | Field | Burp observation | Server-log observation |
 | --- | --- | --- |
