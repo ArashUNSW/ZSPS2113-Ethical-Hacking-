@@ -1,36 +1,17 @@
-**ZSPS2113 Ethical Hacking and Penetration Testing | Week 4 Lab**
-
-Authorised training environment only
-
 # Week 4 Lab – Injection Testing
-
-Tutorial / Stage: Injection Testing
 
 Targets: DVWA / WebGoat
 
 Suggested tools: Browser, Burp Suite Proxy and Repeater
 
-Estimated Time: Approximately 2 hours for core activities, with additional time for advanced extension tasks.
+## Estimated Time
 
-> **Step-by-step edition:** Each task now identifies the VM/tool to use, the execution sequence, relevant commands/inputs, and the evidence students should record.
+Approximately 2 hours for core activities, with additional time for advanced extension tasks.
 
 ## Learning Objectives
 
 By the end of this lab, students should be able to:
 
-- verify the authorised DVWA/WebGoat target is reachable;
-- identify user-controlled parameters;
-- establish normal application behaviour before testing;
-- capture and replay HTTP requests using Burp Repeater;
-- demonstrate SQL injection within designated training lessons;
-- observe unsafe command/input handling using controlled inputs;
-- compare normal and modified requests and responses;
-- distinguish demonstrated evidence from unsupported assumptions;
-- explain confidentiality, integrity and availability implications;
-- recommend parameterised queries for SQL injection;
-- recommend server-side input validation and safer APIs for command injection;
-- retest a control after remediation where supported;
-- produce evidence-based findings suitable for a penetration-testing report.
 
 ## Scenario
 
