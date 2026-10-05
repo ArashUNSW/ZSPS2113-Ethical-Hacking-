@@ -39,13 +39,13 @@ Burp Suite Repeater is used to reproduce and modify requests.
 ### Task 1 – Create the Week 4 Evidence Folder
 
 1. On **Kali-Attacker**, open a terminal.
-2. Create the Week 4 evidence directory:
+2. Create the Week 4 evidence folder:
 
 ```bash
 mkdir -p ~/lab-evidence/week4
 ```
 
-3. Change into the directory:
+3. Change into the folder:
 
 ```bash
 cd ~/lab-evidence/week4
@@ -63,7 +63,7 @@ pwd
 ls -ld .
 ```
 
-**Expected result:** the working directory should be similar to:
+**Expected result:** the working folder should be similar to:
 
 ```text
 /home/<your-user>/lab-evidence/week4
@@ -75,13 +75,9 @@ Take one screenshot showing the Week 4 evidence folder.
 
 ### Task 2 – Verify the Authorised Application
 
-> **Practical guidance**
-> **VM / Tool:** Ubuntu-Server terminal for the containers; Kali-Attacker browser/terminal for the connectivity check.
-> **Instructions:** First identify Ubuntu's current lab IP, then confirm that the assigned DVWA or WebGoat container is running and note its published port. From Kali, test HTTP reachability and then open the application in the browser.
-> **Commands / Inputs:** Ubuntu: `ip -br addr` ; `sudo docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'`. If needed: `sudo docker start dvwa OR sudo docker start webgoat`. Kali: `curl -I http://<UBUNTU_IP>/ for DVWA`; for WebGoat use the instructor-published port (commonly http://<UBUNTU_IP>:8081/WebGoat in this lab).
-> **Expected evidence:** Record target IP, container status, published port, HTTP status and a screenshot of the application page.
+Ubuntu-Server terminal for the containers; Kali-Attacker browser/terminal for the connectivity check.
 
-#### Step-by-step instructions
+First, identify Ubuntu's current lab IP, then confirm that the assigned DVWA or WebGoat container is running and note its published port. From Kali, test HTTP reachability and then open the application in the browser.
 
 1. On **Ubuntu-Server**, identify the current lab IP address:
 
