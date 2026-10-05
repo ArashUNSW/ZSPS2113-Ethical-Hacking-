@@ -38,14 +38,6 @@ Burp Suite Repeater is used to reproduce and modify requests.
 
 ### Task 1 – Create the Week 4 Evidence Folder
 
-> **Practical guidance**
-> **VM / Tool:** Kali-Attacker terminal.
-> **Instructions:** Create a dedicated Week 4 folder before any testing so screenshots, notes and exported evidence stay separate from previous weeks.
-> **Commands / Inputs:** `mkdir -p ~/lab-evidence/week4`; `cd ~/lab-evidence/week4`; `pwd` ; `ls -ld .`
-> **Expected evidence:** Capture the terminal showing the Week 4 path and folder.
-
-#### Step-by-step instructions
-
 1. On **Kali-Attacker**, open a terminal.
 2. Create the Week 4 evidence directory:
 
@@ -71,24 +63,7 @@ pwd
 ls -ld .
 ```
 
-6. Keep all Week 4 screenshots, notes and exported evidence in this folder.
-7. Capture one screenshot showing the terminal prompt and confirmed Week 4 path.
-
 **Expected result:** the working directory should be similar to:
-
-```text
-/home/<your-user>/lab-evidence/week4
-```
-
-On Kali-Attacker:
-
-```bash
-mkdir -p ~/lab-evidence/week4
-cd ~/lab-evidence/week4
-pwd
-```
-
-**Expected location**
 
 ```text
 /home/<your-user>/lab-evidence/week4
