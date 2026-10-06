@@ -555,7 +555,7 @@ Keep the request identical in every other respect. This is a controlled comparis
 
 2. Keep one Repeater tab containing the unchanged baseline request from Task 8.
 
-3. Duplicate the baseline request into two additional Repeater tabs (right-click on the Request editor and choose Send to Repeater) so that you have, name them accordingly:
+3. Duplicate the baseline request into two additional Repeater tabs (right-click on the Request editor and choose Send to Repeater), name them accordingly:
 
    - one **baseline** request;
    - one **true-condition** request;
@@ -757,193 +757,424 @@ A strong answer should refer to a reproducible difference between the baseline a
 
 ### Task 11 – Establish the Command Baseline
 
+The purpose of this task is to document the application's **normal behaviour** before any command separator or modified input is introduced.
 
- Kali-Attacker browser.
- Open the authorised command/input-handling lesson and submit a legitimate value that matches the field's intended purpose. For DVWA Command Injection, use a normal IP address first.
-> **Commands / Inputs:** Normal example: 127.0.0.1
-> **Expected evidence:** Record parameter name, intended function, normal value and normal output.
+A baseline gives you a known-good request and response that can be compared with later command-injection tests. Use only a legitimate value that matches the intended purpose of the field.
 
-1. Use the **Kali-Attacker browser**.
-2. Open the authorised command/input-handling lesson.
-3. Identify the intended purpose of the input field.
-4. For the DVWA Command Injection lesson, submit a normal IP address first:
+1. On **Kali-Attacker**, open the authorised command/input-handling lesson in the browser.
+
+2. Identify the purpose of the input field.
+
+   For example, in the DVWA **Command Injection** lesson, the field is intended to accept an IP address.
+
+3. Submit a normal value that matches the intended field purpose.
+
+   For DVWA Command Injection, use:
 
 ```text
 127.0.0.1
 ```
 
-5. Observe the normal application output.
+4. Do **not** add command separators, shell operators, extra commands, or unrelated input.
+
+5. Observe the normal application response.
+
 6. Record:
-   - input parameter;
-   - intended function;
-   - normal value;
-   - normal output.
-7. Capture a baseline screenshot.
 
-**Expected result:** a normal command/input request is documented before any separator or command is added.
+   - input parameter name;
+   - intended function of the field;
+   - normal value submitted;
+   - normal visible output;
+   - response status, if available;
+   - response length, if available.
 
-Open the designated command/input-handling lesson.
+7. Capture one screenshot showing the normal input and resulting application behaviour.
 
-Use a normal value, for example:
+### Complete the table
 
-```text
-127.0.0.1
-```
+| **Item** | **Observed value** |
+|---|---|
+| Input parameter | |
+| Intended purpose | |
+| Normal value | `127.0.0.1` |
+| Response status | |
+| Response length | |
+| Normal output | |
 
-Complete the table below:
+### Evidence to capture
 
-| Item | Observation |
-| --- | --- |
-| Input parameter |  |
-| Intended purpose |  |
-| Normal value |  |
-| Normal output |  |
+Capture one screenshot showing:
+
+- the authorised lesson;
+- the normal input value;
+- the resulting application output.
+
+If Browser Developer Tools or Burp Suite is available, you may also record the corresponding response status and response length.
+
+Do not expose passwords, session identifiers, authentication tokens, or other sensitive values in submitted evidence.
+
+### Expected result
+
+Document a reproducible normal request and response before testing any command separator or modified command input.
+
+Use this baseline to compare later requests and determine whether modified input causes a meaningful change in application behaviour.
 
 ### Task 12 – Capture the Request in Burp
 
-Kali-Attacker, Burp Proxy and Repeater.
+The purpose of this task is to capture the normal command/input request from Task 11, identify exactly where the user-controlled value appears, and confirm that the request can be reproduced in **Burp Repeater** before any modification is made.
 
-Locate the normal command/input request in HTTP history, inspect where the user value appears, then send that request to Repeater without changing it.
+1. On **Kali-Attacker**, open Burp Suite and use the lab browser configured to send traffic through Burp.
 
-1. Use **Kali-Attacker → Burp Proxy**.
-2. Submit the normal value from Task 11.
-3. Open **Proxy → HTTP history**.
-4. Locate the matching request.
-5. Inspect where the user-supplied value appears.
-6. Record the method, path, parameter name and normal value.
-7. Right-click the request and select **Send to Repeater**.
-8. Open Repeater and send the request once without modification.
-9. Keep the baseline response for comparison.
+2. In the authorised command/input-handling lesson, submit the same normal value used in Task 11.
 
-**Expected result:** the normal command/input request is reproducible in Repeater and the input parameter is known.
+   For DVWA Command Injection, for example:
 
-Locate the request in Burp and send it to Repeater.
+```text
+127.0.0.1
+```
 
-Identify where the user input appears.
+3. In Burp Suite, open:
 
-Complete the table below:
+```text
+Proxy → HTTP history
+```
 
-| Item | Observation |
-| --- | --- |
-| Method |  |
-| Path |  |
-| Parameter |  |
-| Normal value |  |
+4. Locate the request generated by the normal submission.
+
+5. Confirm that the request belongs to the authorised DVWA or WebGoat target.
+
+6. Select the request and identify where the user-supplied value appears.
+
+   Depending on the application, the value may appear:
+
+   - in the URL query string; or
+   - in the request body.
+
+7. Record:
+
+   - HTTP method;
+   - request path;
+   - parameter name;
+   - normal parameter value;
+   - response status;
+   - response length.
+
+8. Right-click the request and select:
+
+```text
+Send to Repeater
+```
+
+9. Open the **Repeater** tab.
+
+10. Before changing anything, click:
+
+```text
+Send
+```
+
+11. Confirm that the response in Repeater matches the normal application behaviour observed in Task 11.
+
+12. Keep this request and response unchanged as the **command/input baseline** for later comparison.
+
+13. Do not change cookies, session values, tokens, request method, path, or unrelated parameters unless a later task specifically instructs you to do so.
+
+### Complete the table
+
+| **Item** | **Observed value** |
+|---|---|
+| HTTP method | |
+| Request path | |
+| Parameter name | |
+| Normal value | `127.0.0.1` |
+| Response status | |
+| Response length | |
+| Baseline behaviour reproduced in Repeater? | Yes / No |
+
+### Evidence to capture
+
+Capture one screenshot showing:
+
+- the normal command/input request in Burp;
+- the identified parameter and normal value;
+- the response status;
+- the response length;
+- enough response content to confirm the baseline behaviour.
+
+Redact passwords, session identifiers, authentication tokens, and other sensitive values before submitting evidence.
+
+### Expected result
+
+The normal command/input request is visible in Burp, the user-controlled parameter is clearly identified, and the same request can be reproduced successfully in Repeater without modification.
+
+This provides a stable baseline for controlled comparison in the later command-injection tasks.
 
 ### Task 13 – Perform a Harmless Command-Handling Test
 
-Kali-Attacker, Burp Repeater, against the authorised DVWA/WebGoat lesson only.
+The purpose of this task is to determine whether the authorised training application interprets additional operating-system command input after the normal baseline value.
 
-Change only the input parameter and append one harmless operating-system command. Use the smallest proof necessary and stop if you obtain clear evidence. Never modify files, users, permissions or services.
+Use only the designated DVWA/WebGoat command-injection lesson. Apply the **minimum harmless proof necessary**, change only the identified user-controlled parameter, and stop once clear evidence is obtained.
 
-1. Use **Kali-Attacker → Burp Repeater** against the authorised vulnerable lesson only.
-2. Start with the baseline request from Task 12.
-3. Change only the input parameter.
-4. Use one harmless proof-of-concept input, for example:
+1. On **Kali-Attacker**, open **Burp Suite → Repeater**.
 
-```text
-127.0.0.1; whoami
-```
+2. Start from the unchanged command/input baseline request created in Task 12.
 
-5. If the designated lesson uses a different supported separator, the instructor may permit:
+3. Confirm that the request belongs to the authorised DVWA or WebGoat lesson.
 
-```text
-127.0.0.1 && whoami
-```
+4. Change **only** the identified input parameter.
 
-6. Send the request once.
-7. Look for additional output that would indicate the second command was interpreted.
-8. Do not modify files, create users, change permissions, stop services, establish shells or alter configuration.
-9. Stop after sufficient evidence is obtained.
-10. Capture the request and relevant response output.
-
-**Expected result:** the student demonstrates only the minimum harmless evidence required to assess command interpretation.
-
-Only within the designated vulnerable lesson, use a controlled test such as:
+5. Use one harmless proof-of-concept value, for example:
 
 ```text
 127.0.0.1; whoami
 ```
 
-or, where supported:
+6. If the instructor-designated lesson requires a different supported command separator, the instructor may instead permit:
 
 ```text
 127.0.0.1 && whoami
 ```
 
-Do not use commands that:
+7. Keep all other request elements unchanged, including:
 
-- modify files;
-- create users;
-- change permissions;
-- stop services;
-- establish shells;
-- alter system configuration.
+   - HTTP method;
+   - request path;
+   - cookies;
+   - session values;
+   - tokens;
+   - unrelated parameters.
+
+8. Send the modified request **once**.
+
+9. Compare the response with the normal baseline from Task 12.
+
+10. Look only for the minimum observable evidence needed to determine whether the second command was interpreted, such as:
+
+   - additional command output;
+   - a changed response body;
+   - a changed response length;
+   - a changed application message;
+   - no observable difference.
+
+11. Record the actual result from your environment. Do not assume command execution occurred unless the response provides supporting evidence.
+
+12. Stop testing once sufficient evidence has been obtained.
+
+13. Do **not** use commands that:
+
+   - modify or delete files;
+   - create or modify users;
+   - change permissions;
+   - stop or restart services;
+   - alter system configuration;
+   - establish reverse/bind shells;
+   - download or execute additional payloads;
+   - attempt privilege escalation.
+
+### Complete the table
+
+| **Item** | **Observed value** |
+|---|---|
+| Parameter name | |
+| Baseline value | `127.0.0.1` |
+| Test value | `127.0.0.1; whoami` or instructor-approved equivalent |
+| HTTP method | |
+| Request path | |
+| Response status | |
+| Response length | |
+| Additional output observed? | Yes / No |
+| Observed application behaviour | |
+| Supported interpretation | |
+
+### Evidence to capture
+
+Capture one screenshot showing:
+
+- the authorised target and lesson;
+- the modified input parameter;
+- the response status;
+- the response length;
+- the relevant response content that supports your observation.
+
+Redact passwords, session identifiers, authentication tokens, and other sensitive values before submitting evidence.
+
+### Expected result
+
+The student records whether the application appears to interpret the appended harmless operating-system command.
+
+Clear additional output may support the conclusion that the input is influencing command execution in the authorised lesson. However, the student should report only what the evidence demonstrates and should stop once minimal proof has been obtained.
 
 ### Task 14 – Compare Baseline and Modified Input
 
-Kali-Attacker, Burp Repeater.
+The purpose of this task is to compare the normal command/input baseline with the modified request from Task 13 using objective response evidence.
 
-Place the baseline and modified responses side by side and compare status, response length, normal application output and any additional command output.
+Use only the authorised DVWA/WebGoat lesson and record what is actually observed. Do not infer command execution solely from a changed response unless the returned content supports that conclusion.
 
-1. Use **Kali-Attacker → Burp Repeater**.
-2. Place the Task 11/12 baseline response and Task 13 modified response side by side.
-3. Compare:
-   - HTTP status;
+1. On **Kali-Attacker**, open **Burp Suite → Repeater**.
+
+2. Keep the following responses available for comparison:
+
+   - the normal baseline response from Tasks 11/12;
+   - the modified response from Task 13.
+
+3. Compare the two responses side by side where possible.
+
+4. Record the following for both responses:
+
+   - HTTP status code;
    - response length;
    - normal application output;
    - any additional command output;
-   - whether a username is returned;
+   - whether a username or other command result is returned;
    - any other visible difference.
-4. Fill in the comparison table using only observed results.
-5. Capture the response section that contains the relevant difference.
 
-**Expected result:** the baseline and modified requests are compared using objective response evidence.
+5. If Burp shows a measurable response-length difference, record the actual values.
 
-Complete the table below:
+6. If additional command output is visible, record only the minimum relevant evidence needed to support the observation.
 
-| Feature | Normal input | Modified input |
-| --- | --- | --- |
-| HTTP status |  |  |
-| Response length |  |  |
-| Normal application output |  |  |
-| Additional command output |  |  |
-| Username returned? |  |  |
-| Other difference |  |  |
+7. If there is no observable difference, record:
 
-#### Evidence requirement
+```text
+No observable difference
+```
 
-Capture one Burp Repeater request/response demonstrating the observed behaviour.
+8. Do not change the request again in this task. This task is for comparison only.
+
+9. Capture evidence showing the relevant difference between the baseline and modified responses.
+
+### Complete the table
+
+| **Feature** | **Normal input** | **Modified input** |
+|---|---|---|
+| HTTP status | | |
+| Response length | | |
+| Normal application output | | |
+| Additional command output | | |
+| Username returned? | Yes / No | Yes / No |
+| Other visible difference | | |
+
+### Supported interpretation
+
+After completing the table, write one short evidence-based statement.
+
+For example:
+
+> The modified request produced additional output that was not present in the baseline response, while the request method, path, cookies, and unrelated parameters remained unchanged.
+
+Or, if nothing changed:
+
+> No observable response difference was identified between the baseline and modified requests.
+
+Do not claim broader system compromise unless you explicitly demonstrate it.
+
+### Evidence requirement
+
+Capture one Burp Repeater screenshot showing:
+
+- the baseline response;
+- the modified response;
+- the relevant response status and length;
+- the response section containing the observed difference.
+
+Redact passwords, session identifiers, authentication tokens, and other sensitive values before submitting evidence.
+
+### Expected result
+
+Compare the baseline and modified requests using objective response evidence, allowing the student to explain whether the modified input caused a reproducible change in application behaviour.
 
 ### Task 15 – Confirm Reproducibility
 
-Kali-Attacker, Burp Repeater.
+The purpose of this task is to confirm whether the harmless command-handling result observed in Task 13 can be reproduced consistently using the **same request**.
 
-Repeat the same harmless request once to confirm that the result is reproducible. Do not escalate to additional commands after sufficient proof has been obtained.
+This task is for confirmation only. Do not introduce additional commands, separators, payloads, or escalation once sufficient evidence has already been obtained.
 
-1. Use **Kali-Attacker → Burp Repeater**.
-2. Resend the exact harmless request used in Task 13 once more.
-3. Do not add another command or increase the test.
-4. Confirm whether the same additional output is observed again.
-5. Record:
-   - confirmed observation;
-   - affected parameter;
-   - evidence of command interpretation.
-6. If the result is inconsistent, record it as inconclusive rather than escalating the test.
+1. On **Kali-Attacker**, open **Burp Suite → Repeater**.
 
-**Expected result:** the observation is either reproducible or explicitly recorded as inconclusive.
+2. Locate the exact harmless modified request used in Task 13.
 
-Repeat the same controlled request once.
+3. Confirm that the request still belongs to the authorised DVWA or WebGoat lesson.
 
-Record only what is demonstrated.
+4. Resend the **same request once more** without changing:
 
-Confirmed observation:
+   - the input parameter;
+   - HTTP method;
+   - request path;
+   - cookies;
+   - session values;
+   - tokens;
+   - unrelated parameters.
 
-Affected parameter:
+5. Compare the new response with the modified response observed in Task 13.
 
-Evidence of command interpretation:
+6. Check whether the same relevant evidence appears again, such as:
 
-Stop when you have collected sufficient evidence.
+   - the same additional command output;
+   - the same username or command result;
+   - the same response pattern;
+   - a similar response length;
+   - the same application behaviour.
+
+7. Record the result as one of the following:
+
+```text
+Reproducible
+```
+
+```text
+Not reproducible
+```
+
+or:
+
+```text
+Inconclusive
+```
+
+8. If the result is inconsistent, record it as **inconclusive**. Do not escalate the test by introducing additional commands.
+
+9. Stop once sufficient confirmation evidence has been collected.
+
+### Complete the table
+
+| **Item** | **Observed value** |
+|---|---|
+| Affected parameter | |
+| Test value used | |
+| First observed result | |
+| Repeated result | |
+| Same additional output observed? | Yes / No |
+| Response status | |
+| Response length | |
+| Reproducibility outcome | Reproducible / Not reproducible / Inconclusive |
+
+### Confirmed observation
+
+Write one short evidence-based statement.
+
+For example:
+
+> Repeating the same harmless request produced the same additional output as Task 13, indicating that the observed behaviour is reproducible.
+
+Or, if the result differs:
+
+> Repeating the same harmless request did not produce the same output, so the result is recorded as inconclusive.
+
+### Evidence requirement
+
+Capture one Burp Repeater screenshot showing:
+
+- the repeated request;
+- the affected parameter;
+- the relevant response output;
+- the response status and length.
+
+Redact passwords, session identifiers, authentication tokens, and other sensitive values before submitting evidence.
+
+### Expected result
+
+The student determines whether the observed command-handling behaviour is reproducible using the same controlled request.
+
+Record the result as **reproducible**, **not reproducible**, or **inconclusive**, without escalating beyond the minimum harmless proof already used.
 
 ## Part E – Understand the Impact
 
