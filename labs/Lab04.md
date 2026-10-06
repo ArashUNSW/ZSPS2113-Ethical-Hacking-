@@ -403,8 +403,6 @@ One specific user-controlled SQL parameter is identified from the observed reque
 
 ### Task 7 – Test a SQL Metacharacter
 
-## Task 7 – Test a SQL Metacharacter
-
 The purpose of this task is to determine whether a single SQL metacharacter changes the application's observable behaviour when it is supplied to the user-controlled parameter identified in Task 6.
 
 A single quote (`'`) is commonly used as a simple diagnostic input because it may affect SQL parsing if the application places user input directly into a query. However, a changed response is only an indication for further investigation and does **not** by itself confirm SQL injection.
@@ -496,11 +494,7 @@ Send to Repeater
 
 6. Open the **Repeater** tab.
 
-7. Before changing any parameter, click:
-
-```text
-Send
-```
+7. Before changing any parameter, click Send
 
 8. Inspect the response and confirm that it matches the original baseline behaviour.
 
@@ -561,7 +555,7 @@ Keep the request identical in every other respect. This is a controlled comparis
 
 2. Keep one Repeater tab containing the unchanged baseline request from Task 8.
 
-3. Duplicate the baseline request into two additional Repeater tabs so that you have:
+3. Duplicate the baseline request into two additional Repeater tabs (right-click on the Request editor and choose Send to Repeater) so that you have, name them accordingly:
 
    - one **baseline** request;
    - one **true-condition** request;
