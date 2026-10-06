@@ -472,124 +472,292 @@ A changed response is a **lead for further investigation**, not automatic proof 
 
 ### Task 8 – Send the SQL Request to Repeater
 
-Kali-Attacker, Burp Suite Repeater.
+The purpose of this task is to confirm that the baseline SQL request captured in Burp can be reproduced reliably in **Repeater** before any further modification.
 
-From Proxy -> HTTP history, send the SQL request to Repeater. Send the untouched baseline request at least once before modifying it so you know the request is reproducible.
+Repeater allows you to resend the same HTTP request manually and compare the server response after making controlled changes. Before editing anything, first confirm that the original request produces the same normal behaviour observed in Tasks 4–6.
 
-1. On **Kali-Attacker**, open Burp **Proxy → HTTP history**.
-2. Locate the baseline SQL request.
-3. Right-click the request.
-4. Select **Send to Repeater**.
-5. Open the **Repeater** tab.
-6. Before changing anything, click **Send** once.
-7. Confirm the baseline response in Repeater matches the original application behaviour.
-8. Keep this baseline response available for comparison.
-9. Duplicate the Repeater tab if useful, so one copy remains unchanged.
+1. On **Kali-Attacker**, open Burp Suite.
 
-**Expected result:** the original SQL request can be reproduced reliably in Repeater before modification.
+2. Go to:
 
-In Burp:
+```text
+Proxy → HTTP history
+```
 
-1. Locate the request in HTTP history.
+3. Locate the normal baseline SQL request captured in Task 6.
 
-2. Right-click.
+4. Confirm that the request belongs to the authorised DVWA or WebGoat target.
 
-3. Select Send to Repeater.
+5. Right-click the request and select:
 
-4. Open Repeater.
+```text
+Send to Repeater
+```
 
-5. Send the original request.
+6. Open the **Repeater** tab.
 
-Confirm that the response is reproducible.
+7. Before changing any parameter, click:
+
+```text
+Send
+```
+
+8. Inspect the response and confirm that it matches the original baseline behaviour.
+
+Compare:
+
+- HTTP status code;
+- response length;
+- visible response content;
+- redirect behaviour, if present.
+
+9. Keep the baseline request unchanged for comparison.
+
+10. If useful, duplicate the Repeater tab so that:
+
+- one tab remains as the unchanged baseline;
+- the second tab can be used for later modified requests.
+
+11. Do not change cookies, session values, tokens, or unrelated parameters unless a later task specifically instructs you to do so.
+
+### Complete the table
+
+| **Item** | **Observed value** |
+|---|---|
+| Target host/IP | |
+| Request method | |
+| Request path | |
+| Baseline parameter | |
+| Baseline value | |
+| Response status | |
+| Response length | |
+| Baseline behaviour reproduced? | Yes / No |
+
+### Evidence to capture
+
+Capture one screenshot showing:
+
+- the SQL request in Repeater;
+- the unchanged baseline parameter and value;
+- the response status;
+- the response length;
+- enough response content to show that the baseline behaviour was reproduced.
+
+Redact passwords, session identifiers, authentication tokens, and other sensitive values before submitting evidence.
+
+### Expected result
+
+The original SQL baseline request can be resent successfully in Burp Repeater and produces the same normal response as the request observed in the browser or Proxy HTTP history.
+
+This confirms that the request is reproducible and provides a stable baseline for controlled modifications in later tasks.
 
 ### Task 9 – Compare Boolean Conditions
 
-Kali-Attacker, Burp Repeater.
+The purpose of this task is to determine whether the authorised SQL Injection lesson produces different responses when the same user-controlled parameter is changed between a condition expected to evaluate **true** and one expected to evaluate **false**.
 
-Keep the request identical except for the SQL parameter. Send one condition expected to evaluate true and one expected to evaluate false. Compare status, body content and response length. Do not attempt database extraction.
+Keep the request identical in every other respect. This is a controlled comparison task only. Do **not** enumerate database objects or extract database contents.
 
-1. Use **Kali-Attacker → Burp Repeater**.
-2. Keep one tab containing the normal baseline request.
-3. Duplicate the request into two additional Repeater tabs.
-4. In the first modified tab, change only the SQL parameter to the designated true condition:
+1. On **Kali-Attacker**, open **Burp Suite → Repeater**.
+
+2. Keep one Repeater tab containing the unchanged baseline request from Task 8.
+
+3. Duplicate the baseline request into two additional Repeater tabs so that you have:
+
+   - one **baseline** request;
+   - one **true-condition** request;
+   - one **false-condition** request.
+
+4. In the **true-condition** tab, change only the identified SQL parameter to the instructor-designated true condition:
 
 ```text
 ' OR '1'='1
 ```
 
-5. Send the request and record the status, response length and visible content.
-6. In the second modified tab, use the designated false condition:
+5. Send the request.
+
+6. Record:
+
+   - HTTP status code;
+   - response length;
+   - visible response content;
+   - record count, if clearly shown;
+   - error or application message;
+   - whether the behaviour differs from the baseline.
+
+7. In the **false-condition** tab, change only the same SQL parameter to the instructor-designated false condition:
 
 ```text
 ' OR '1'='2
 ```
 
-7. Send the request and record the same fields.
-8. Compare all three responses:
+8. Send the request and record the same observations.
+
+9. Compare the three responses:
+
    - baseline;
    - true condition;
    - false condition.
-9. Do not enumerate tables or extract database data.
-10. Capture screenshots showing the comparable request/response evidence.
 
-**Expected result:** the student can explain whether the true and false conditions produce consistently different application responses.
+10. Keep the following unchanged unless the lesson specifically requires otherwise:
 
-Where supported by the designated lesson, test a controlled condition such as:
+   - HTTP method;
+   - request path;
+   - cookies;
+   - session values;
+   - tokens;
+   - unrelated parameters.
 
-```text
-' OR '1'='1
-```
+11. Confirm that all requests belong to the authorised DVWA or WebGoat target.
 
-Then compare with:
+12. Do **not** attempt to enumerate tables, columns, users, credentials, or other database content.
 
-```text
-' OR '1'='2
-```
+### Complete the table
 
-Complete the table below:
+| **Feature** | **Baseline** | **True condition** | **False condition** |
+|---|---|---|---|
+| Input value | Normal value from Task 8 | `' OR '1'='1` | `' OR '1'='2` |
+| HTTP status | | | |
+| Response length | | | |
+| Records/content | | | |
+| Error/message | | | |
+| Behaviour changed? | | | |
 
-| Feature | Baseline | True condition | False condition |
-| --- | --- | --- | --- |
-| Status |  |  |  |
-| Response length |  |  |  |
-| Records/content |  |  |  |
-| Error/message |  |  |  |
-| Behaviour changed? |  |  |  |
+### How to interpret the comparison
 
-#### Evidence to capture
+Look for a **consistent difference** between the true and false conditions.
 
-Capture the Repeater requests and the corresponding responses.
+Examples of observable differences may include:
+
+- different response length;
+- different page content;
+- different number of records;
+- different application message;
+- different HTTP status;
+- no observable difference.
+
+A difference between the true and false conditions may support further investigation, but it is **not by itself proof of SQL injection**. Likewise, no visible difference does not prove that SQL injection is impossible.
+
+### Evidence to capture
+
+Capture screenshots showing:
+
+- the baseline request and response;
+- the true-condition request and response;
+- the false-condition request and response;
+- comparable status and response-length evidence.
+
+Redact passwords, session identifiers, authentication tokens, and other sensitive values before submitting evidence.
+
+### Expected result
+
+The student can explain whether the baseline, true condition, and false condition produce consistently different application responses while changing only the authorised SQL parameter.
+
+The task should demonstrate controlled comparison and evidence-based interpretation without database enumeration or data extraction.
 
 ### Task 10 – Identify the Injection Point
 
-Kali-Attacker, Burp Repeater and your evidence notes.
+The purpose of this task is to use the evidence collected in Tasks 6–9 to identify the exact user-controlled parameter whose modification changes the application's observable behaviour.
 
-Use the request/response comparison to identify exactly which parameter changes application behaviour. Describe only what your evidence supports, not what you assume the database contains.
+No new payload is required. This task is about **evidence-based interpretation**, not further exploitation.
 
-1. Use the evidence from Tasks 6–9; no new payload is required.
-2. In Burp Repeater, confirm which parameter was changed between the baseline and modified requests.
-3. Record the request method and path.
-4. Describe the normal behaviour.
-5. Describe the modified behaviour.
-6. Reference the specific Repeater tab or screenshot that supports the observation.
-7. Write a supported interpretation only.
-8. Do not state that the database is compromised unless that was actually demonstrated.
+1. Review the evidence collected in Tasks 6–9.
 
-**Expected result:** the report clearly identifies the affected parameter and the observable behaviour that supports further SQL injection analysis.
+2. In **Burp Repeater**, identify the parameter that was changed between:
 
-**Complete**
+   - the baseline request;
+   - the single-quote test;
+   - the true-condition request;
+   - the false-condition request.
 
-Affected parameter: __________
+3. Record the exact parameter name.
 
-Request method: __________
+4. Record the HTTP request method used by the affected request:
 
-Normal behaviour: __________
+```text
+GET
+```
 
-Modified behaviour: __________
+or:
 
-#### Knowledge Check
+```text
+POST
+```
 
-What evidence supports the conclusion that user input is influencing SQL query behaviour?
+5. Record the request path.
+
+6. Describe the **normal baseline behaviour** observed when the parameter contained the expected value.
+
+7. Describe the **modified behaviour** observed when the same parameter was changed during Tasks 7 and 9.
+
+8. Reference the specific evidence that supports your conclusion, such as:
+
+   - Repeater tab name or number;
+   - screenshot filename;
+   - response status;
+   - response length;
+   - visible content difference;
+   - error or application message.
+
+9. Write only a **supported interpretation** based on the observed request/response differences.
+
+10. Do not claim that:
+
+   - the database has been compromised;
+   - data has been extracted;
+   - authentication has been bypassed;
+   - arbitrary SQL execution has been achieved;
+
+   unless those outcomes were explicitly demonstrated in an authorised task.
+
+### Complete the table
+
+| **Item** | **Observed value** |
+|---|---|
+| Affected parameter | |
+| Request method | |
+| Request path | |
+| Baseline value | |
+| Normal behaviour | |
+| Modified behaviour | |
+| Evidence reference | |
+| Supported interpretation | |
+
+### Example of a supported interpretation
+
+> Changing the value of the identified parameter produced a consistent difference between the baseline, true-condition, and false-condition responses. This indicates that the parameter influences server-side application behaviour and warrants further authorised SQL injection analysis.
+
+Do not write:
+
+> The database is compromised.
+
+unless that conclusion has actually been demonstrated.
+
+### Evidence to capture
+
+Use evidence already collected in Tasks 6–9. No new payload is required.
+
+Your evidence should show, where available:
+
+- the affected parameter;
+- the baseline request;
+- the modified request;
+- the relevant response difference;
+- response status and length;
+- visible application behaviour.
+
+Redact passwords, session identifiers, authentication tokens, and other sensitive values before submitting evidence.
+
+### Expected result
+
+The student clearly identifies the user-controlled parameter associated with the observed behaviour change and supports the conclusion with specific request/response evidence.
+
+The result should identify an **injection point for further authorised investigation**, not make unsupported claims about database compromise.
+
+### Knowledge Check
+
+**What evidence supports the conclusion that user input is influencing SQL query behaviour?**
+
+A strong answer should refer to a reproducible difference between the baseline and modified requests while all unrelated request elements remain unchanged. Relevant evidence may include different response content, response length, record count, error messages, or consistent differences between true and false Boolean conditions.
 
 ## Part D – Command / Input Handling
 
