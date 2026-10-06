@@ -1180,332 +1180,702 @@ Record the result as **reproducible**, **not reproducible**, or **inconclusive**
 
 ### Task 16 – Separate Evidence from Assumption
 
-Kali-Attacker evidence folder or your report workstation; no new probing is required.
+The purpose of this task is to distinguish **what was directly observed** from **what the evidence reasonably supports** and from **claims that would go beyond the available evidence**.
 
-Review the screenshots and Burp responses already collected. For each observation, write one supported interpretation and one claim that would be unsupported by the current evidence.
+No new probing is required. Use only the screenshots, Burp requests/responses, and notes already collected during the SQL Injection and command/input tasks.
 
-1. No new probing is required.
-2. Use the **Kali-Attacker evidence folder** or your report workstation.
-3. Review the screenshots and Burp responses from the SQL and command/input tasks.
-4. For each important observation, write:
-   - what was directly observed;
-   - what the evidence reasonably supports;
-   - one claim that is not supported.
-5. If useful, create a note file:
+1. Use the **Kali-Attacker evidence folder** or your report workstation.
+
+2. Review the evidence collected in the earlier tasks, including:
+
+   - baseline requests and responses;
+   - SQL metacharacter and Boolean-condition comparisons;
+   - identified SQL parameter evidence;
+   - command/input baseline evidence;
+   - harmless command-handling test results;
+   - reproducibility evidence.
+
+3. For each important observation, record three separate statements:
+
+   - **Observed evidence** – what you directly saw in the request, response, browser, or Burp Suite;
+   - **Supported interpretation** – what the evidence reasonably indicates;
+   - **Unsupported assumption** – a stronger claim that the current evidence does not prove.
+
+4. Keep each statement concise and evidence-based.
+
+5. Do not convert a behavioural difference into a broader compromise claim unless that outcome was explicitly demonstrated.
+
+6. If useful, create a note file:
 
 ```bash
 nano ~/lab-evidence/week4/evidence-vs-assumption.txt
 ```
 
-6. Save the completed table in the Week 4 evidence folder.
+7. Save the completed notes or table in the Week 4 evidence folder.
 
-**Expected result:** the report separates evidence from assumptions and avoids overstating exploitability.
+### Complete the table
 
-Complete the table below:
+| **Observed evidence** | **Supported interpretation** | **Unsupported assumption** |
+|---|---|---|
+| True and false SQL conditions produce different responses | The tested input may influence server-side query behaviour | The entire database is compromised |
+| `whoami` output appears in the response | The tested input may reach operating-system command execution | Root or administrator access has been obtained |
+| A database-related error message appears | The input reaches database-related processing | Every SQL injection technique will succeed |
+| Repeating the same harmless command test produces the same output | The observed command-handling behaviour is reproducible | Persistent system compromise has been achieved |
+| Your example | | |
 
-| Observed evidence | Supported interpretation | Unsupported assumption |
-| --- | --- | --- |
-| True/false SQL responses differ | Input may influence query logic | Entire database is compromised |
-| whoami output appears | Input may reach OS command execution | Root access has been obtained |
-| Database error appears | Input reaches database-related processing | All SQL injection attacks will succeed |
-| Your example |  |  |
+### Guidance
+
+A strong entry should follow this pattern:
+
+```text
+Observed evidence → Supported interpretation → Unsupported assumption
+```
+
+For example:
+
+```text
+Response length changed between true and false conditions
+→ The application handled the two inputs differently
+→ The database contents can be extracted
+```
+
+The first statement is directly observable.
+
+The second is a reasonable interpretation.
+
+The third would require additional authorised testing and is therefore unsupported by the current evidence.
+
+### Evidence requirement
+
+No new probing is required.
+
+Use the evidence already collected in previous tasks and reference the relevant screenshot, Burp Repeater tab, or saved response where appropriate.
+
+### Expected result
+
+The student clearly separates direct observations from supported interpretations and unsupported claims.
+
+The final report should avoid overstating exploitability, access level, or system compromise beyond what the collected evidence actually demonstrates.
 
 ### Task 17 – Assess Security Impact
 
-Kali-Attacker evidence folder or report workstation.
+The purpose of this task is to assess the demonstrated SQL Injection and command/input-handling findings against **confidentiality, integrity, availability, and privilege** using only the evidence collected in the lab.
 
-Assess the demonstrated issue against confidentiality, integrity, availability and privilege. Base each statement on the observed behaviour and clearly mark impacts that would require further verification.
+No additional attack request is required. Do not claim an impact that was not demonstrated. Where an impact is plausible but untested, record it as **Requires further verification**.
 
-1. No additional attack request is required.
-2. Review the demonstrated SQL and command/input behaviour.
-3. For each finding, consider **confidentiality**:
-   - was information exposed;
-   - or would exposure require further verification?
-4. Consider **integrity**:
-   - was data or command behaviour changed;
-   - or is this only a potential impact?
-5. Consider **availability**:
-   - was the service disrupted;
-   - or is disruption only theoretical?
-6. Consider **privilege**:
-   - what application/service account is involved;
-   - was its privilege level actually observed?
-7. Complete the impact table.
-8. Clearly label untested impacts as requiring further verification.
+1. Use the **Kali-Attacker evidence folder** or your report workstation.
 
-**Expected result:** impact statements remain tied to the evidence collected in the lab.
+2. Review the evidence already collected for:
 
-For each demonstrated weakness, consider:
+   - SQL Injection testing;
+   - Boolean-condition comparison;
+   - identified SQL injection point;
+   - command/input baseline;
+   - harmless command-handling test;
+   - reproducibility evidence.
+
+3. For each finding, assess **Confidentiality**.
+
+   Ask:
+
+   - Was information actually exposed?
+   - What information was visible?
+   - Was only application behaviour observed?
+   - Would broader data exposure require further verification?
+
+4. Assess **Integrity**.
+
+   Ask:
+
+   - Was application data actually modified?
+   - Was command behaviour altered?
+   - Was only command interpretation demonstrated?
+   - Would data modification require further verification?
+
+5. Assess **Availability**.
+
+   Ask:
+
+   - Was the application or service disrupted?
+   - Did the test affect normal availability?
+   - Is service disruption only a theoretical possibility?
+
+6. Assess **Privilege**.
+
+   Ask:
+
+   - What application, database, or operating-system account appears to be involved?
+   - Was the account identity actually observed?
+   - Was the privilege level demonstrated?
+   - Would elevated privilege require further verification?
+
+7. Complete the impact table using only evidence from the authorised lab.
+
+8. Use one of the following where appropriate:
+
+```text
+Observed
+```
+
+```text
+Not observed
+```
+
+```text
+Requires further verification
+```
+
+9. Do not convert a potential impact into a confirmed finding unless the lab evidence directly supports it.
+
+### Complete the table
+
+| **Impact area** | **SQL Injection** | **Command/Input Handling** |
+|---|---|---|
+| Confidentiality | | |
+| Integrity | | |
+| Availability | | |
+| Privilege considerations | | |
+
+### Guidance for each impact area
 
 #### Confidentiality
 
-Could the weakness expose information?
+Record whether the demonstrated weakness exposed information.
+
+Example:
+
+> Different SQL responses were observed, but unauthorised data disclosure was not demonstrated. Broader confidentiality impact requires further verification.
 
 #### Integrity
 
-Could it potentially modify information or commands?
+Record whether the test actually changed data or command behaviour.
+
+Example:
+
+> The command/input test demonstrated altered command handling, but modification of files or application data was not performed.
 
 #### Availability
 
-Could misuse affect application/service availability?
+Record whether the service was disrupted.
+
+Example:
+
+> No service interruption was observed during testing. Availability impact was not demonstrated.
 
 #### Privilege
 
-What account or application privilege is involved?
+Record only the account or privilege information actually observed.
 
-Complete the table below:
+Example:
 
-| Impact area | SQL Injection | Command/Input Handling |
-| --- | --- | --- |
-| Confidentiality |  |  |
-| Integrity |  |  |
-| Availability |  |  |
-| Privilege considerations |  |  |
+> The `whoami` response identified the account under which the command executed. Elevated privileges were not demonstrated.
 
-Do not claim an impact you did not demonstrate.
+If no account identity was observed, record:
+
+```text
+Requires further verification
+```
+
+### Evidence requirement
+
+No new probing is required.
+
+Base each impact statement on the evidence already collected and, where useful, reference the relevant:
+
+- screenshot;
+- Burp Repeater tab;
+- response body;
+- response status;
+- response length;
+- command output.
+
+### Expected result
+
+The student produces impact statements that are directly tied to observed evidence and clearly distinguishes confirmed impact from potential impact that would require further verification.
+
+Do not claim confidentiality loss, data modification, service disruption, or elevated privilege unless those outcomes were actually demonstrated in the authorised lab.
 
 ## Part F – Remediation
 
 ### Task 18 – Understand SQL Injection Remediation
 
-Kali-Attacker browser; use DVWA View Source or the WebGoat lesson explanation where provided.
+The purpose of this task is to explain **why parameterised queries / prepared statements reduce SQL injection risk** by separating SQL code from user-supplied data.
 
-Review how the vulnerable lesson handles database input and identify where user data is combined with SQL. Compare that pattern with a parameterised/prepared-statement design. Do not edit the target container unless the instructor explicitly asks you to.
+No new attack request is required. This is a remediation and secure-coding review task.
 
-1. Use the **Kali-Attacker browser**.
-2. If using DVWA, open **View Source** for the SQL Injection lesson where available.
-3. If using WebGoat, review the lesson explanation or remediation section.
-4. Identify the unsafe pattern where user-controlled data is combined with SQL.
-5. Compare the unsafe pattern conceptually with a parameterised query.
+1. On **Kali-Attacker**, open the authorised SQL Injection lesson in the browser.
 
-Unsafe concept:
+2. If using **DVWA**, open the lesson's **View Source** option where available.
 
-```text
-query = "SELECT * FROM users WHERE id = '" + user_input + "'"
-```
+3. If using **WebGoat**, review the lesson explanation, solution, or remediation guidance provided for the SQL Injection exercise.
 
-Safer SQL structure:
+4. Identify the unsafe coding pattern in which user-controlled input is combined directly with an SQL statement.
 
-```sql
-SELECT * FROM users WHERE id = ?
-```
-
-6. Explain that the value is bound separately from the SQL structure.
-7. Where relevant, note a prepared-statement pattern such as `prepare(...)` followed by parameter binding/execution.
-8. Do not modify the target container unless specifically instructed.
-
-**Expected result:** the student can explain why parameterised queries prevent user input from changing SQL syntax.
-
-Consider the unsafe approach:
+   Conceptually, an unsafe pattern may look like:
 
 ```text
 query = "SELECT * FROM users WHERE id = '" + user_input + "'"
 ```
 
-A safer approach separates SQL code from data:
+5. Explain why this is unsafe.
+
+   When user input is concatenated directly into the SQL statement, specially crafted input may alter the intended SQL syntax rather than being treated only as data.
+
+6. Compare this with a parameterised query.
+
+   A safer SQL structure is:
 
 ```sql
 SELECT * FROM users WHERE id = ?
 ```
 
-with the value supplied separately.
+7. Explain that the placeholder represents data that is supplied separately from the SQL statement.
 
-#### Main control
+8. Where the application language or lesson supports it, identify the equivalent prepared-statement pattern, for example:
 
-Parameterised queries / prepared statements
+```text
+prepare(...)
+bind parameter(s)
+execute(...)
+```
 
-**Complete**
+9. Record the relevant remediation concept shown by the lesson.
 
-Parameterised queries reduce SQL injection risk because __________.
+10. Do **not** edit the DVWA/WebGoat container or application source unless the instructor explicitly asks you to do so.
+
+### Complete the table
+
+| **Item** | **Observation / explanation** |
+|---|---|
+| Vulnerable lesson reviewed | |
+| Unsafe input-handling pattern | |
+| Why the pattern is unsafe | |
+| Safer SQL structure | |
+| Main remediation control | Parameterised queries / prepared statements |
+| Additional secure-coding control observed, if any | |
+
+### Complete the statement
+
+> Parameterised queries reduce SQL injection risk because ________________________________.
+
+A strong answer should explain that **the SQL statement structure is defined separately from user-supplied values, so the input is treated as data rather than executable SQL syntax**.
+
+### Knowledge Check
+
+1. What is the security problem with concatenating user input directly into an SQL query?
+2. What is the purpose of the `?` placeholder in a parameterised query?
+3. Why is parameter binding safer than building a query through string concatenation?
+4. Does parameterisation remove the need for all other input validation? Explain briefly.
+
+### Expected result
+
+The student can explain, using the authorised lesson as context, why parameterised queries / prepared statements are a primary control against SQL injection.
+
+The student should distinguish between:
+
+```text
+SQL code + concatenated user input
+```
+
+and:
+
+```text
+SQL statement structure + separately bound data
+```
+
+No modification of the target application is required for this task.
 
 ### Task 19 – Identify Command/Input Remediation
 
-Kali-Attacker browser and lesson source/explanation; Ubuntu changes are not required unless specifically instructed.
+The purpose of this task is to identify remediation controls for the command/input-handling weakness observed in the authorised lab and to relate those controls to the specific behaviour demonstrated in earlier tasks.
 
-Identify how the lesson accepts command/input data. Propose a safer design: validate the expected format on the server, reject unexpected metacharacters, avoid invoking a shell, use a safer API and run with least privilege.
+No additional probing is required. Use the lesson source/explanation and the evidence already collected. Ubuntu configuration changes are not required unless the instructor explicitly asks you to make them.
 
-1. Use the lesson source/explanation and the evidence collected earlier.
-2. Identify the expected format of the command/input field.
-3. Propose server-side validation that permits only the required format.
-4. Identify unexpected separators/metacharacters that should not be accepted.
-5. Explain why constructing a shell command directly from user input is unsafe.
-6. Recommend use of a safer application/API function instead of invoking a shell where possible.
-7. Recommend least-privilege execution for the application/service.
-8. Complete the remediation table for:
-   - SQL injection;
-   - unsafe shell command construction;
-   - weak input validation;
-   - excessive privileges.
+1. Review the authorised command/input-handling lesson and the evidence collected in Tasks 11–15.
 
-**Expected result:** remediation is specific to the observed input-handling weakness rather than a generic recommendation.
+2. Identify the **expected format** of the user input.
 
-Recommended controls include:
+   For example, if the field is intended to accept an IP address, the application should validate that the submitted value matches a valid IP-address format.
 
-- strict server-side allow-list validation;
-- expected data type and format checks;
-- length restrictions;
-- rejecting unexpected separators/metacharacters;
-- avoiding construction of shell commands from user input;
-- using safer application APIs;
-- least-privilege service accounts.
-**Complete**
+3. Recommend **strict server-side allow-list validation** so that only the expected data type and format are accepted.
 
-| Weakness | Recommended control |
-| --- | --- |
+4. Identify unexpected characters or separators that should not be accepted when they are not required for the field's intended purpose.
+
+5. Explain why directly constructing a shell command from user-controlled input is unsafe.
+
+   User input that is inserted into a shell command may be interpreted as part of the command syntax rather than as ordinary data.
+
+6. Recommend avoiding shell invocation where possible.
+
+   Prefer a safer application/library API that performs the required function directly without passing user input through a command shell.
+
+7. Recommend appropriate input constraints, such as:
+
+   - expected data type;
+   - expected format;
+   - allow-listed characters;
+   - sensible length limits;
+   - rejection of unexpected separators/metacharacters.
+
+8. Recommend **least-privilege execution** for the application or service account.
+
+   The application should run only with the permissions required for its intended function.
+
+9. Complete the remediation table using recommendations that are specific to the weaknesses demonstrated in the lab.
+
+### Complete the table
+
+| **Weakness** | **Recommended control** |
+|---|---|
 | SQL injection | Parameterised queries / prepared statements |
-| Unsafe shell command construction |  |
-| Weak input validation |  |
-| Excessive application privileges |  |
+| Unsafe shell command construction | Avoid building shell commands from user input; use a safer application/API function where possible |
+| Weak input validation | Strict server-side allow-list validation, expected format/type checks, and sensible length limits |
+| Excessive application privileges | Run the application/service using a least-privilege account |
+
+### Additional remediation considerations
+
+| **Control area** | **Recommended approach** |
+|---|---|
+| Input format | Accept only the format required by the field |
+| Unexpected metacharacters | Reject characters that are not valid for the intended input |
+| Shell invocation | Avoid invoking a shell when a direct API/library call is available |
+| Error handling | Return controlled application errors without exposing unnecessary internal details |
+| Privilege | Grant only the minimum permissions required by the service |
+
+### Supported explanation
+
+A strong remediation statement should connect the control directly to the observed weakness.
+
+For example:
+
+> The command/input weakness can be reduced by validating the expected input format on the server and avoiding the construction of shell commands from user-controlled data. Where possible, the application should use a dedicated API or library function instead of a shell and should run under a least-privilege service account.
+
+### Knowledge Check
+
+1. Why is server-side validation more important than relying only on browser-side validation?
+2. Why is allow-list validation generally preferable when the expected input format is well defined?
+3. Why is direct shell-command construction from user input dangerous?
+4. How does using a safer application/API function reduce command-injection risk?
+5. Why does least privilege reduce the potential impact of a command-injection weakness?
+
+### Expected result
+
+The student identifies remediation controls that are directly related to the observed command/input-handling weakness rather than providing only generic security recommendations.
+
+The final recommendations should address:
+
+- safe handling of SQL input;
+- safe handling of command/input data;
+- strict server-side validation;
+- avoidance of unnecessary shell execution;
+- least-privilege application/service accounts.
 
 ## Part G – Retest the Control
 
 ### Task 20 – Retest After Remediation
 
-Kali-Attacker browser and Burp Repeater; DVWA security settings or the WebGoat remediated lesson.
+The purpose of this task is to determine whether the **same baseline and modified requests behave differently after a stronger or remediated control is applied**.
 
-Where the training application provides a stronger/remediated implementation, repeat the exact same baseline and modified requests. Change only the control/security level, not the test case.
+The comparison must be fair: keep the test case the same and change only the relevant security control or remediated application stage.
 
-1. Use **Kali-Attacker browser and Burp Repeater**.
-2. Retain the original baseline and modified requests.
-3. If DVWA provides a stronger security level, change only the DVWA security level.
-4. If WebGoat provides a fixed/remediated stage, open that stage.
-5. Resend the exact same baseline request.
-6. Resend the exact same modified request.
-7. Compare:
-   - whether normal input still works;
-   - whether modified input is accepted;
-   - whether SQL behaviour still changes;
+1. On **Kali-Attacker**, use the browser and **Burp Suite → Repeater**.
+
+2. Keep copies of the original requests used earlier in the lab, including:
+
+   - the normal baseline request;
+   - the SQL modified request, where applicable;
+   - the command/input modified request, where applicable.
+
+3. Do **not** change the test payload, request method, path, cookies, or unrelated parameters unless the remediated lesson itself requires a different request structure.
+
+4. If using **DVWA**:
+
+   - change only the DVWA security level to the instructor-designated stronger level;
+   - confirm the new security level is active before retesting.
+
+5. If using **WebGoat**:
+
+   - open the instructor-designated remediated/fixed stage or lesson;
+   - confirm you are testing the intended remediated implementation.
+
+6. Resend the **same normal baseline request**.
+
+7. Confirm whether the legitimate input still works as intended.
+
+8. Resend the **same modified request** used before remediation.
+
+9. Compare the before/after responses, including:
+
+   - HTTP status code;
+   - response length;
+   - normal application behaviour;
+   - whether the modified input is accepted;
+   - whether SQL-related behaviour still changes;
    - whether command output still appears;
-   - whether validation now rejects the input.
-8. Record the specific control observed.
-9. Do not conclude only that “High is secure.”
+   - whether the application rejects or sanitises the modified input;
+   - any new validation/error message.
 
-**Expected result:** the student demonstrates whether the same test behaves differently after a stronger control is applied.
+10. Record the **specific control or behavioural difference** demonstrated by the retest.
 
-If the training application provides a remediated or higher-security version, repeat the same request.
+11. If the response changes, describe exactly how it changed.
 
-Complete the table below:
+12. If no meaningful difference is observed, record:
 
-| Behaviour | Before remediation | After remediation |
-| --- | --- | --- |
-| Normal input works |  |  |
-| Modified input accepted |  |  |
-| SQL behaviour changes |  |  |
-| Command output appears |  |  |
-| Input safely rejected |  |  |
+```text
+No observable remediation effect
+```
 
-#### Interpretation
+13. Do not conclude that a higher security level is secure merely because the label is **High**.
 
-State the specific control demonstrated by the retest.
+### Complete the table
 
-Do not simply write:
+| **Behaviour** | **Before remediation** | **After remediation** |
+|---|---|---|
+| Normal input works | | |
+| Modified input accepted | | |
+| SQL behaviour changes | | |
+| Command output appears | | |
+| Input safely rejected | | |
+| Response status | | |
+| Response length | | |
+| Validation/error message | | |
 
-“High is secure.”
+### Interpretation
 
-Instead write:
+Write one short evidence-based statement describing the control demonstrated by the retest.
 
-“The modified input was rejected because __________.”
+For example:
+
+> The same modified input that changed application behaviour at the lower security level was rejected after the stronger control was applied, while the normal input continued to work.
+
+Or:
+
+> The application accepted the normal value after remediation, but the modified input no longer produced the previous SQL/command-handling behaviour.
+
+If no difference is observed:
+
+> The same modified request produced no meaningful behavioural difference after the security control was changed, so the remediation effect was not demonstrated by this test.
+
+Do **not** simply write:
+
+```text
+High is secure.
+```
+
+Instead describe the specific observed control, for example:
+
+> The modified input was rejected because the application applied stricter server-side validation.
+
+### Evidence requirement
+
+Capture screenshots showing:
+
+- the stronger/remediated security setting or lesson;
+- the unchanged baseline request;
+- the unchanged modified request;
+- the relevant before/after response difference;
+- response status and response length where available.
+
+Redact passwords, session identifiers, authentication tokens, and other sensitive values before submitting evidence.
+
+### Expected result
+
+The student determines whether the same previously tested request behaves differently after a stronger or remediated control is applied.
+
+The conclusion must identify the **specific observed control or behavioural change**, rather than relying only on the name of the security level.
 
 ## Part H – Compare DVWA Security Levels
 
 ### Task 21 – Compare the Same Injection Test
 
-Kali-Attacker browser and Burp Repeater; DVWA only.
+The purpose of this task is to compare how the **same DVWA injection test behaves at Low, Medium, and High security levels**.
 
-Set DVWA to Low, Medium and High one at a time. For each level, capture the same function and same test input. Keep separate Repeater tabs and compare only like-for-like requests.
+To make the comparison valid, keep the function, parameter, test input, request method, and unrelated request elements the same. Change only the DVWA security level.
 
-1. This task applies to **DVWA**.
-2. Use the **Kali-Attacker browser and Burp Repeater**.
-3. Set DVWA to **Low**.
-4. Capture and send the chosen injection request with the same test input.
-5. Record the response.
-6. Set DVWA to **Medium**.
-7. Repeat the exact same request and input.
-8. Record the response.
-9. Set DVWA to **High**.
-10. Repeat again without changing the test case.
-11. Keep separate Repeater tabs for Low, Medium and High.
-12. Compare only like-for-like requests.
-13. Record:
-   - whether the normal request works;
-   - quote handling;
-   - Boolean-condition behaviour;
-   - validation;
-   - error behaviour;
-   - other observable controls.
-14. Use **Not observed** where no evidence is available.
+> **Scope:** This task applies to **DVWA only**.
 
-**Expected result:** the comparison identifies specific technical differences rather than relying on the security-level names.
+1. On **Kali-Attacker**, use the browser and **Burp Suite → Repeater**.
 
-If DVWA is used, repeat the same controlled workflow at:
+2. Choose one authorised DVWA injection function and one controlled test input to use for the entire comparison.
 
-- Low;
-- Medium;
-- High.
+3. Confirm the parameter to be tested and keep it the same at every level.
 
-Complete the table below:
+4. Set DVWA to:
 
-| Feature | Low | Medium | High |
-| --- | --- | --- | --- |
-| Same parameter tested |  |  |  |
-| Normal request works |  |  |  |
-| Quote accepted |  |  |  |
-| Boolean test changes output |  |  |  |
-| Input validation observed |  |  |  |
-| Error behaviour |  |  |  |
-| Other control |  |  |  |
+```text
+Low
+```
 
-Use Not observed when no evidence is available.
+5. Capture or reuse the chosen request in Burp Repeater.
 
-Do not infer a control because the level is named High.
+6. Send the same normal baseline request and the same controlled modified request.
+
+7. Record the observed response behaviour.
+
+8. Keep the Low-security request in a separate Repeater tab.
+
+9. Change DVWA to:
+
+```text
+Medium
+```
+
+10. Repeat the **same function, same parameter, and same test input**.
+
+11. Record the response and keep the Medium-security request in a separate Repeater tab.
+
+12. Change DVWA to:
+
+```text
+High
+```
+
+13. Repeat the exact same workflow again.
+
+14. Keep separate Repeater tabs for:
+
+   - Low;
+   - Medium;
+   - High.
+
+15. Compare only **like-for-like requests**.
+
+16. Record:
+
+   - whether the same parameter was tested;
+   - whether the normal request still works;
+   - how the single-quote input is handled;
+   - whether the Boolean-condition test changes output;
+   - whether input validation is observed;
+   - whether error behaviour changes;
+   - whether response status or length changes;
+   - any other observable control.
+
+17. Use:
+
+```text
+Not observed
+```
+
+where no supporting evidence is available.
+
+18. Do not infer that a control exists simply because the security level is called **High**.
+
+### Complete the table
+
+| **Feature** | **Low** | **Medium** | **High** |
+|---|---|---|---|
+| Same parameter tested | | | |
+| Normal request works | | | |
+| Quote accepted | | | |
+| Boolean test changes output | | | |
+| Input validation observed | | | |
+| Error behaviour | | | |
+| Response status | | | |
+| Response length | | | |
+| Other observable control | | | |
+
+### Evidence to capture
+
+Capture comparable evidence for each security level showing:
+
+- the DVWA security level;
+- the same request path and parameter;
+- the same controlled test input;
+- the relevant response status and length;
+- the response content or error behaviour.
+
+Redact passwords, session identifiers, authentication tokens, and other sensitive values before submitting evidence.
+
+### Interpretation
+
+Write one short comparison statement based only on observed evidence.
+
+For example:
+
+> The same SQL test produced different response behaviour across Low, Medium, and High security levels. The higher level introduced stricter input handling, while the baseline request continued to function normally.
+
+If no meaningful difference is observed:
+
+> No clear technical difference was demonstrated by this test across the three security levels.
+
+Do not simply write:
+
+```text
+High is secure.
+```
+
+Instead identify the exact control or behaviour that changed.
+
+### Expected result
+
+The student identifies specific technical differences in how DVWA handles the same injection test at Low, Medium, and High security levels.
+
+The comparison should be based on **like-for-like requests and observed evidence**, not on assumptions derived from the security-level names.
 
 ## Part I – Evidence Collection
 
 ### Task 22 – Save Required Evidence
 
-Kali-Attacker evidence folder.
+The purpose of this task is to organise, verify, and finalise the Week 4 evidence collected during Tasks 1–21.
 
-Save screenshots and text evidence using the recommended filenames. Ensure no password, PHPSESSID, WebGoat token or other sensitive value is visible. Check that every file opens before finishing.
+Your evidence set should be complete, readable, clearly named, and free of sensitive information before submission.
 
-1. Use the **Kali-Attacker evidence folder**.
+1. On **Kali-Attacker**, open the Week 4 evidence folder.
+
 2. Review the evidence required by Tasks 1–21.
-3. Save screenshots using the recommended filenames.
-4. Confirm no password, session ID, WebGoat token or other sensitive value is visible.
-5. List the evidence directory:
+
+3. Save each screenshot or text file using a clear filename that maps to the relevant task.
+
+4. Before saving or submitting evidence, confirm that it does **not** expose:
+
+   - passwords;
+   - `PHPSESSID` values;
+   - WebGoat tokens;
+   - authentication tokens;
+   - session identifiers;
+   - other sensitive values.
+
+5. List the contents of the evidence directory:
 
 ```bash
 ls -lh ~/lab-evidence/week4
 ```
 
-6. Open/check each saved file before finishing.
-7. Ensure the filenames clearly map to the relevant task.
+6. Confirm that all expected files are present.
+
+7. Open or preview each saved file to confirm that:
+
+   - the file is not corrupted;
+   - the screenshot is readable;
+   - the relevant request/response detail is visible;
+   - sensitive values are redacted;
+   - the filename matches the task.
+
 8. Save the completed findings table and summary in the same folder.
 
-**Expected result:** a complete, readable and clearly named Week 4 evidence set is available for submission.
+9. If useful, verify the file types with:
 
-**Recommended evidence**
+```bash
+file ~/lab-evidence/week4/*
+```
 
-1. authorised application running;
+10. Do not delete original evidence until you have confirmed that the final submission set is complete.
 
-2. designated injection lesson;
+### Recommended evidence
 
-3. baseline request;
+1. Authorised application running.
+2. Designated injection lesson.
+3. Baseline request.
+4. SQL quote test.
+5. SQL Boolean comparison.
+6. Burp Repeater SQL evidence.
+7. Command/input baseline.
+8. Controlled command-handling evidence.
+9. Remediation/retest evidence.
+10. Completed findings table and summary.
 
-4. SQL quote test;
-
-5. SQL Boolean comparison;
-
-6. Burp Repeater SQL evidence;
-
-7. command/input baseline;
-
-8. controlled command-handling evidence;
-
-9. remediation/retest evidence;
-
-10. completed findings table.
-
-**Recommended filenames**
+### Recommended filenames
 
 ```text
 01-target-running.png
@@ -1520,55 +1890,268 @@ ls -lh ~/lab-evidence/week4
 10-findings-summary.txt
 ```
 
+### Final evidence checklist
+
+| **Check** | **Complete?** |
+|---|---|
+| All required files are present | Yes / No |
+| Filenames clearly map to tasks | Yes / No |
+| Screenshots are readable | Yes / No |
+| Requests/responses are visible where required | Yes / No |
+| Passwords are redacted | Yes / No |
+| Session IDs/tokens are redacted | Yes / No |
+| Findings table is included | Yes / No |
+| Findings summary is included | Yes / No |
+| Every saved file opens successfully | Yes / No |
+
+### Expected result
+
+A complete, readable, and clearly organised Week 4 evidence set is available for submission.
+
+The evidence should allow the assessor to trace each screenshot or text file back to the relevant task while protecting passwords, session identifiers, tokens, and other sensitive values.
+
 ## Part J – Findings Table
 
 ### Task 23 – Produce Evidence-Based Findings
 
-Kali-Attacker or report workstation; use evidence already collected.
+The purpose of this task is to produce a concise, evidence-based summary of the two injection categories tested in the lab:
 
-For each injection type, summarise the target, parameter, baseline, modified input, observed response, supported interpretation, impact, remediation and retest result. Do not add claims that are not supported by screenshots or Burp evidence.
+- SQL Injection;
+- Command/Input Handling.
 
-1. No new probing is required.
-2. Use the evidence already collected.
-3. If desired, open a text file:
+No new probing is required. Use only the screenshots, Burp requests/responses, notes, remediation observations, and retest evidence already collected in Tasks 1–22.
+
+1. Use **Kali-Attacker** or your report workstation.
+
+2. If useful, create or open the findings summary file:
 
 ```bash
 nano ~/lab-evidence/week4/10-findings-summary.txt
 ```
 
-4. For **SQL Injection**, record:
-   - target;
-   - parameter;
+3. Review the evidence already collected for **SQL Injection**.
+
+4. Record the following:
+
+   - authorised target;
+   - affected parameter;
    - baseline behaviour;
-   - modified input;
+   - modified input used;
    - observed response;
    - supported interpretation;
    - potential impact;
-   - remediation;
+   - recommended remediation;
    - retest result.
-5. Repeat the same fields for **Command/Input Handling**.
-6. Ensure every important statement can be traced back to a screenshot or Burp result.
-7. Do not add unsupported claims.
 
-**Expected result:** the findings table provides a concise evidence-based record for both injection categories.
+5. Repeat the same process for **Command/Input Handling**.
 
-Complete the table below:
+6. Ensure every important statement can be traced back to evidence such as:
 
-| Area | SQL Injection | Command/Input Handling |
-| --- | --- | --- |
-| Target |  |  |
-| Parameter |  |  |
-| Baseline behaviour |  |  |
-| Modified input |  |  |
-| Observed response |  |  |
-| Supported interpretation |  |  |
-| Potential impact |  |  |
-| Remediation |  |  |
-| Retest result |  |  |
+   - a screenshot;
+   - Burp Proxy HTTP history;
+   - Burp Repeater request/response;
+   - response status;
+   - response length;
+   - visible application output;
+   - remediation/retest evidence.
 
-## Part K – Injection Analysis
+7. Distinguish carefully between:
 
-### Task 24 – Compare the Same SQL Injection Request Across Security Levels
+   - what was directly observed;
+   - what the evidence reasonably supports;
+   - what would require further verification.
+
+8. If an impact was not demonstrated, write:
+
+```text
+Requires further verification
+```
+
+or:
+
+```text
+Not observed
+```
+
+as appropriate.
+
+9. Do not add claims such as database compromise, privilege escalation, persistent access, or service disruption unless those outcomes were actually demonstrated in the authorised lab.
+
+### Complete the table
+
+| **Area** | **SQL Injection** | **Command/Input Handling** |
+|---|---|---|
+| Target | | |
+| Parameter | | |
+| Baseline behaviour | | |
+| Modified input | | |
+| Observed response | | |
+| Supported interpretation | | |
+| Potential impact | | |
+| Remediation | | |
+| Retest result | | |
+| Evidence reference | | |
+
+### Guidance for each field
+
+#### Target
+
+Record the authorised application and target host used in the lab.
+
+Example:
+
+```text
+DVWA on authorised Ubuntu-Server target
+```
+
+#### Parameter
+
+Record the exact user-controlled parameter identified in Burp.
+
+Example:
+
+```text
+id
+```
+
+or the actual command/input parameter observed in your environment.
+
+#### Baseline behaviour
+
+Describe the normal response before the input was modified.
+
+#### Modified input
+
+Record only the controlled input used in the authorised task.
+
+#### Observed response
+
+Describe what actually changed, such as:
+
+- response content;
+- response length;
+- response status;
+- record count;
+- application message;
+- additional command output.
+
+#### Supported interpretation
+
+State only what the evidence supports.
+
+Example:
+
+> The tested parameter appears to influence server-side query behaviour because the true and false conditions produced consistently different responses.
+
+#### Potential impact
+
+Use the impact analysis from Task 17.
+
+If the impact was not directly demonstrated, label it clearly as requiring further verification.
+
+#### Remediation
+
+Use the specific control identified in Tasks 18–19.
+
+Examples include:
+
+- parameterised queries / prepared statements;
+- strict server-side allow-list validation;
+- avoiding shell-command construction from user input;
+- safer APIs;
+- least-privilege service accounts.
+
+#### Retest result
+
+Record whether the same test behaved differently after the stronger or remediated control was applied.
+
+#### Evidence reference
+
+Reference the relevant screenshot filename, Repeater tab, or saved evidence file.
+
+### Example evidence-based finding
+
+> The `id` parameter produced different responses when tested with true and false Boolean conditions while the request method, path, cookies, and unrelated parameters remained unchanged. This supports the conclusion that the parameter may influence server-side SQL query behaviour. Broader database access was not tested and requires further verification. The recommended control is parameterised queries / prepared statements.
+
+### Expected result
+
+The student produces a concise findings table for both SQL Injection and Command/Input Handling in which every important statement is traceable to collected evidence.
+
+The final findings should clearly separate:
+
+```text
+Observed evidence
+→ Supported interpretation
+→ Potential impact
+→ Remediation
+→ Retest result
+```
+
+Unsupported claims must not be included.
+
+## Part K – Findings Summary
+
+### Task 24 – Write a 400–500 Word Findings Summary
+
+Kali-Attacker evidence folder or report workstation.
+
+Write 300-400 words that connect the evidence into a concise professional finding summary. Reference the baseline, Burp comparison, demonstrated impact, remediation, retest and limitations.
+
+1. Use your Week 4 evidence and findings table.
+2. Create or open the summary file:
+
+```bash
+nano ~/lab-evidence/week4/10-findings-summary.txt
+```
+
+3. Write approximately **300–400 words**.
+4. Begin with the authorised target/application and designated lessons.
+5. Summarise the baseline behaviour.
+6. Summarise the SQL injection evidence.
+7. Summarise the command/input-handling evidence.
+8. Reference the Burp Repeater comparisons.
+9. State only the impacts demonstrated or clearly label potential impacts.
+10. Include remediation:
+    - parameterised queries/prepared statements;
+    - server-side validation/safer APIs;
+    - least privilege where relevant.
+11. State whether a retest was performed and what changed.
+12. Include limitations.
+13. State clearly whether an injection vulnerability was actually validated.
+14. Save the file.
+
+**Expected result:** a concise professional findings summary links evidence, interpretation, impact and remediation.
+
+Include:
+
+- authorised application tested;
+- target address;
+- designated lessons;
+- baseline behaviour;
+- SQL injection evidence;
+- command/input-handling evidence;
+- Burp Repeater observations;
+- security impact supported by evidence;
+- remediation recommendations;
+- retesting performed;
+- limitations;
+- whether an injection vulnerability was actually validated.
+
+#### Suggested structure
+
+Injection testing was conducted against the authorised DVWA/WebGoat training application using the browser and Burp Suite. Baseline requests showed [observation].
+
+SQL injection testing of the parameter [parameter] demonstrated [observed evidence]. Comparison of controlled true and false conditions produced [result].
+
+Command/input testing of [parameter] demonstrated [observed evidence]. The result suggests [supported interpretation].
+
+Recommended remediation includes parameterised queries for database access and server-side allow-list validation / safer APIs for command handling.
+
+Testing was limited to the designated training lessons. Findings therefore describe only behaviour directly observed during the authorised assessment.
+
+## Part L – Injection Analysis (Advanced Lab, Optional)
+
+### Task 25 – Compare the Same SQL Injection Request Across Security Levels (Advanced Lab, Optional)
 
 Kali-Attacker browser and Burp Repeater; DVWA only.
 
@@ -1611,7 +2194,7 @@ Complete the table below:
 
 Identify the specific technical control that changes. Do not simply state that “High is more secure.”
 
-### Task 25 – Perform Controlled Boolean-Based Response Analysis
+### Task 26 – Perform Controlled Boolean-Based Response Analysis (Advanced Lab, Optional)
 
 Kali-Attacker, Burp Repeater.
 
@@ -1667,7 +2250,7 @@ Complete the table below:
 
 If the page displays no SQL error, what evidence could still indicate that the application is evaluating the injected condition?
 
-### Task 26 – Examine Encoded Input Handling
+### Task 27 – Examine Encoded Input Handling (Advanced Lab, Optional)
 
 Kali-Attacker, Burp Repeater (and Burp Decoder if useful).
 
@@ -1715,7 +2298,7 @@ Determine whether validation occurs before or after decoding.
 
 Do not claim that encoding bypasses a control unless your evidence demonstrates it.
 
-### Task 27 – Compare Harmless Command Separators
+### Task 28 – Compare Harmless Command Separators (Advanced Lab, Optional)
 
 Kali-Attacker, Burp Repeater, against the authorised Linux training lesson only.
 
@@ -1779,7 +2362,7 @@ Complete the table below:
 
 Record which input forms are actually interpreted by the application.
 
-### Task 28 – Correlate Burp Evidence with Server Logs
+### Task 29 – Correlate Burp Evidence with Server Logs (Advanced Lab, Optional)
 
 Kali-Attacker for the Burp request and Ubuntu-Server for server-side logs.
 
@@ -1853,66 +2436,6 @@ Complete the table below:
 #### Knowledge Check
 
 Which parts of the request are visible in Burp but not necessarily recorded in the standard access log?
-
-## Part L – Findings Summary
-
-### Task 29 – Write a 400–500 Word Findings Summary
-
-Kali-Attacker evidence folder or report workstation.
-
-Write 300-400 words that connect the evidence into a concise professional finding summary. Reference the baseline, Burp comparison, demonstrated impact, remediation, retest and limitations.
-
-1. Use your Week 4 evidence and findings table.
-2. Create or open the summary file:
-
-```bash
-nano ~/lab-evidence/week4/10-findings-summary.txt
-```
-
-3. Write approximately **300–400 words**.
-4. Begin with the authorised target/application and designated lessons.
-5. Summarise the baseline behaviour.
-6. Summarise the SQL injection evidence.
-7. Summarise the command/input-handling evidence.
-8. Reference the Burp Repeater comparisons.
-9. State only the impacts demonstrated or clearly label potential impacts.
-10. Include remediation:
-    - parameterised queries/prepared statements;
-    - server-side validation/safer APIs;
-    - least privilege where relevant.
-11. State whether a retest was performed and what changed.
-12. Include limitations.
-13. State clearly whether an injection vulnerability was actually validated.
-14. Save the file.
-
-**Expected result:** a concise professional findings summary links evidence, interpretation, impact and remediation.
-
-Include:
-
-- authorised application tested;
-- target address;
-- designated lessons;
-- baseline behaviour;
-- SQL injection evidence;
-- command/input-handling evidence;
-- Burp Repeater observations;
-- security impact supported by evidence;
-- remediation recommendations;
-- retesting performed;
-- limitations;
-- whether an injection vulnerability was actually validated.
-
-#### Suggested structure
-
-Injection testing was conducted against the authorised DVWA/WebGoat training application using the browser and Burp Suite. Baseline requests showed [observation].
-
-SQL injection testing of the parameter [parameter] demonstrated [observed evidence]. Comparison of controlled true and false conditions produced [result].
-
-Command/input testing of [parameter] demonstrated [observed evidence]. The result suggests [supported interpretation].
-
-Recommended remediation includes parameterised queries for database access and server-side allow-list validation / safer APIs for command handling.
-
-Testing was limited to the designated training lessons. Findings therefore describe only behaviour directly observed during the authorised assessment.
 
 ### Task 30 – Check Your Work
 
