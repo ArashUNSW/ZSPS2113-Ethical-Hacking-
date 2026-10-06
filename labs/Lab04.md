@@ -2095,7 +2095,7 @@ Unsupported claims must not be included.
 
 Kali-Attacker evidence folder or report workstation.
 
-Write 300-400 words that connect the evidence into a concise professional finding summary. Reference the baseline, Burp comparison, demonstrated impact, remediation, retest and limitations.
+Write 400-500 words that connect the evidence into a concise professional finding summary. Reference the baseline, Burp comparison, demonstrated impact, remediation, retest and limitations.
 
 1. Use your Week 4 evidence and findings table.
 2. Create or open the summary file:
@@ -2104,7 +2104,7 @@ Write 300-400 words that connect the evidence into a concise professional findin
 nano ~/lab-evidence/week4/10-findings-summary.txt
 ```
 
-3. Write approximately **300–400 words**.
+3. Write approximately **400–500 words**.
 4. Begin with the authorised target/application and designated lessons.
 5. Summarise the baseline behaviour.
 6. Summarise the SQL injection evidence.
