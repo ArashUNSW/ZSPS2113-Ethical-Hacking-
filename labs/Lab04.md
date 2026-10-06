@@ -859,13 +859,13 @@ Proxy → HTTP history
    - response status;
    - response length.
 
-8. Right-click the request and select:
+8. Right-click on the Request text field and select:
 
 ```text
 Send to Repeater
 ```
 
-9. Open the **Repeater** tab.
+9. The orange light will blink on Repeater; it means the request is being sent. Open the **Repeater** tab.
 
 10. Before changing anything, click:
 
@@ -1114,20 +1114,20 @@ This task is for confirmation only. Do not introduce additional commands, separa
    - a similar response length;
    - the same application behaviour.
 
-7. Record the result as one of the following:
+7. Record the result as one of the following with example:
 
 ```text
-Reproducible
+Reproducible (same)
 ```
 
 ```text
-Not reproducible
+Not reproducible (different)
 ```
 
 or:
 
 ```text
-Inconclusive
+Inconclusive (unclear)
 ```
 
 8. If the result is inconsistent, record it as **inconclusive**. Do not escalate the test by introducing additional commands.
