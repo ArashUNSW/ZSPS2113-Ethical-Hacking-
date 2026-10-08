@@ -11,7 +11,12 @@ Approximately 2 hours for core activities, with additional time for advanced ext
 ## Learning Objectives
 
 By the end of this lab, students should be able to:
-
+- Prepare and verify an authorised injection-testing environment using DVWA or WebGoat and maintain appropriate evidence of the test setup.
+- Capture and analyse baseline HTTP requests and responses using the browser, Burp Suite Proxy, and Burp Repeater.
+- Identify user-controlled parameters and conduct controlled SQL injection tests using response comparison and observable evidence.
+- Assess command/input-handling weaknesses using harmless proof-of-concept testing and compare modified responses against a known baseline.
+- Differentiate observed evidence from supported interpretation and unsupported assumptions when analysing injection-related findings.
+- Assess the demonstrated security impact of SQL injection and command/input-handling weaknesses in terms of confidentiality, integrity, availability, and privilege.
 
 ## Scenario
 
