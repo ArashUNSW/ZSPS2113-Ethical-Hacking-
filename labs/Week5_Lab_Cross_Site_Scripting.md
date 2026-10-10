@@ -16,11 +16,11 @@ By the end of this lab, students should be able to:
 - Prepare and verify an authorised DVWA/WebGoat environment for XSS testing.
 - Capture normal HTTP requests and establish a reproducible baseline before modifying input.
 - Identify user-controlled input and determine where that input appears in the resulting HTML/DOM.
-- Perform controlled tests for **reflected, stored, and DOM-oriented XSS/input-handling weaknesses**.
-- Use Browser DevTools and Burp Suite to trace data from **input source to output context**.
+- Perform controlled tests for reflected, stored, and DOM-oriented XSS/input-handling weaknesses.
+- Use Browser DevTools and Burp Suite to trace data from input source to output context.
 - Distinguish observed browser behaviour from unsupported assumptions about exploitability.
 - Assess the demonstrated impact of an XSS weakness using collected evidence.
-- Recommend appropriate controls including **context-aware output encoding, input validation, safe DOM APIs, and Content Security Policy (CSP)**.
+- Recommend appropriate controls including context-aware output encoding, input validation, safe DOM APIs, and Content Security Policy (CSP).
 - Retest the same input after a stronger/remediated control is applied.
 - Produce an evidence-based XSS finding that identifies the affected input/output context and appropriate mitigation.
 
@@ -28,7 +28,7 @@ By the end of this lab, students should be able to:
 
 ## Scenario
 
-You are continuing an **authorised penetration-testing exercise**.
+You are continuing an authorised penetration-testing exercise.
 
 This week focuses on Cross-Site Scripting and unsafe browser-side input handling, particularly:
 
