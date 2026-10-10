@@ -3,7 +3,9 @@
 **Tutorial / Stage:** Cross-site scripting  
 **Targets:** DVWA / WebGoat  
 **Suggested tools:** Browser Developer Tools, Burp Suite Proxy and Repeater  
-**Estimated time:** Approximately 2 hours for core activities, with additional time for optional advanced activities.
+
+## Estimated time ## 
+Approximately 2 hours for core activities, with additional time for optional advanced activities.
 
 ---
 
