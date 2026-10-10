@@ -82,6 +82,8 @@ On **Ubuntu-Server**:
 sudo docker ps
 ```
 
+**Note:** If DVWA, Burp Suite, WebGoat, or Juice Shop is not available or is showing as unhealthy, refer back to Labs 3 and 4 for instructions on downloading, configuring, and running the required applications.
+
 From Kali, confirm connectivity.
 
 DVWA example:
