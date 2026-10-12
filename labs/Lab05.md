@@ -54,11 +54,22 @@ Use **Browser Developer Tools** to inspect the DOM and browser behaviour and use
 
 ## Task 1 – Create the Week 5 Evidence Folder
 
-On **Kali-Attacker**:
+1. On **Kali-Attacker**, open a terminal.
+2. Create the Week 5 evidence folder:
 
 ```bash
 mkdir -p ~/lab-evidence/week5
+```
+
+3. Change into the folder:
+
+```bash
 cd ~/lab-evidence/week5
+```
+
+4. Confirm the current path:
+
+```bash
 pwd
 ```
 
@@ -122,7 +133,9 @@ The authorised DVWA/WebGoat target is reachable and ready for testing.
 
 ### DVWA
 
-Identify the instructor-designated lessons such as:
+On **Kali-Attacker**,
+
+Log in to the DVWA (admin, password) and identify the instructor-designated lessons such as:
 
 - **XSS (Reflected)**
 - **XSS (Stored)**
