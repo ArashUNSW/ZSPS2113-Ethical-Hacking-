@@ -179,7 +179,7 @@ The student identifies the authorised XSS lesson, its path, input field, and app
 
 Before testing XSS, establish normal application behaviour.
 
-Use a harmless normal value such as:
+Use a harmless normal value using SQL Injection, User ID such as:
 
 ```text
 Week5Test
@@ -213,6 +213,16 @@ A reproducible baseline exists for comparison with later modified requests.
 ---
 
 ## Task 5 – Capture the Baseline in Burp Suite
+
+1. On **Kali-Attacker**, start Burp Suite:
+
+```bash
+burpsuite
+```
+
+2. Use either:
+   - the Burp built-in browser, or
+   - the instructor-configured browser that is already using the Burp proxy.
 
 Open **Burp Suite → Proxy → HTTP history** and submit the same normal value.
 
@@ -816,7 +826,51 @@ Students produce concise, evidence-based findings for reflected, stored, and DOM
 
 ---
 
-# Part M – Advanced XSS Analysis (Optional)
+# Part M – Findings Summary
+
+## Task 29 – Write a 400–500 Word Findings Summary
+
+Use evidence from the **core Tasks 1–23**. Evidence from optional advanced activities may be included where completed, but students should **not be disadvantaged for not completing optional activities**.
+
+Write approximately **400–500 words**.
+
+Include:
+
+- authorised target/application;
+- XSS lessons tested;
+- baseline behaviour;
+- reflected-XSS evidence;
+- stored-XSS evidence;
+- DOM-oriented evidence;
+- affected input/source;
+- affected output/DOM context;
+- Browser DevTools observations;
+- Burp request/response evidence;
+- demonstrated security impact;
+- mitigation;
+- retesting;
+- limitations;
+- whether each XSS weakness was actually validated.
+
+### Suggested structure
+
+> XSS testing was conducted against the authorised DVWA/WebGoat training application using Browser Developer Tools and Burp Suite. Baseline requests established the normal handling of user-controlled input before any modified values were introduced.
+>
+> Reflected XSS testing of **[parameter]** showed that **[observed evidence]**. Inspection of the returned HTML identified the input in **[output context]**. The controlled test **[did/did not]** result in browser script execution.
+>
+> Stored XSS testing demonstrated **[observation]**, with the supplied value **[persisting/not persisting]** and being rendered when **[trigger]** occurred.
+>
+> DOM-oriented testing identified **[source]** flowing into **[DOM location/sink]**. Developer Tools showed **[observable DOM change]**.
+>
+> Recommended remediation includes context-aware output encoding, safe DOM manipulation, appropriate server-side input validation, HTML sanitisation where rich content is required, and CSP as an additional defence. Testing was limited to the designated training lessons, and conclusions therefore describe only behaviour directly demonstrated during the authorised assessment.
+
+### Expected result
+
+A concise professional findings summary links evidence, input/output context, impact, remediation, retest results, and limitations.
+
+---
+
+# Part N – Advanced XSS Analysis (Optional)
 
 ## Task 24 – Compare Reflected XSS Across DVWA Security Levels  
 **Advanced Lab, Optional**
@@ -865,50 +919,6 @@ Capture comparable evidence showing the security level, same lesson/parameter, i
 ### Expected result
 
 Students identify the **specific input/output control that changes** between security levels.
-
----
-
-# Part N – Findings Summary
-
-## Task 29 – Write a 400–500 Word Findings Summary
-
-Use evidence from the **core Tasks 1–23**. Evidence from optional advanced activities may be included where completed, but students should **not be disadvantaged for not completing optional activities**.
-
-Write approximately **400–500 words**.
-
-Include:
-
-- authorised target/application;
-- XSS lessons tested;
-- baseline behaviour;
-- reflected-XSS evidence;
-- stored-XSS evidence;
-- DOM-oriented evidence;
-- affected input/source;
-- affected output/DOM context;
-- Browser DevTools observations;
-- Burp request/response evidence;
-- demonstrated security impact;
-- mitigation;
-- retesting;
-- limitations;
-- whether each XSS weakness was actually validated.
-
-### Suggested structure
-
-> XSS testing was conducted against the authorised DVWA/WebGoat training application using Browser Developer Tools and Burp Suite. Baseline requests established the normal handling of user-controlled input before any modified values were introduced.
->
-> Reflected XSS testing of **[parameter]** showed that **[observed evidence]**. Inspection of the returned HTML identified the input in **[output context]**. The controlled test **[did/did not]** result in browser script execution.
->
-> Stored XSS testing demonstrated **[observation]**, with the supplied value **[persisting/not persisting]** and being rendered when **[trigger]** occurred.
->
-> DOM-oriented testing identified **[source]** flowing into **[DOM location/sink]**. Developer Tools showed **[observable DOM change]**.
->
-> Recommended remediation includes context-aware output encoding, safe DOM manipulation, appropriate server-side input validation, HTML sanitisation where rich content is required, and CSP as an additional defence. Testing was limited to the designated training lessons, and conclusions therefore describe only behaviour directly demonstrated during the authorised assessment.
-
-### Expected result
-
-A concise professional findings summary links evidence, input/output context, impact, remediation, retest results, and limitations.
 
 ---
 
