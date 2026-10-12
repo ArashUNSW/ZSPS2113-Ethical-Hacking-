@@ -145,7 +145,13 @@ Record the active DVWA security level.
 
 ### WebGoat
 
-Locate the instructor-designated Cross-Site Scripting lesson. Lesson names may vary between WebGoat versions.
+Locate the instructor-designated Cross-Site Scripting lessons such as:
+
+- **Cross Site Scripting**
+- **Cross Site Scripting (Stored)**
+- **Cross Site Scripting (Mitigation)**
+
+Lesson names may vary between WebGoat versions.
 
 ### Complete the table below:
 
