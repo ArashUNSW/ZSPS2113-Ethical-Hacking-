@@ -601,7 +601,7 @@ For example, if the page URL contains:
 
 and JavaScript reads the `default` value from the URL and inserts it into the language dropdown, record the exact behaviour you observe.
 
-### Complete the table below:
+### Observe the table below:
 
 | Stage | Observation |
 |---|---|
@@ -768,10 +768,10 @@ The goal is to make conclusions that are supported by the lab evidence without o
 | Observed evidence | Supported interpretation | Unsupported assumption |
 |---|---|---|
 | Input appears unencoded in returned HTML | Output handling may be unsafe in this context | Every input on the site is vulnerable |
-| Browser executes the instructor-approved harmless script | XSS was demonstrated in this specific context | Full account compromise occurred |
-| Stored value executes after reload or revisit | Stored XSS behaviour is demonstrated for this field/page | Every user can be attacked |
-| DOM changes based on controlled URL input | Client-side JavaScript processes and inserts the controlled value | Server-side XSS exists |
-| Response status remains `200 OK` after modified input | The application accepted and processed the request | The request caused no security issue |
+| Browser executes the instructor-approved harmless script | | |
+| Stored value executes after reload or revisit | | |
+| DOM changes based on controlled URL input | | |
+| Response status remains `200 OK` after modified input | | |
 | **Your example** | | |
 
 ### Short interpretation exercise
@@ -852,12 +852,12 @@ Match each output context or weakness to the most appropriate mitigation.
 | Weakness / context | Appropriate control |
 |---|---|
 | **HTML text output** | Context-aware HTML output encoding |
-| **HTML attribute output** | Attribute-safe encoding and controlled attributes |
-| **JavaScript context** | JavaScript-safe encoding and avoidance of dynamic code construction |
-| **DOM manipulation** | Use safe DOM APIs such as `textContent` where plain text is intended |
-| **Untrusted rich HTML content** | Use a proven HTML sanitisation library |
-| **Additional browser defence** | Content Security Policy (CSP) |
-| **Unexpected or unsafe input** | Server-side validation appropriate to the expected data format |
+| **HTML attribute output** | |
+| **JavaScript context** | |
+| **DOM manipulation** | |
+| **Untrusted rich HTML content** | |
+| **Additional browser defence** | |
+| **Unexpected or unsafe input** | |
 
 ### Important concept
 
