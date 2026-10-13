@@ -177,7 +177,11 @@ The student identifies the authorised XSS lesson, its path, input field, and app
 
 ## Task 4 – Submit Normal Input
 
-Before testing XSS, establish normal application behaviour.
+### DVWA
+
+On **Kali-Attacker**,
+
+Before testing XSS, establish the application's normal behaviour.
 
 Use a harmless normal value, as you did in Lab 4 for SQL Injection. Enter a normal User ID value and submit the form to observe the application's expected behaviour.
 
@@ -257,13 +261,15 @@ You can reliably reproduce the baseline request in Burp Repeater.
 
 ## Task 6 – Identify the Reflected Input
 
-Open the authorised **Reflected XSS** lesson and submit:
+On **Kali-Attacker**,
+
+Open the authorised DVWA **Reflected XSS** lesson and submit:
 
 ```text
 Week5Test
 ```
 
-Use Browser DevTools, the Elements panel/page source, Ctrl + F to search Week5Test. You can also use Burp's response to see whether the marker appears in the returned HTML.
+Use Burp Suite's response to see whether the marker appears in the returned HTML, or you can also use Browser DevTools, the Elements panel/page source, Ctrl + F to search for Week5Test.
 
 ### Complete the table below:
 
@@ -291,7 +297,7 @@ Students identify the relationship:
 
 ## Task 7 – Identify the Output Context
 
-In **Developer Tools → Elements**, locate the reflected marker and record the surrounding HTML.
+In Burp Suite or Developer Tools → Elements, locate the reflected marker and record the surrounding HTML.
 
 Conceptual examples:
 
@@ -329,7 +335,7 @@ Students identify the exact output context in which the user-controlled value ap
 
 ## Task 8 – Perform a Harmless Reflected XSS Test
 
-Use only the instructor-authorised XSS lesson.
+Use only the instructor-authorised DVWA XSS lesson.
 
 Start with a minimal browser-visible proof. Open the authorised Reflected XSS lesson and submit:
 
@@ -372,6 +378,8 @@ The student determines whether the input is merely reflected or actually interpr
 ---
 
 ## Task 9 – Compare Baseline and Modified Response
+
+Compare the baseline request using normal input with the modified request used for XSS testing. Record any differences in the HTTP response, reflected input, HTML context, browser behaviour, and output encoding. Use your Burp Suite observations to determine how the application handles normal versus modified input.
 
 ### Complete the table below:
 
