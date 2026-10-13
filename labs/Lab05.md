@@ -520,13 +520,31 @@ Students distinguish reflected behaviour from stored behaviour using direct evid
 
 ## Task 13 – Identify a DOM Input Source
 
-Open the instructor-designated **DOM XSS/DOM-oriented** lesson and use Browser DevTools to inspect the URL, query string, fragment/hash, form value, JavaScript, and DOM changes.
+Open the instructor-designated **XSS (DOM) / DOM-oriented** lesson and use Browser DevTools to inspect the URL, query string, fragment/hash, form value, JavaScript, and DOM changes.
 
 Use a harmless marker:
 
 ```text
 DOMTest123
 ```
+
+On the DVWA **DOM XSS** page, there is no free-text box. The input source is the **URL query parameter** shown in the address bar:
+
+```text
+?vulnerability...
+?default=English
+```
+
+To enter the harmless marker DOMTest123, replace English in the URL with your marker.
+
+Change (example):
+http://192.168.1.100/vulnerabilities/xss_d/?default=English
+
+to (example):
+http://192.168.1.100/vulnerabilities/xss_d/?default=DOMTest123
+
+Then press Enter.
+After the page reloads, check whether DOMTest123 appears in the dropdown or elsewhere on the page.
 
 ### Complete the table below:
 
@@ -551,54 +569,136 @@ The student identifies a browser-controlled input source and its relationship to
 
 ## Task 14 – Trace Source to Sink
 
-Using DevTools, identify as much of the flow as possible:
+Use **Browser DevTools** to trace how the DOM-XSS input moves through the page.
+
+The goal is to identify the flow:
 
 **Source → JavaScript processing → DOM sink**
 
-Potential operations may include `innerHTML`, `document.write`, or `location`, but students should record what they **actually observe**.
+For this DVWA DOM-XSS exercise, begin by opening:
+
+**DevTools → Sources**
+
+Then:
+
+1. Open the page source for the DOM-XSS lesson.
+2. Search for terms such as:
+   - `default`
+   - `location`
+   - `document.location`
+   - `document.write`
+   - `innerHTML`
+3. Identify where the page reads the user-controlled value from the URL.
+4. Follow how JavaScript processes that value.
+5. Identify the DOM operation that inserts the value into the page.
+6. Confirm the resulting DOM in **DevTools → Elements**.
+
+For example, if the page URL contains:
+
+```text
+?default=DOMTest123
+```
+
+and JavaScript reads the `default` value from the URL and inserts it into the language dropdown, record the exact behaviour you observe.
 
 ### Complete the table below:
 
 | Stage | Observation |
 |---|---|
-| Source | |
-| JavaScript processing | |
-| Sink/output | |
-| Encoding/sanitisation observed | |
-| Resulting DOM | |
+| **Source** | URL query parameter, for example `default=DOMTest123` |
+| **JavaScript processing** | Record how JavaScript reads or extracts the value, such as through `document.location` or another URL-processing operation |
+| **Sink/output** | Record the DOM-writing operation actually observed, such as `document.write(...)` or `innerHTML` |
+| **Encoding/sanitisation observed** | Record whether the value is encoded, filtered, sanitised, or inserted without visible protection |
+| **Resulting DOM** | Record where the supplied value appears in the DOM, for example inside an `<option>` element in the language dropdown |
+
+### Evidence to capture
+
+Capture DevTools evidence showing:
+
+- the browser-controlled input source;
+- the JavaScript code that processes the value;
+- the DOM sink or output operation; and
+- the resulting DOM element containing the marker value.
 
 ### Note
 
-DOM-oriented weaknesses may occur largely in the browser; the vulnerable value may not appear in the server-generated response.
+Do **not** assume a particular sink such as `document.write` or `innerHTML`. Record only the operation you actually observe in DevTools.
+
+DOM-oriented weaknesses may occur largely in the browser, so the vulnerable value may not appear in the original server-generated response.
 
 ### Expected result
 
-Students document the observed source-to-sink flow.
+Students document the observed source-to-sink flow and explain how JavaScript reads a browser-controlled value and inserts it into the DOM.
 
 ---
 
 ## Task 15 – Perform a Harmless DOM Test
 
-Using only the designated lesson, determine whether controlled input changes the DOM in an unsafe way. Use the instructor-approved minimum harmless proof.
+Using only the designated **DOM XSS** lesson, test whether a controlled browser-supplied value is inserted into the DOM as plain text or interpreted as active markup.
+
+Use only the **instructor-approved harmless test value**. Do not use payloads that access cookies, session data, credentials, external systems, or other users.
+
+### Procedure
+
+1. Open the designated DOM XSS page.
+2. Identify the browser-controlled input source from **Task 13**, for example the `default` URL parameter.
+3. Record the relevant DOM element in **DevTools → Elements** before changing the input.
+4. Replace the normal input value with the instructor-approved harmless test value.
+5. Reload or revisit the page.
+6. Inspect the same DOM element again.
+7. Determine whether the supplied value:
+   - remains plain text,
+   - creates new HTML markup, or
+   - results in harmless JavaScript execution.
+8. Record only what you actually observe.
 
 ### Complete the table below:
 
 | Item | Observation |
 |---|---|
-| Input supplied | |
-| DOM before | |
-| DOM after | |
-| Markup created? | Yes / No |
-| Script execution observed? | Yes / No |
-| Supported interpretation | |
+| **Input supplied** | |
+| **DOM before** | |
+| **DOM after** | |
+| **Markup created?** | Yes / No |
+| **Script execution observed?** | Yes / No |
+| **Supported interpretation** | |
+
+### Example observations
+
+For **DOM before**, you might record something such as:
+
+```html
+<option value="English">English</option>
+```
+
+For **DOM after**, record the resulting structure shown in DevTools after supplying the test value.
+
+If the browser creates additional HTML elements from the supplied value, record:
+
+```text
+Markup created: Yes
+```
+
+If a harmless alert or equivalent approved proof executes, record:
+
+```text
+Script execution observed: Yes
+```
+
+Do not mark either result as **Yes** unless it is directly observed.
 
 ### Evidence to capture
 
-Capture DevTools showing the source/input, affected DOM element, and resulting DOM structure.
+Capture DevTools evidence showing:
+
+- the browser-controlled input source;
+- the relevant DOM element before the test;
+- the resulting DOM structure after the test; and
+- any harmless execution evidence, if observed.
 
 ### Expected result
 
-Students determine whether the controlled input is handled as text or interpreted as active DOM content.
+Students determine whether controlled browser input is treated as **plain text** or interpreted as **active DOM content**, and support the conclusion with DevTools evidence.
 
 ---
 
@@ -606,25 +706,50 @@ Students determine whether the controlled input is handled as text or interprete
 
 ## Task 16 – Build an XSS Comparison Table
 
+Use the evidence collected in the **Reflected XSS**, **Stored XSS**, and **DOM-oriented XSS** tasks to compare how each type handles user-controlled input.
+
+Focus on the **data flow**, **where the value is processed**, **whether it is stored**, and **what causes execution**. Record only what you observed in the lab.
+
 ### Complete the table below:
 
-| Characteristic | Reflected | Stored | DOM-oriented |
+| Characteristic | Reflected XSS | Stored XSS | DOM-oriented XSS |
 |---|---|---|---|
-| User input source | | | |
-| Input stored? | | | |
-| Returned by server? | | | |
-| DOM modified? | | | |
-| Script execution observed? | | | |
-| Trigger condition | | | |
-| Evidence reference | | | |
+| **User input source** | | | |
+| **Input stored?** | | | |
+| **Returned by server?** | | | |
+| **Processed mainly by** | Server response / browser | Server + storage + browser | Browser-side JavaScript |
+| **DOM modified?** | | | |
+| **Script execution observed?** | | | |
+| **Typical trigger condition observed** | | | |
+| **Evidence reference** | | | |
+
+### Guidance
+
+Use your earlier evidence to answer the table. For example:
+
+- **Reflected XSS:** the supplied value is sent in a request and returned in the same response.
+- **Stored XSS:** the supplied value is saved by the application and rendered again later.
+- **DOM-oriented XSS:** browser-side JavaScript reads a controllable source and writes it into the DOM.
+
+Do not assume that every field on the application behaves the same way.
 
 ### Knowledge Check
 
 **What is the most important technical difference between reflected, stored, and DOM-oriented XSS?**
 
+Write a short answer based on the observed **source-to-sink/data-flow behaviour**.
+
+### Evidence to capture
+
+Reference the screenshots or observations you collected in the earlier tasks, including:
+
+- the reflected request/response;
+- the stored value after reload or revisit; and
+- the DOM source, JavaScript processing, and resulting DOM change.
+
 ### Expected result
 
-Students distinguish the three XSS categories using observed data flow and execution behaviour.
+Students distinguish the three XSS categories using observed **input flow**, **storage behaviour**, **server involvement**, **DOM manipulation**, and **execution conditions**.
 
 ---
 
@@ -632,31 +757,51 @@ Students distinguish the three XSS categories using observed data flow and execu
 
 ## Task 17 – Evidence-Based Interpretation
 
-Distinguish:
+For each observation, distinguish between:
 
 **Observed evidence → Supported interpretation → Unsupported assumption**
+
+The goal is to make conclusions that are supported by the lab evidence without overstating the security impact.
 
 ### Complete the table below:
 
 | Observed evidence | Supported interpretation | Unsupported assumption |
 |---|---|---|
-| Input appears unencoded in HTML | Output handling may be unsafe | Every input on the site is vulnerable |
-| Browser executes harmless script | XSS was demonstrated in this context | Full account compromise occurred |
-| Stored value executes after reload | Stored XSS behaviour is demonstrated | Every user can be attacked |
-| DOM changes based on URL input | Client-side code processes the input | Server-side XSS exists |
-| Your example | | |
+| Input appears unencoded in returned HTML | Output handling may be unsafe in this context | Every input on the site is vulnerable |
+| Browser executes the instructor-approved harmless script | XSS was demonstrated in this specific context | Full account compromise occurred |
+| Stored value executes after reload or revisit | Stored XSS behaviour is demonstrated for this field/page | Every user can be attacked |
+| DOM changes based on controlled URL input | Client-side JavaScript processes and inserts the controlled value | Server-side XSS exists |
+| Response status remains `200 OK` after modified input | The application accepted and processed the request | The request caused no security issue |
+| **Your example** | | |
+
+### Short interpretation exercise
+
+Choose **one** result from your lab and write:
+
+1. **What you directly observed**
+2. **What conclusion is supported by that observation**
+3. **What claim would go beyond the evidence**
+
+### Example
+
+> **Observed:** The modified value was returned in the page and the browser displayed the harmless alert.  
+> **Supported interpretation:** The supplied value was interpreted as executable content in this context.  
+> **Unsupported assumption:** The vulnerability allows complete compromise of all users.
 
 ### Expected result
 
-Students clearly distinguish direct observations from supported conclusions and unsupported claims.
+Students clearly separate:
 
----
+- **direct observations**;
+- **reasonable technical conclusions** supported by those observations; and
+- **claims that are not demonstrated by the available evidence**.
+
 
 # Part H – Assess the Security Impact
 
 ## Task 18 – Assess Demonstrated Impact
 
-Use:
+Use only the following terms when recording impact:
 
 ```text
 Observed
@@ -664,62 +809,83 @@ Not observed
 Requires further verification
 ```
 
+Base each entry on evidence collected during the authorised lab. Do not infer impact that was not directly demonstrated.
+
 ### Complete the table below:
 
-| Impact area | Reflected | Stored | DOM-oriented |
+| Impact area | Reflected XSS | Stored XSS | DOM-oriented XSS |
 |---|---|---|---|
-| Browser script execution | | | |
-| Persistent behaviour | | | |
-| Sensitive information exposed | | | |
-| User interaction required | | | |
-| Session compromise demonstrated | | | |
-| Further verification required | | | |
+| **Browser script execution** | | | |
+| **Persistent behaviour** | | | |
+| **Sensitive information exposed** | | | |
+| **User interaction required** | | | |
+| **Session compromise demonstrated** | | | |
+| **Further verification required** | | | |
 
-Do not claim session theft merely because XSS could theoretically be used for it.
+### Guidance
+
+- Mark **Observed** only when the behaviour was directly demonstrated.
+- Mark **Not observed** when the behaviour was specifically checked and did not occur.
+- Mark **Requires further verification** when the available evidence is insufficient to reach a conclusion.
+- Do **not** claim session theft, credential theft, account compromise, or broader user impact merely because XSS could theoretically enable those outcomes.
+
+### Short interpretation
+
+Write one or two sentences identifying the **highest impact actually demonstrated** by your evidence.
 
 ### Expected result
 
-Students assess only the impact demonstrated by the evidence.
+Students assess only the impact supported by the collected evidence and clearly distinguish demonstrated behaviour from theoretical risk.
 
 ---
 
 # Part I – Understand XSS Remediation
 
-## Task 19 – Identify the Correct Mitigation
+## Task 19 – Match the Weakness to the Correct Mitigation
 
-Review the vulnerable lesson/source or remediation guidance and match the control to the output context.
+Review the vulnerable lesson, available source code, remediation guidance, or safer implementation provided in the authorised training environment.
+
+Match each output context or weakness to the most appropriate mitigation.
 
 ### Complete the table below:
 
 | Weakness / context | Appropriate control |
 |---|---|
-| HTML text output | Context-aware HTML output encoding |
-| HTML attribute output | Attribute-safe encoding and controlled attributes |
-| JavaScript context | JavaScript-safe encoding / avoid dynamic code construction |
-| DOM manipulation | Use safe DOM APIs such as `textContent` where appropriate |
-| Untrusted rich content | Proven HTML sanitisation |
-| Additional browser defence | Content Security Policy |
-| Unsafe input | Server-side validation appropriate to expected data |
+| **HTML text output** | Context-aware HTML output encoding |
+| **HTML attribute output** | Attribute-safe encoding and controlled attributes |
+| **JavaScript context** | JavaScript-safe encoding and avoidance of dynamic code construction |
+| **DOM manipulation** | Use safe DOM APIs such as `textContent` where plain text is intended |
+| **Untrusted rich HTML content** | Use a proven HTML sanitisation library |
+| **Additional browser defence** | Content Security Policy (CSP) |
+| **Unexpected or unsafe input** | Server-side validation appropriate to the expected data format |
 
 ### Important concept
 
-**Input validation alone is not a complete XSS defence.**
+> **Input validation alone is not a complete defence against XSS.**
+
+Validation can reduce unexpected input, but XSS prevention also requires **context-appropriate output handling** and safe browser-side APIs.
+
+### Knowledge Check
+
+Why is the correct mitigation dependent on the **output context**?
 
 ### Expected result
 
-Students connect each observed weakness to a context-appropriate mitigation.
+Students connect each observed weakness to a context-appropriate mitigation and explain why validation alone is insufficient.
 
 ---
 
 ## Task 20 – Inspect the Vulnerable and Safer Pattern
 
-Conceptual unsafe pattern:
+Review the following conceptual examples.
+
+### Potentially unsafe pattern
 
 ```javascript
 element.innerHTML = userInput;
 ```
 
-Safer approach for plain text:
+### Safer approach when plain text is intended
 
 ```javascript
 element.textContent = userInput;
@@ -729,15 +895,23 @@ element.textContent = userInput;
 
 | Item | Observation / explanation |
 |---|---|
-| Vulnerable pattern reviewed | |
-| Unsafe DOM/API use observed | |
-| Why the pattern is unsafe | |
-| Safer handling approach | |
-| Why the safer approach helps | |
+| **Vulnerable pattern reviewed** | |
+| **Unsafe DOM/API use observed** | |
+| **Why the pattern is unsafe** | |
+| **Safer handling approach** | |
+| **Why the safer approach helps** | |
+
+### Guidance
+
+Your explanation should focus on **browser interpretation**.
+
+For example, `innerHTML` can cause supplied characters to be interpreted as HTML markup, whereas `textContent` inserts the value as text rather than parsing it as HTML.
+
+Do not state that `textContent` is appropriate for every situation. It is suitable where the application intends to display **plain text**.
 
 ### Expected result
 
-Students explain why safer output handling changes browser interpretation of untrusted data.
+Students explain how safer output handling changes the browser's interpretation of untrusted data.
 
 ---
 
@@ -745,31 +919,49 @@ Students explain why safer output handling changes browser interpretation of unt
 
 ## Task 21 – Retest the Same XSS Input
 
-If the DVWA security level or WebGoat remediation stage supports it, retain the original baseline and controlled XSS input, change only the relevant control/stage, and repeat the test.
+If the DVWA security level, WebGoat remediation stage, or equivalent training control supports it, repeat the same test after changing **only the relevant security control or remediation stage**.
+
+Retain the original:
+
+- baseline input;
+- controlled XSS test value;
+- target page or lesson; and
+- evidence method.
+
+This allows a valid before-and-after comparison.
 
 ### Complete the table below:
 
 | Behaviour | Before remediation | After remediation |
 |---|---|---|
-| Normal input displays correctly | | |
-| Special characters accepted | | |
-| Markup interpreted | | |
-| Script executes | | |
-| Output encoded | | |
-| DOM altered unsafely | | |
-| Validation message | | |
+| **Normal input displays correctly** | | |
+| **Special characters accepted** | | |
+| **Markup interpreted** | | |
+| **Script executes** | | |
+| **Output encoded** | | |
+| **DOM altered unsafely** | | |
+| **Validation or security message shown** | | |
 
 ### Interpretation
 
-Write one short evidence-based statement identifying the specific observed control or behavioural difference.
+Write one short evidence-based statement identifying the **specific observed control or behavioural difference**.
+
+Example structure:
+
+> Before remediation, **[observed behaviour]**. After the control was applied, **[observed difference]**, indicating that **[specific control effect]**.
 
 ### Evidence to capture
 
-Capture the stronger/remediated stage and comparable before/after evidence.
+Capture comparable before-and-after evidence showing:
+
+- the same input or test value;
+- the relevant request/response or DOM state;
+- the changed security/remediation stage; and
+- the resulting difference in browser behaviour.
 
 ### Expected result
 
-Students identify the **specific observed control or behavioural difference** after remediation.
+Students identify the **specific observed control or behavioural difference** and avoid attributing improvements to controls that were not actually verified.
 
 ---
 
@@ -777,7 +969,9 @@ Students identify the **specific observed control or behavioural difference** af
 
 ## Task 22 – Save Required Week 5 Evidence
 
-Suggested filenames:
+Save the evidence collected during the core Week 5 activities using clear filenames that map directly to the relevant tasks.
+
+### Suggested filenames
 
 ```text
 01-target-running.png
@@ -793,21 +987,30 @@ Suggested filenames:
 11-xss-findings-summary.txt
 ```
 
-Before submission, confirm evidence does not expose passwords, PHPSESSID values, WebGoat authentication tokens, unrelated session identifiers, or other sensitive values.
+Before submission, review every screenshot and file to ensure that it does **not** expose:
+
+- passwords;
+- `PHPSESSID` values;
+- WebGoat authentication tokens;
+- unrelated session identifiers;
+- API keys or credentials; or
+- other sensitive values.
+
+Redact sensitive values while keeping the technical evidence needed for assessment visible.
 
 ### Complete the table below:
 
 | Check | Complete? |
 |---|---|
-| All required evidence files are present | Yes / No |
-| Filenames clearly map to tasks | Yes / No |
-| Screenshots are readable | Yes / No |
-| Request/response details are visible where required | Yes / No |
-| Passwords are redacted | Yes / No |
-| Session IDs/tokens are redacted | Yes / No |
-| Findings table is included | Yes / No |
-| Findings summary is included | Yes / No |
-| Every saved file opens successfully | Yes / No |
+| **All required evidence files are present** | Yes / No |
+| **Filenames clearly map to tasks** | Yes / No |
+| **Screenshots are readable** | Yes / No |
+| **Request/response details are visible where required** | Yes / No |
+| **Passwords are redacted** | Yes / No |
+| **Session IDs/tokens are redacted** | Yes / No |
+| **Findings table is included** | Yes / No |
+| **Findings summary is included** | Yes / No |
+| **Every saved file opens successfully** | Yes / No |
 
 ### Expected result
 
@@ -819,44 +1022,62 @@ A complete, readable, clearly organised, and appropriately redacted Week 5 evide
 
 ## Task 23 – Produce Evidence-Based XSS Findings
 
-Use only the screenshots, requests/responses, DevTools observations, remediation notes, and retest evidence already collected.
+Use only the evidence already collected from:
+
+- screenshots;
+- Burp Suite requests and responses;
+- Browser DevTools observations;
+- remediation/source notes; and
+- retest evidence.
+
+Do not introduce claims that were not demonstrated during the authorised lab.
 
 ### Complete the table below:
 
-| Area | Reflected XSS | Stored XSS | DOM-oriented |
+| Area | Reflected XSS | Stored XSS | DOM-oriented XSS |
 |---|---|---|---|
-| Target | | | |
-| Input source/parameter | | | |
-| Baseline behaviour | | | |
-| Modified input | | | |
-| Output context | | | |
-| Observed behaviour | | | |
-| Script execution demonstrated? | | | |
-| Supported interpretation | | | |
-| Potential impact | | | |
-| Remediation | | | |
-| Retest result | | | |
-| Evidence reference | | | |
+| **Target** | | | |
+| **Input source / parameter** | | | |
+| **Baseline behaviour** | | | |
+| **Modified input** | | | |
+| **Output / DOM context** | | | |
+| **Observed behaviour** | | | |
+| **Script execution demonstrated?** | | | |
+| **Supported interpretation** | | | |
+| **Demonstrated / potential impact** | | | |
+| **Recommended remediation** | | | |
+| **Retest result** | | | |
+| **Evidence reference** | | | |
 
 ### Core reporting sequence
 
-**Observed evidence → Output context → Supported interpretation → Impact → Mitigation → Retest**
+Use the following sequence for each finding:
+
+**Observed evidence → Output/DOM context → Supported interpretation → Impact → Mitigation → Retest**
+
+### Reporting guidance
+
+- Keep **observed behaviour** separate from **potential impact**.
+- Use **demonstrated impact** where the lab directly proved a consequence.
+- Use **potential impact** only where clearly labelled as theoretical.
+- Refer to specific evidence filenames, screenshots, or task numbers where possible.
+- Do not claim broader compromise unless it was directly demonstrated.
 
 ### Expected result
 
-Students produce concise, evidence-based findings for reflected, stored, and DOM-oriented XSS/input-handling weaknesses.
+Students produce concise, technically accurate, evidence-based findings for reflected, stored, and DOM-oriented XSS/input-handling weaknesses.
 
 ---
 
 # Part M – Findings Summary
 
-## Task 29 – Write a 400–500 Word Findings Summary
+## Task 24 – Write a 400–500 Word Findings Summary
 
 Use evidence from the **core Tasks 1–23**. Evidence from optional advanced activities may be included where completed, but students should **not be disadvantaged for not completing optional activities**.
 
-Write approximately **400–500 words**.
+Write approximately **400–500 words** in a concise professional reporting style.
 
-Include:
+### Include the following
 
 - authorised target/application;
 - XSS lessons tested;
@@ -864,37 +1085,48 @@ Include:
 - reflected-XSS evidence;
 - stored-XSS evidence;
 - DOM-oriented evidence;
-- affected input/source;
-- affected output/DOM context;
+- affected input source or parameter;
+- affected output or DOM context;
 - Browser DevTools observations;
-- Burp request/response evidence;
+- Burp Suite request/response evidence;
 - demonstrated security impact;
-- mitigation;
-- retesting;
-- limitations;
+- recommended mitigation;
+- retesting results, where available;
+- limitations of the testing; and
 - whether each XSS weakness was actually validated.
 
 ### Suggested structure
 
-> XSS testing was conducted against the authorised DVWA/WebGoat training application using Browser Developer Tools and Burp Suite. Baseline requests established the normal handling of user-controlled input before any modified values were introduced.
+> XSS testing was conducted against the authorised DVWA/WebGoat training application using Browser Developer Tools and Burp Suite. Baseline requests established the normal handling of user-controlled input before modified values were introduced.
 >
-> Reflected XSS testing of **[parameter]** showed that **[observed evidence]**. Inspection of the returned HTML identified the input in **[output context]**. The controlled test **[did/did not]** result in browser script execution.
+> Reflected XSS testing of **[parameter]** showed that **[observed evidence]**. Inspection of the returned HTML identified the value in **[output context]**. The controlled test **[did/did not]** result in browser script execution.
 >
-> Stored XSS testing demonstrated **[observation]**, with the supplied value **[persisting/not persisting]** and being rendered when **[trigger]** occurred.
+> Stored XSS testing demonstrated **[observation]**, with the supplied value **[persisting/not persisting]** and being rendered when **[trigger]** occurred. This behaviour **[did/did not]** demonstrate persistent script execution.
 >
-> DOM-oriented testing identified **[source]** flowing into **[DOM location/sink]**. Developer Tools showed **[observable DOM change]**.
+> DOM-oriented testing identified **[source]** flowing through **[JavaScript processing]** into **[DOM sink/location]**. Developer Tools showed **[observable DOM change]**, and the controlled test **[did/did not]** result in active content being created or executed.
 >
-> Recommended remediation includes context-aware output encoding, safe DOM manipulation, appropriate server-side input validation, HTML sanitisation where rich content is required, and CSP as an additional defence. Testing was limited to the designated training lessons, and conclusions therefore describe only behaviour directly demonstrated during the authorised assessment.
+> Recommended remediation includes context-aware output encoding, safe DOM manipulation, appropriate server-side input validation, HTML sanitisation where rich content is required, and Content Security Policy as an additional browser defence. Where remediation or a stronger security stage was available, retesting showed **[observed difference]**.
+>
+> Testing was limited to the designated training lessons and authorised inputs. Conclusions therefore describe only behaviour directly demonstrated during the assessment and do not imply broader compromise beyond the collected evidence.
+
+### Writing guidance
+
+Your summary should:
+
+- prioritise **evidence over assumption**;
+- distinguish **demonstrated impact** from **potential impact**;
+- identify whether each XSS type was actually validated;
+- refer to relevant evidence without listing every screenshot; and
+- avoid claims such as session theft, credential compromise, or organisation-wide exposure unless these were directly demonstrated.
 
 ### Expected result
 
-A concise professional findings summary links evidence, input/output context, impact, remediation, retest results, and limitations.
+A concise professional findings summary links **evidence, source/input, output context, execution behaviour, impact, mitigation, retest results, and limitations**.
 
----
 
 # Part N – Advanced XSS Analysis (Optional)
 
-## Task 24 – Compare Reflected XSS Across DVWA Security Levels  
+## Task 25 – Compare Reflected XSS Across DVWA Security Levels  
 **Advanced Lab, Optional**
 
 **Tools:** Kali-Attacker browser, Browser DevTools, Burp Suite Repeater  
@@ -946,7 +1178,7 @@ Students identify the **specific input/output control that changes** between sec
 
 # Part O – Additional Advanced XSS Analysis (Optional)
 
-## Task 25 – Analyse XSS Output Contexts  
+## Task 26 – Analyse XSS Output Contexts  
 **Advanced Lab, Optional**
 
 **Tools:** Browser DevTools, Burp Suite  
@@ -976,7 +1208,7 @@ Students relate an XSS weakness to its exact **source, output context, and mitig
 
 ---
 
-## Task 26 – Trace a DOM Source-to-Sink Flow  
+## Task 27 – Trace a DOM Source-to-Sink Flow  
 **Advanced Lab, Optional**
 
 **Tools:** Browser DevTools  
@@ -1025,7 +1257,7 @@ Students document a defensible **source → processing → sink → browser beha
 
 ---
 
-## Task 27 – Inspect Content Security Policy as a Defence-in-Depth Control  
+## Task 28 – Inspect Content Security Policy as a Defence-in-Depth Control  
 **Advanced Lab, Optional**
 
 **Tools:** Browser DevTools, Burp Suite  
@@ -1065,7 +1297,7 @@ Students explain that CSP may **reduce exploitability or impact**, while the und
 
 ---
 
-## Task 28 – Compare Server Response with the Browser DOM  
+## Task 29 – Compare Server Response with the Browser DOM  
 **Advanced Lab, Optional**
 
 **Tools:** Burp Suite, Browser DevTools  
