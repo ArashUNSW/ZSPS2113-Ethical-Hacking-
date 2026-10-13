@@ -386,7 +386,7 @@ The student determines whether the input is merely reflected or actually interpr
 
 ### Sample results
 
-Based on your two Burp Suite screenshots, see the following sample comparison, you can complete **Task 9** in similar way:
+See the following sample comparison; you can complete **Task 9** in a similar way:
 
 | Feature               | Baseline                          | Modified                                           |
 | --------------------- | --------------------------------- | -------------------------------------------------- |
@@ -397,9 +397,8 @@ Based on your two Burp Suite screenshots, see the following sample comparison, y
 | **Browser execution** | No                                | **Yes, if the alert box appeared in the browser**  |
 | **Encoding observed** | Normal text returned              | **No effective output encoding observed**          |
 
-A good evidence-based interpretation is:
-
-> The baseline value `Week5Test` was reflected as normal text, while the modified `<script>` value was returned in the page without effective output encoding. If the browser displayed the JavaScript alert, this confirms that the supplied markup was interpreted as executable content.
+### Interpretation
+The baseline value `Week5Test` was reflected as normal text, while the modified `<script>` value was returned in the page without effective output encoding. If the browser displayed the JavaScript alert, this confirms that the supplied markup was interpreted as executable content.
 
 One important point: in the request, characters such as < and > appearing as %3C and %3E are URL encoding, not XSS protection. What matters is whether the server safely HTML-encodes the value in the response. In this case, the modified value appears to be returned without effective output encoding.
 
