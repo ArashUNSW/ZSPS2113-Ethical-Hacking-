@@ -179,7 +179,7 @@ The student identifies the authorised XSS lesson, its path, input field, and app
 
 Before testing XSS, establish normal application behaviour.
 
-Use a harmless normal value using SQL Injection, User ID such as:
+Use a harmless normal value, as you did in Lab 4 for SQL Injection. Enter a normal User ID value and submit the form to observe the application's expected behaviour.
 
 ```text
 Week5Test
@@ -249,7 +249,7 @@ Redact passwords, session identifiers, authentication tokens, and other sensitiv
 
 ### Expected result
 
-The baseline request can be reproduced reliably in Burp Repeater.
+You can reliably reproduce the baseline request in Burp Repeater.
 
 ---
 
@@ -263,7 +263,7 @@ Open the authorised **Reflected XSS** lesson and submit:
 Week5Test
 ```
 
-Use Browser DevTools, the Elements panel/page source, and the Burp response to determine whether the marker appears in returned HTML.
+Use Browser DevTools, the Elements panel/page source, Ctrl + F to search Week5Test. You can also use Burp's response to see whether the marker appears in the returned HTML.
 
 ### Complete the table below:
 
@@ -317,7 +317,7 @@ Do not assume all reflection is XSS.
 | Browser interprets as text? | Yes / No |
 | Encoding observed? | Yes / No |
 
-### Teaching point
+### Note
 
 **Reflection does not automatically mean confirmed XSS.**
 
