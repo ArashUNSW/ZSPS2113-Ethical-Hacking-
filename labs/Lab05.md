@@ -423,6 +423,10 @@ The student explains the observed difference between normal and modified input w
 Open the authorised **Stored XSS** lesson and enter a normal value such as:
 
 ```text
+Week5Test
+```
+
+```text
 Week5 Stored Test
 ```
 
@@ -477,6 +481,10 @@ Students identify how a submitted value is stored and later returned to the brow
 ## Task 12 – Perform a Controlled Stored-XSS Test
 
 Use only the instructor-designated field and the minimum harmless proof necessary, for example:
+
+```text
+Week5Test
+```
 
 ```html
 <script>alert('Stored XSS')</script>
