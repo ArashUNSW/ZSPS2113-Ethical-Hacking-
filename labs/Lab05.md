@@ -319,7 +319,7 @@ Do not assume all reflection is XSS.
 
 ### Note
 
-**Reflection does not automatically mean confirmed XSS.**
+Reflection does not automatically mean confirmed XSS.
 
 ### Expected result
 
@@ -331,7 +331,7 @@ Students identify the exact output context in which the user-controlled value ap
 
 Use only the instructor-authorised XSS lesson.
 
-Start with a minimal browser-visible proof such as:
+Start with a minimal browser-visible proof. Open the authorised Reflected XSS lesson and submit:
 
 ```html
 <script>alert('XSS')</script>
@@ -384,13 +384,24 @@ The student determines whether the input is merely reflected or actually interpr
 | Browser execution | No | |
 | Encoding observed | | |
 
-### Supported interpretation
+### Sample results
 
-Write one evidence-based statement.
+Based on your two Burp Suite screenshots, see the following sample comparison, you can complete **Task 9** in similar way:
 
-Example:
+| Feature               | Baseline                          | Modified                                           |
+| --------------------- | --------------------------------- | -------------------------------------------------- |
+| **HTTP status**       | `200 OK`                          | `200 OK`                                           |
+| **Response length**   | `4364 bytes`                      | `4384 bytes`                                       |
+| **Input reflected**   | Yes — `Week5Test`                 | Yes — supplied `<script>...` value                 |
+| **HTML context**      | Text content in the returned page | Script/HTML markup inserted into the returned page |
+| **Browser execution** | No                                | **Yes, if the alert box appeared in the browser**  |
+| **Encoding observed** | Normal text returned              | **No effective output encoding observed**          |
 
-> The modified value was returned inside the page without effective output encoding and the browser interpreted the supplied markup as executable content.
+A good evidence-based interpretation is:
+
+> The baseline value `Week5Test` was reflected as normal text, while the modified `<script>` value was returned in the page without effective output encoding. If the browser displayed the JavaScript alert, this confirms that the supplied markup was interpreted as executable content.
+
+One important point: in the request, characters such as < and > appearing as %3C and %3E are URL encoding, not XSS protection. What matters is whether the server safely HTML-encodes the value in the response. In this case, the modified value appears to be returned without effective output encoding.
 
 ### Expected result
 
