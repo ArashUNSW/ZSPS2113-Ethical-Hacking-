@@ -443,10 +443,6 @@ Submit it, reload or revisit the page, and determine whether the value persists.
 
 Capture one screenshot showing the normal stored input after it is rendered.
 
-### Teaching point
-
-**Submit → Store → Retrieve → Render**
-
 ### Expected result
 
 The student establishes normal persistent-input behaviour before introducing modified content.
@@ -563,7 +559,7 @@ Potential operations may include `innerHTML`, `document.write`, or `location`, b
 | Encoding/sanitisation observed | |
 | Resulting DOM | |
 
-### Teaching point
+### Note
 
 DOM-oriented weaknesses may occur largely in the browser; the vulnerable value may not appear in the server-generated response.
 
