@@ -1073,56 +1073,48 @@ Students produce concise, technically accurate, evidence-based findings for refl
 
 ## Task 24 – Write a 400–500 Word Findings Summary
 
-Use evidence from the **core Tasks 1–23**. Evidence from optional advanced activities may be included where completed, but students should **not be disadvantaged for not completing optional activities**.
+Use evidence from the **core Tasks 1–23**. Optional advanced activities do not need to be included.
 
-Write approximately **400–500 words** in a concise professional reporting style.
+Write approximately **400–500 words** in a concise professional style.
 
 ### Include the following
 
 - authorised target/application;
-- XSS lessons tested;
-- baseline behaviour;
-- reflected-XSS evidence;
-- stored-XSS evidence;
-- DOM-oriented evidence;
-- affected input source or parameter;
-- affected output or DOM context;
-- Browser DevTools observations;
-- Burp Suite request/response evidence;
-- demonstrated security impact;
+- XSS types tested: **reflected, stored and DOM-oriented**;
+- key baseline and testing evidence;
+- affected parameter or input source;
+- whether script execution was actually demonstrated;
+- main Browser DevTools or Burp Suite evidence;
+- security impact;
 - recommended mitigation;
-- retesting results, where available;
-- limitations of the testing; and
-- whether each XSS weakness was actually validated.
+- testing limitations.
 
 ### Suggested structure
 
-> XSS testing was conducted against the authorised DVWA/WebGoat training application using Browser Developer Tools and Burp Suite. Baseline requests established the normal handling of user-controlled input before modified values were introduced.
+> XSS testing was conducted against the authorised **DVWA/WebGoat training application** using Browser Developer Tools and Burp Suite. Baseline testing was first performed to establish how the application normally handled user-controlled input before any modified values were introduced.
 >
-> Reflected XSS testing of **[parameter]** showed that **[observed evidence]**. Inspection of the returned HTML identified the value in **[output context]**. The controlled test **[did/did not]** result in browser script execution.
+> Reflected and stored XSS testing focused on the relevant **input fields or parameters**. The evidence showed **[briefly describe the observed behaviour]**. The supplied value was **[reflected/stored]** in the application, and the controlled test **[did/did not]** result in browser script execution.
 >
-> Stored XSS testing demonstrated **[observation]**, with the supplied value **[persisting/not persisting]** and being rendered when **[trigger]** occurred. This behaviour **[did/did not]** demonstrate persistent script execution.
+> DOM-oriented testing examined how user-controlled input was processed in the browser. Developer Tools showed **[briefly describe the DOM/source-to-sink behaviour]**, and the controlled test **[did/did not]** create or execute active content.
 >
-> DOM-oriented testing identified **[source]** flowing through **[JavaScript processing]** into **[DOM sink/location]**. Developer Tools showed **[observable DOM change]**, and the controlled test **[did/did not]** result in active content being created or executed.
+> The demonstrated impact was **[briefly state the impact]**. Recommended remediation includes **context-aware output encoding, safe DOM manipulation, server-side input validation, and sanitisation where required**.
 >
-> Recommended remediation includes context-aware output encoding, safe DOM manipulation, appropriate server-side input validation, HTML sanitisation where rich content is required, and Content Security Policy as an additional browser defence. Where remediation or a stronger security stage was available, retesting showed **[observed difference]**.
->
-> Testing was limited to the designated training lessons and authorised inputs. Conclusions therefore describe only behaviour directly demonstrated during the assessment and do not imply broader compromise beyond the collected evidence.
+> Testing was limited to the authorised training applications and designated inputs. Based on the collected evidence, the tested XSS weaknesses were classified as **[confirmed/potential/not validated]**, and no broader impact should be assumed beyond what was directly demonstrated.
 
-### Writing guidance
+### Writing Guidance
 
 Your summary should:
 
-- prioritise **evidence over assumption**;
-- distinguish **demonstrated impact** from **potential impact**;
-- identify whether each XSS type was actually validated;
-- refer to relevant evidence without listing every screenshot; and
-- avoid claims such as session theft, credential compromise, or organisation-wide exposure unless these were directly demonstrated.
+- focus on the **most important evidence** rather than describing every task;
+- distinguish **demonstrated impact** from potential impact;
+- avoid listing every screenshot or request;
+- avoid claims such as session theft or credential compromise unless directly demonstrated.
 
-### Expected result
+### Expected Result
 
-A concise professional findings summary links **evidence, source/input, output context, execution behaviour, impact, mitigation, retest results, and limitations**.
+A concise professional summary that explains:
 
+**what was tested → what evidence was observed → what was validated → what the impact is → how it should be mitigated.**
 
 # Part N – Advanced XSS Analysis (Optional)
 
