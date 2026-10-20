@@ -21,6 +21,7 @@ By the end of the lab, students should be able to:
 6. Evaluate one benign business-logic workflow using controlled, low-impact variations.
 7. Report validated findings separately from potential risks and untested hypotheses.
 
+
 ## Before you begin
 
 - Use the IP address and port assigned to **your** Ubuntu-Server. Example only: `http://192.168.1.100:3000/`.
@@ -31,6 +32,40 @@ By the end of the lab, students should be able to:
 
 ```bash
 mkdir -p ~/lab-evidence/week8
+```
+
+## Part A – Prepare the Week 8 Environment
+
+### Task 1 – Create the Week 8 Evidence Folder
+
+- Start the authorised Ubuntu-Server and Kali-Attacker VMs and confirm that the DVWA container is healthy.
+- Record the **actual DVWA address**, IP, port, DVWA version (if available), and security level.
+
+1. On **Kali-Attacker**, open a terminal.
+2. Create a Week 7 evidence folder:
+
+```bash
+mkdir -p ~/lab-evidence/week8
+```
+
+3. Change into the folder:
+```bash
+cd ~/lab-evidence/week8
+```
+
+4. Confirm the current path:
+```bash
+pwd
+```
+
+### Evidence to capture
+
+Take one screenshot showing the Week 8 evidence folder.
+
+### Expected result
+
+```text
+/home/<your-user>/lab-evidence/week8
 ```
 
 ---
