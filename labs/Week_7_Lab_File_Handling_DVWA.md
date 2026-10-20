@@ -56,7 +56,7 @@ Take one screenshot showing the Week 7 evidence folder.
 
 ---
 
-# Part B – Environment Setup and File Upload Baseline Testing
+## Part B – Environment Setup and File Upload Baseline Testing
 
 **Objective:** Verify the authorised DVWA environment, identify the File Upload and File Inclusion modules, create harmless test files, and examine how DVWA validates file uploads at Low, Medium, and High security levels.
 
