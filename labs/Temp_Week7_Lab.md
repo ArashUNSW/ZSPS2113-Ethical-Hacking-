@@ -1,6 +1,5 @@
 # Week 7 Lab – File Handling Security in DVWA
 
-**Tutorial / Stage:** File Handling  
 **Suggested tools:** Firefox Developer Tools, Burp Suite Community Edition, text editor  
 **Scope:** DVWA **File Upload** and **File Inclusion** modules only
 
