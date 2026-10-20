@@ -13,11 +13,11 @@ Test only the authorised DVWA instance in the isolated lab. Use harmless, self-c
 
 By the end of this lab, students should be able to:
 
-1. Establish an evidence-based baseline for DVWA file handling.
-2. Assess how uploaded filenames, file types, sizes, and server responses are handled.
-3. Observe local file inclusion and path-validation behaviour using benign training files and controlled paths.
-4. Compare relevant HTTP requests and responses using Firefox Developer Tools and Burp Suite.
-5. Distinguish **demonstrated weaknesses** from unverified risks and recommend effective remediations.
+- Establish an evidence-based baseline for DVWA file handling.
+- Assess how uploaded filenames, file types, sizes, and server responses are handled.
+- Observe local file inclusion and path-validation behaviour using benign training files and controlled paths.
+- Compare relevant HTTP requests and responses using Firefox Developer Tools and Burp Suite.
+- Distinguish **demonstrated weaknesses** from unverified risks and recommend effective remediations.
 
 ## Part A – Prepare the Week 7 Environment
 
