@@ -1628,7 +1628,7 @@ Conclude by clearly stating:
 **Expected Outcome:** A concise professional Findings Summary that accurately connects testing evidence, security interpretation, remediation and limitations without overstating the demonstrated impact.
 
 
-# Part F – Advanced Optional Tasks
+# Part F – Advanced Analysis Tasks (Optional)
 
 **Objective:** Extend the Week 7 file-handling assessment by investigating server-side validation, upload storage behaviour, page-selection restrictions, and remediation effectiveness.
 
