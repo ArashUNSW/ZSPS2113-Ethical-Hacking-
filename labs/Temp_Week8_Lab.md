@@ -1,11 +1,10 @@
 # Week 8 Lab – Modern Application Testing with OWASP Juice Shop
 
-**Course:** ZSPS2113 – Ethical Hacking and Penetration Testing  
-**Tutorial / Stage:** Modern application testing  
 **Authorised target:** OWASP Juice Shop hosted on Ubuntu-Server  
-**Testing workstation:** Kali-Attacker  
 **Tools:** Firefox Browser Developer Tools, Burp Suite Community Edition **or** OWASP ZAP  
-**Primary deliverables:** Evidence-linked endpoint map, access-control findings table, 400–500-word Findings Summary
+
+## Estimated time ## 
+Approximately 2 hours for core activities, with additional time for optional advanced activities.
 
 > **Scope and safety:** Work only on the instructor-authorised Juice Shop instance and accounts. Use fictitious test information, do not test other hosts, and do not access, change, or extract another student's information. Use only low-volume, manually initiated requests. Do not perform credential stuffing, automated brute force, denial-of-service, destructive changes, or payment transactions. Treat any unexpected access to another account's data as a finding; record only the minimum evidence required and stop that test.
 
