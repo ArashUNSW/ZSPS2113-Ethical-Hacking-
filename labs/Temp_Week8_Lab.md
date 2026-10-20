@@ -4,36 +4,56 @@
 **Testing workstation:** Kali-Attacker  
 **Tools:** Firefox Developer Tools and **either** Burp Suite Community Edition **or** OWASP ZAP  
 
-## Lab objectives
+## Learning objectives
 
 By completing the lab, students will be able to: 
-- document SPA browser-to-API requests
-- investigate authentication and logout 
-map actual endpoints, 
-compare authorised and unauthenticated access, 
-assess client-side routing and one benign business rule, 
-and report only impacts demonstrated by evidence.
+- Document SPA browser-to-API requests
+- Investigate authentication and logout 
+- Map actual endpoints
+- Compare authorised and unauthenticated access
+- Assess client-side routing and one benign business rule
+- Report only impacts demonstrated by evidence
 
-> **Authorisation and safety:** Test only the assigned Juice Shop instance and instructor-approved accounts. Do not use public demo servers, production systems, another student's records, or guessed administrative paths. Avoid brute force, credential stuffing, destructive actions, automated crawling, payment/checkout, and high-volume testing. Use low-volume manual requests and fictitious account information. Where a response unexpectedly reveals another user's data, do not explore further; redact, preserve minimal evidence and report it to the instructor.
+## Important
+Test only the assigned Juice Shop instance and instructor-approved accounts. Do not use public demo servers, production systems, another student's records, or guessed administrative paths. Avoid brute force, credential stuffing, destructive actions, automated crawling, payment/checkout, and high-volume testing. Use low-volume manual requests and fictitious account information. Where a response unexpectedly reveals another user's data, do not explore further; redact, preserve minimal evidence and report it to the instructor.
 
 > **Accuracy reminder:** Juice Shop versions and interfaces differ. Endpoint names, login responses, authentication storage, roles, and error statuses must be **observed**, not assumed. No particular vulnerability is guaranteed to appear in a configured instance.
 
+## Part A – Prepare the Week 8 Environment
+
+### Task 1 – Create the Week 8 Evidence Folder
 
 1. Start Kali-Attacker and Ubuntu-Server using the authorised lab environment.
 2. Use the actual Ubuntu-Server IP and mapped port. An **illustrative** URL is `http://192.168.1.100:3000/`; it is not a required address.
 3. Select **one interception tool** for the lab: **Burp Suite → Proxy → HTTP history / Repeater**, or **ZAP → History / Requester (Manual Request Editor)**. The Firefox **Network**, **Storage**, **Inspector**, and **Debugger/Sources** panels are also used.
-4. Prepare the evidence folder:
+4. Create a Week 8 evidence folder:
 
 ```bash
 mkdir -p ~/lab-evidence/week8
 ```
 
-5. In screenshots and notes, redact passwords, bearer tokens, cookie values, private identifiers and email addresses. Keep the HTTP method, endpoint path, non-secret parameter names, relevant status and safe response structure visible.
-6. Preserve an **unchanged baseline request**. For controlled comparisons, change only **one variable at a time**, unless the procedure expressly says otherwise.
+3. Change into the folder:
+```bash
+cd ~/lab-evidence/week8
+```
+
+4. Confirm the current path:
+```bash
+pwd
+```
+
+### Evidence to capture
+
+Take one screenshot showing the Week 8 evidence folder.
+
+### Expected result
+
+```text
+/home/<your-user>/lab-evidence/week8
+```
 
 ---
 # Part A – Authorised Environment and Browser Baselines
-
 
 ## Task 1 – Verify the authorised Juice Shop target
 
@@ -80,7 +100,6 @@ mkdir -p ~/lab-evidence/week8
 **Expected outcome:** The authorised target and scope are explicitly verified.
 
 ---
-
 
 ## Task 2 – Establish a public browsing and API baseline
 
