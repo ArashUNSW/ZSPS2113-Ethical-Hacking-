@@ -74,13 +74,10 @@ This creates `week7-note.txt`, containing harmless text.
 
 **File 2 – Genuine PNG image**
 
-Create a small PNG image using an approved image editor, or use Python with Pillow installed:
+Create a small PNG image using an image editor available on Kali Linux, such as **GIMP**.
 
-```python
-from PIL import Image
-```
-
-This creates a genuine 100 × 100 pixel image named `week7-image.png`.
+1. Open **GIMP** from the Kali Linux applications menu and create week7-image.png file and set the image dimensions to **100 × 100 pixels**.
+2. Save the image in the same directory as `week7-note.txt`.
 
 **Important:** Do not simply rename a text file to `.png`. Both files must contain genuine content matching their file types. Do not include scripts or executable code.
 
