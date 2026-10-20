@@ -1,6 +1,5 @@
 # Week 5 Lab – Cross-Site Scripting (XSS) Testing
 
-**Tutorial / Stage:** Cross-site scripting  
 **Targets:** DVWA / WebGoat  
 **Suggested tools:** Browser Developer Tools, Burp Suite Proxy and Repeater  
 
