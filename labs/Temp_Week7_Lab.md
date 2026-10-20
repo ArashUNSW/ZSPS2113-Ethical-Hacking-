@@ -6,7 +6,7 @@
 ## Estimated time ## 
 Approximately 2 hours for core activities, with additional time for optional advanced activities.
 
-## IMPORTANT
+## Important
 Test only the authorised DVWA instance in the isolated lab. Use harmless, self-created text and image files. **Do not** upload executable web shells, attempt remote-code execution, access host operating-system secrets, or test paths outside the permitted DVWA training directories. Do not run these exercises against public websites.
 
 ## Learning objectives
