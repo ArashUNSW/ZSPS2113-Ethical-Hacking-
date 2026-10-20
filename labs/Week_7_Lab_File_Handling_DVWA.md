@@ -22,7 +22,7 @@ By the end of this lab, students should be able to:
 
 ## Part A – Prepare the Week 7 Environment
 
-## Task 1 – Create the Week 7 Evidence Folder
+### Task 1 – Create the Week 7 Evidence Folder
 
 - Start the authorised Ubuntu-Server and Kali-Attacker VMs and confirm that the DVWA container is healthy.
 - Record the **actual DVWA address**, IP, port, DVWA version (if available), and security level.
