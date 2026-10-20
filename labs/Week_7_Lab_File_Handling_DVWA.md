@@ -1321,297 +1321,13 @@ Write approximately **100–150 words** explaining:
 
 ---
 
-
-# Part E – Reporting, Evidence Validation and Lab Cleanup
-
-**Objective:** Consolidate the evidence collected during Week 7 into a professional security assessment report covering DVWA File Upload and File Inclusion, including validated observations, potential risks, remediation recommendations, retesting status and testing limitations.
-
-**Target:** Authorised DVWA application on Ubuntu-Server.
-
-**Tools:** Kali Linux, Firefox Developer Tools, Burp Suite and the evidence collected in Parts B, C and D.
-
-**Required Deliverables:**
-
-1. Completed findings table.
-2. A 400–500-word Findings Summary.
-3. Selected, clearly labelled screenshots and HTTP evidence.
-4. Final evidence validation and cleanup confirmation.
-
----
-
-## Task 21 – Create the Week 7 Findings Table
-
-**Objective:** Consolidate file upload and File Inclusion observations into a structured, evidence-based findings table.
-
-### Step 1 – Create the Findings Table
-
-On **Kali-Attacker**, open a terminal and create the reporting directory if it does not already exist:
-
-```bash
-mkdir -p ~/lab-evidence/week7
-```
-
-Create the findings table:
-
-```bash
-nano ~/lab-evidence/week7/09-findings-table.md
-```
-
-Record the results using the evidence collected in Parts B, C and D.
-
-### Step 2 – Identify the Findings to Include
-
-Review the following activities:
-
-**File Upload Testing**
-
-- Valid PNG image upload.
-- Plain-text file upload.
-- Declared MIME-type modification.
-- Filename handling and duplicate filenames.
-- File-size validation.
-- Low, Medium and High security-level comparisons.
-
-**File Inclusion Testing**
-
-- Normal page-selection behaviour.
-- Legitimate File Inclusion baseline.
-- Non-existent benign page request.
-- Low, Medium and High security-level comparisons.
-- Server-side error handling and disclosed implementation details.
-
-Include only activities actually performed.
-
-### Step 3 – Complete the Findings Table
-
-Use the following structure:
-
-| Area | Endpoint / Parameter | Baseline | Modified Input | Observed Result | Evidence File | Validated Finding? | Remediation |
-|---|---|---|---|---|---|---|---|
-| File upload – PNG | | | | | | | |
-| File upload – TXT | | | | | | | |
-| MIME-type validation | | | | | | | |
-| Filename handling | | | | | | | |
-| File-size validation | | | | | | | |
-| File upload – security levels | | | | | | | |
-| File Inclusion – normal page | | | | | | | |
-| File Inclusion – unknown page | | | | | | | |
-| File Inclusion – security levels | | | | | | | |
-
-For each row:
-
-- **Endpoint / Parameter:** Record the relevant request path or user-controlled parameter.
-- **Baseline:** Record the normal input and observed result.
-- **Modified Input:** Record the controlled change introduced during testing.
-- **Observed Result:** Describe the actual HTTP and application behaviour.
-- **Evidence File:** Identify the supporting screenshot or captured response.
-- **Validated Finding?:** State whether the evidence confirms a security weakness.
-- **Remediation:** Recommend an appropriate control, or identify it as a preventive best practice.
-
-### Step 4 – Classify Each Finding
-
-Use one of the following classifications:
-
-| Classification | Meaning |
-|---|---|
-| Validated | Direct evidence demonstrates the claimed security weakness |
-| Not validated | The test did not demonstrate the claimed security weakness |
-| Inconclusive | The available evidence is insufficient to confirm or exclude the weakness |
-| Not tested | The activity was not performed |
-
-**Important:**
-
-- A successful image upload does not automatically demonstrate a vulnerability.
-- Acceptance of a plain-text file does not necessarily demonstrate insecure validation.
-- Changing a client-supplied MIME type does not, by itself, prove that the server validates actual file content.
-- A file-not-found error does not establish successful local file inclusion.
-- Do not claim remote code execution, arbitrary file access or server compromise without direct authorised validation.
-
-### Step 5 – Link Findings to Evidence
-
-Each finding must reference the relevant evidence.
-
-For example:
-
-- Screenshot showing the original upload request.
-- Screenshot showing the modified MIME declaration.
-- Burp Repeater response showing the resulting application behaviour.
-- File Inclusion baseline and unknown-page responses.
-- Security-level comparison evidence.
-
-Use descriptive filenames so the evidence can be located easily.
-
-### Evidence to Capture
-
-- Completed `09-findings-table.md`.
-- Relevant supporting screenshots and HTTP responses.
-- Clear classification of each observed finding.
-- Evidence-linked remediation recommendations.
-
-**Expected Outcome:** A professional findings table that links each tested input to its observed behaviour, supporting evidence, interpretation and recommended remediation.
-
----
-
-## Task 22 – Write a 400–500-Word Findings Summary
+## Task 21 – Write a 400–500-Word Findings Summary
 
 **Objective:** Produce a concise professional report that connects the Week 7 evidence, technical observations, security implications, remediation recommendations, retesting status and limitations.
 
-### Step 1 – Create the Findings Summary File
+Use evidence from the core Tasks 1–20. Optional advanced activities do not need to be included.
 
-On Kali-Attacker, execute:
-
-```bash
-nano ~/lab-evidence/week7/10-findings-summary.md
-```
-
-Write **400–500 words** using the results recorded in Task 21.
-
-Do not count tables, figure captions, evidence filenames or Markdown headings towards the required narrative word count.
-
-### Step 2 – Introduce the Authorised Target
-
-Begin the summary by identifying:
-
-1. The authorised Ubuntu-Server target.
-2. The DVWA application address.
-3. The File Upload and File Inclusion modules.
-4. The testing environment and tools used.
-5. The scope of the authorised assessment.
-
-**Suggested opening:**
-
-> File-handling security testing was conducted against the authorised DVWA application hosted on Ubuntu-Server at [IP address] using Firefox Developer Tools and Burp Suite. The assessment examined file upload validation, File Inclusion page selection and related server-side handling within the designated training modules.
-
-### Step 3 – Summarise the File Upload Baseline
-
-Describe the normal upload behaviour observed using `week7-image.png`.
-
-Include:
-
-- Filename and actual file type.
-- Whether the upload was accepted or rejected.
-- Relevant HTTP method and response status.
-- Application response message.
-- Any disclosed storage location.
-- Whether the stored image was successfully viewed, if tested.
-
-Do not interpret an HTTP 200 response alone as proof of successful file storage.
-
-### Step 4 – Summarise File Upload Validation Testing
-
-Briefly discuss the activities actually performed, including:
-
-- Plain-text file upload compared with the PNG baseline.
-- Declared MIME-type changes.
-- Filename handling and duplicate-upload behaviour.
-- File-size validation.
-- Differences observed at Low, Medium and High security levels.
-
-Explain the most important differences using the actual evidence.
-
-**Important:** Do not describe checks as having been performed if they were only recommended or planned.
-
-### Step 5 – Summarise File Inclusion Testing
-
-Describe the observations collected in Tasks 11–14.
-
-Include:
-
-1. The File Inclusion endpoint.
-2. The page-selection parameter.
-3. Legitimate page-selection behaviour.
-4. The result of requesting `week7-not-a-page.php`.
-5. Relevant HTTP status codes and response content.
-6. Differences across Low, Medium and High security levels.
-7. Any demonstrated disclosure of server-side paths or error details.
-
-Explain whether the evidence confirms a file inclusion vulnerability or only shows how the application processes page-selection inputs.
-
-### Step 6 – Reference Browser and Burp Suite Evidence
-
-Explain how Firefox Developer Tools and Burp Suite were used to support the findings.
-
-Where relevant, reference:
-
-- Upload form attributes.
-- Multipart form-data requests.
-- Filename and declared Content-Type.
-- HTTP request methods and parameters.
-- Burp Repeater comparisons.
-- File Inclusion requests and responses.
-- HTTP response status, body content and errors.
-
-Reference the corresponding evidence filenames in your report.
-
-### Step 7 – Assess Demonstrated Security Impact
-
-Clearly separate:
-
-**Demonstrated behaviour**
-
-What the evidence directly shows.
-
-**Potential security risk**
-
-What could occur if file validation or page-selection controls were insufficient.
-
-For example, a visible absolute server path may indicate information exposure, while arbitrary file access remains unvalidated unless you demonstrate it directly.
-
-Do not claim unsupported impacts such as remote code execution, arbitrary file reading, privilege escalation or system compromise.
-
-### Step 8 – Recommend Remediation
-
-Include recommendations appropriate to the observed results.
-
-**For File Upload:**
-
-- Server-side file-type validation.
-- Permitted extension allow-lists.
-- File-size restrictions.
-- Safe filename generation.
-- Secure, non-executable upload storage.
-- Least-privilege file permissions.
-
-**For File Inclusion:**
-
-- Fixed allow-list mapping of page identifiers.
-- Avoiding direct concatenation of user input into file paths.
-- Canonical path validation where necessary.
-- Generic application errors and secure internal logging.
-
-Link recommendations to observations, or identify them as preventive best practices.
-
-### Step 9 – State Retesting and Limitations
-
-Clearly explain whether remediation was implemented and retested.
-
-If no code or configuration changes were made, state:
-
-**Proposed retest only — no code change performed.**
-
-Changing DVWA security levels is a comparison of application configurations, not proof that a recommended code-level remediation was implemented.
-
-Briefly acknowledge limitations such as:
-
-- Testing only the designated DVWA modules.
-- Using harmless file uploads and page references.
-- Limited file types and file sizes.
-- No testing of operating-system or sensitive application files.
-- No executable payloads or destructive activities.
-- Inability to inspect or change server-side source code, if applicable.
-
-### Step 10 – State the Validation Conclusion
-
-Conclude by clearly stating:
-
-1. Whether a file upload validation weakness was validated.
-2. Whether a file inclusion vulnerability was validated.
-3. Whether internal information disclosure was observed.
-4. Which findings remain inconclusive.
-5. Whether further authorised testing is required.
-
-### Suggested Summary Structure
-
+Write approximately 400–500 words in a concise professional style.
 
 ### Suggested Structure
 
@@ -1627,7 +1343,6 @@ Conclude by clearly stating:
 
 **Expected Outcome:** A concise professional Findings Summary that accurately connects testing evidence, security interpretation, remediation and limitations without overstating the demonstrated impact.
 
-
 # Part F – Advanced Analysis Tasks (Optional)
 
 **Objective:** Extend the Week 7 file-handling assessment by investigating server-side validation, upload storage behaviour, page-selection restrictions, and remediation effectiveness.
@@ -1640,7 +1355,7 @@ Conclude by clearly stating:
 
 ---
 
-## Task 25 – Investigate File Extension and MIME-Type Validation
+## Task 22 – Investigate File Extension and MIME-Type Validation
 
 **Objective:** Determine whether DVWA's upload validation relies on the submitted filename extension, the client-declared MIME type, or additional server-side checks.
 
@@ -1699,7 +1414,7 @@ Conclude by clearly stating:
 
 ---
 
-## Task 26 – Investigate Upload Storage and Filename Collision Handling
+## Task 23 – Investigate Upload Storage and Filename Collision Handling
 
 **Objective:** Examine how DVWA stores uploaded files and handles repeated uploads using the same filename.
 
