@@ -56,345 +56,200 @@ Take one screenshot showing the Week 7 evidence folder.
 
 ---
 
-## Part B – Environment Setup and File Upload Baseline Testing
+## Part B – Authorised Environment and Test-File Preparation
 
-**Objective:** Verify the authorised DVWA environment, identify the File Upload and File Inclusion modules, create harmless test files, and examine how DVWA validates file uploads at Low, Medium, and High security levels.
+**Objective:** Confirm the authorised DVWA environment, identify its file-handling modules, and prepare harmless files for controlled upload testing.
 
-**Tools:** Kali Linux, Ubuntu-Server, Firefox Developer Tools, Burp Suite and GIMP.
+**Tools:** Kali-Attacker, Ubuntu-Server, Firefox Developer Tools, Burp Suite and GIMP (or another approved image editor).
 
----
+> **Scope:** Perform all tests only against the authorised DVWA training instance. Use harmless files without scripts or executable content. Redact credentials, `PHPSESSID` values and other session secrets in all shared evidence.
 
-## Task 2 – Confirm the DVWA Environment and Identify File-Handling Modules
+### Task 2 – Confirm DVWA and identify file-handling modules
 
-### Step 1 – Verify the Authorised Target
-
-1. Start **Kali-Attacker** and **Ubuntu-Server**.
-2. On Ubuntu-Server, confirm the IP address:
+1. Start **Kali-Attacker** and **Ubuntu-Server**. On Ubuntu-Server, identify the authorised lab IP address:
 
    ```bash
    ip -br addr
    ```
 
-3. Verify that the DVWA Docker container is running:
+2. Confirm that the DVWA container is running and that the intended HTTP port is published:
 
    ```bash
    sudo docker ps
    ```
 
-4. Confirm that DVWA is running from the `vulnerables/web-dvwa` image and that HTTP port 80 is published.
-5. On Kali-Attacker, open Firefox and navigate to:
+   Confirm the image is `vulnerables/web-dvwa`. If DVWA is missing or unhealthy, use the troubleshooting instructions from earlier labs before continuing.
 
-   ```text
-   http://192.168.1.100:80/
-   ```
+3. In Kali Firefox, open the authorised DVWA address, for example `http://192.168.1.100:80/` (replace this example with your actual target IP/port). Sign in using the supplied credentials and confirm that the home page loads.
+4. Open **DVWA Security** and select **Low** for initial testing.
+5. Locate **File Upload** and **File Inclusion**. Record each page's URL/path and the visible user-controlled controls (file selector, submit button, file/page selector or URL parameter). **Do not modify file paths at this stage.**
+6. Open Firefox Developer Tools (**F12 → Network**), enable **Persist Logs**, and reload both module pages. For each initial page request record its method, path, status, redirect if present and relevant *cookie names only*.
 
-   Replace this example address with your authorised Ubuntu-Server IP address.
+**Environment record**
 
-6. Log in using the supplied lab credentials.
-7. Confirm that the DVWA home page loads successfully.
-
-**Important:** If DVWA is not listed, is unhealthy, or cannot be accessed, refer to the Docker setup and troubleshooting instructions from earlier labs before continuing.
-
-### Step 2 – Identify the File-Handling Modules
-
-1. In DVWA, open **File Upload**.
-2. Record the application URL and identify the upload form, file-selection control and submission button.
-3. Open **File Inclusion**.
-4. Record the application URL and identify any user-controlled file or page-selection parameters.
-5. Do not modify file paths or submit test files at this stage.
-
-### Step 3 – Inspect Initial HTTP Requests
-
-1. Open Firefox Developer Tools using **F12**.
-2. Select the **Network** panel and enable **Persist Logs**.
-3. Reload the File Upload and File Inclusion pages separately.
-4. Inspect the relevant requests and responses.
-5. Record:
-   - HTTP method and request path.
-   - Query parameters, if present.
-   - HTTP response status.
-   - Redirect destination, if applicable.
-   - Relevant cookie names, without recording session values.
-
-### Step 4 – Record the Environment
-
-Complete the table using your actual observations.
-
-| Item | Observed Value |
+| Item | Observation |
 |---|---|
 | Testing machine | Kali-Attacker |
-| Authorised target | Ubuntu-Server |
-| Ubuntu-Server IP address | |
-| DVWA application address | |
-| Docker image | |
-| Published HTTP port | |
-| DVWA container status | |
-| Initial HTTP response status | |
-| Redirect destination (if any) | |
+| Authorised target and IP | |
+| DVWA URL and published port | |
+| Docker image and container status | |
+| Initial HTTP status / redirect | |
 | File Upload module path | |
-| File Inclusion module path | |
-| Selected DVWA security level | Low |
+| File Inclusion module path / visible parameter | |
+| Initial security level | Low |
 
-### Evidence to Capture
+**Evidence to capture:** Ubuntu IP, `docker ps`, DVWA URL, both module pages, the relevant Firefox Network entries and completed environment record.
 
-- Ubuntu-Server IP address and DVWA container status.
-- DVWA home page showing the authorised application URL.
-- File Upload and File Inclusion module pages.
-- Firefox Network panel showing initial request and response details.
-- Completed environment table.
-
-**Expected Outcome:** The authorised DVWA environment is verified, both file-handling modules are identified, and their initial HTTP behaviour is documented.
+**Expected outcome:** The authorised application and its file-handling entry points have been verified without submitting modified inputs.
 
 ---
 
-## Task 3 – Create and Verify Harmless Test Files
+### Task 3 – Create and verify harmless upload test files
 
-**Objective:** Prepare two harmless files for examining upload validation without using scripts or executable content.
+1. On **Kali-Attacker**, open a terminal and create the plain-text file:
 
-### Step 1 – Create a Plain-Text File
+   ```bash
+   printf 'Week 7 authorised upload test - plain text only.\n' > week7-note.txt
+   ```
 
-On **Kali-Attacker**, open a terminal and execute:
+2. Using **GIMP** (or another approved image editor), create a genuine **100 × 100 pixel** image, optionally with a light-grey background. Export it as **`week7-image.png`**, into the same directory as `week7-note.txt`. Do **not** rename a text file to `.png`.
+3. Verify the file sizes and detected types:
 
-```bash
-printf 'Week 7 authorised upload test - plain text only.\n' > week7-note.txt
-```
+   ```bash
+   ls -lh week7-note.txt week7-image.png
+   file week7-note.txt week7-image.png
+   ```
 
-This creates a file named `week7-note.txt`.
+4. Confirm both files exist, the text file is recognised as text, and the PNG is recognised as PNG image data. Neither file should contain scripts or executable content.
 
-### Step 2 – Create a Genuine PNG Image
+**Evidence to capture:** Terminal output showing both filenames, their sizes and their detected file types.
 
-Use an approved image editor available on Kali Linux, such as **GIMP**.
-
-1. Open GIMP.
-2. Select **File → New**.
-3. Set the image dimensions to **100 × 100 pixels**.
-4. Choose a background colour, such as light grey.
-5. Select **File → Export As**.
-6. Enter the filename `week7-image.png`.
-7. Save the image in the same directory as `week7-note.txt`.
-
-**Important:** Do not simply rename a text file to `.png`. The file must contain valid PNG image data.
-
-### Step 3 – Verify Both Files
-
-In the Kali terminal, execute:
-
-```bash
-ls -lh week7-note.txt week7-image.png
-file week7-note.txt week7-image.png
-```
-
-Confirm that:
-
-- Both files exist.
-- `week7-note.txt` is recognised as a plain-text file.
-- `week7-image.png` is recognised as PNG image data.
-- Neither file contains scripts or executable content.
-
-### Evidence to Capture
-
-Capture the terminal output showing both filenames, file sizes and detected file types.
-
-**Expected Outcome:** Two verified harmless test files are ready for controlled upload testing.
+**Expected outcome:** Two genuine, harmless files are ready for upload comparison.
 
 ---
 
-## Task 4 – Test File Upload Validation and Compare Security Levels
+## Part C – File Upload Baseline and Security-Level Comparison
 
-**Objective:** Examine how DVWA processes genuine PNG and plain-text files, inspect their HTTP requests and responses, and compare upload validation across Low, Medium and High security settings.
+**Objective:** Establish reliable image and text-file upload baselines and compare observable upload validation at Low, Medium and High DVWA security levels.
 
-### Step 1 – Establish the Low-Security Baseline
+### Task 4 – Inspect the upload form and compare harmless uploads
 
-1. Open **DVWA → DVWA Security**.
-2. Set the security level to **Low** and submit the change.
-3. Navigate to **DVWA → File Upload**.
-4. Open Firefox Developer Tools and select **Network**.
-5. Upload `week7-image.png`.
-6. Record:
-   - Whether the upload was accepted or rejected.
-   - HTTP method and request path.
-   - HTTP response status.
-   - Application response message.
-   - Storage path disclosed, if any.
-7. Upload `week7-note.txt` and record the same information.
+#### Step 1 – Inspect the form before submitting
 
-**Important:** HTTP 200 does not necessarily indicate a successful upload. Confirm the result using the application response and, where authorised, evidence of file storage.
+1. Open **DVWA → File Upload** at **Low** security.
+2. Use Firefox Developer Tools (**Inspector**) to identify the form's method, encoding (such as `multipart/form-data`), file input field name, and any visible client-side file restrictions.
+3. Record these observations. **Client-side restrictions do not establish server-side validation.**
 
-### Step 2 – Inspect Upload Requests in Firefox Developer Tools
+#### Step 2 – Establish the Low-security upload baseline
 
-For each upload:
+1. Open Firefox Developer Tools (**Network**, with **Persist Logs** enabled).
+2. Upload **`week7-image.png`**. Record the original filename, verified file type and size; acceptance/rejection; HTTP status; application message; and disclosed storage path, if any.
+3. Where the application provides an authorised link to a successfully stored image, verify that it can be viewed **as an image only**. Do not attempt execution or access outside DVWA.
+4. Upload **`week7-note.txt`** without changing it. Record the same details and compare the results with the PNG baseline.
+5. Do not treat a `200 OK` response as proof of upload success: inspect the application message and any permitted evidence that the file was stored.
 
-1. Locate the relevant request in the **Network** panel.
-2. Inspect the **Headers** and **Request** sections.
-3. Identify:
-   - HTTP method.
-   - Request path.
-   - Form parameters.
-   - Uploaded filename.
-   - Declared MIME type.
-   - HTTP response status.
-   - Application response content.
-4. Check the **Storage** panel for relevant cookie names without exposing session values.
+#### Step 3 – Examine HTTP evidence
 
-Record any observable differences between the two upload requests.
+1. In Firefox **Network**, locate each upload request and inspect its method, path, parameters, filename, declared MIME type, status and response body.
+2. In **Burp Suite → Proxy → HTTP history**, locate the same requests. Inspect the multipart body, especially the `filename` and *part-level* `Content-Type`, and compare the responses.
+3. Send a copy of an unchanged baseline request to **Repeater** if useful. Re-send only where authorised; repeating an upload may create a duplicate file. Record such behaviour.
+4. Inspect **Storage** only to identify relevant cookie *names*. Do not publish session values.
 
-### Step 3 – Inspect the Same Requests in Burp Suite
+#### Step 4 – Compare Low, Medium and High
 
-1. Open **Burp Suite → Proxy → HTTP history**.
-2. Locate the requests for `week7-image.png` and `week7-note.txt`.
-3. Inspect the multipart form-data request body, where available.
-4. Identify the uploaded filename and declared Content-Type.
-5. Compare the corresponding server responses.
-6. Send an unchanged baseline request to **Burp Suite → Repeater**, where appropriate.
-7. Reissue the unchanged request only if it is safe and authorised, and record the response.
+1. Repeat the **same unmodified PNG and text-file tests** at **Medium** and then **High** security.
+2. Capture the same measurements at every level. Change only the security level between sets of tests; otherwise keep the file contents unchanged.
+3. Complete the comparison table:
 
-**Important:** Repeater testing may submit the same file again. Record any duplicate-upload behaviour and avoid unnecessary repeated submissions.
+| Security level | Test file | Size | Upload accepted/rejected | HTTP status | Application message / disclosed path |
+|---|---|---|---|---|---|
+| Low | `week7-image.png` | | | | |
+| Low | `week7-note.txt` | | | | |
+| Medium | `week7-image.png` | | | | |
+| Medium | `week7-note.txt` | | | | |
+| High | `week7-image.png` | | | | |
+| High | `week7-note.txt` | | | | |
 
-When comparing requests, modify only **one controlled variable at a time**.
+#### Step 5 – Interpret the baseline
 
-### Step 5 – Repeat at Medium and High Security
+Briefly explain what the evidence shows about extension checks, declared MIME types, actual file-content checks and any storage-path disclosures. State whether behaviour differed by security level, and distinguish confirmed observations from untested assumptions. Consider the application's intended upload policy before calling acceptance of a `.txt` file a weakness.
 
-1. Change DVWA security to **Medium**.
-2. Repeat the PNG and text-file upload tests.
-3. Record the results using the same observations as the Low-security baseline.
-4. Change DVWA security to **High**.
-5. Repeat both tests again.
-6. Compare the results across all three security levels.
+**Evidence to capture:** Upload form attributes, file sizes/types, labelled Firefox and Burp upload requests/responses, any authorised image-viewing result and the six-row comparison table.
 
-Use the same two files throughout the testing to maintain a consistent comparison.
+**Expected outcome:** A documented baseline for harmless PNG/text uploads and a like-for-like security-level comparison.
 
-### Step 5 – Record the Results
+---
 
-Complete the following table using actual observations.
+## Part D – Targeted Upload Validation Checks
 
-| Security Level | Test File | Upload Result | HTTP Status | Application Response / Storage Path |
+**Objective:** Investigate distinct aspects of server-side file handling without repeating the full security-level baseline.
+
+### Task 5 – Test handling of the declared MIME type
+
+1. Choose the **successful or most informative image-upload request** from Task 4 as your baseline, and retain an unchanged copy.
+2. In Burp Repeater identify the multipart file part's `filename` and `Content-Type` headers. Do not confuse the *multipart part* `Content-Type` with the overall request header's multipart boundary.
+3. In a separate authorised request copy, change **only the file part's declared `Content-Type`** to a benign alternative, for example `text/plain`. Keep the PNG bytes, filename, security level and other parameters unchanged.
+4. Submit the modified request **once**, compare it with the unchanged baseline, and record acceptance/rejection, HTTP status, application response and any path reported.
+5. Restore the original request in your working copy. Do not infer that content inspection has been proven solely because the declared header affected the result: it is client-supplied metadata.
+
+| Property | Original PNG request | Modified MIME-type request |
+|---|---|---|
+| Filename | | |
+| File bytes | Genuine PNG | Same genuine PNG |
+| Part-level `Content-Type` | | `text/plain` |
+| HTTP status | | |
+| Upload outcome / message | | |
+
+**Evidence to capture:** Labelled baseline and modified multipart request snippets and their responses, with session secrets redacted.
+
+**Expected outcome:** Explain how DVWA treats a changed client-declared MIME type, without claiming that this alone proves or disproves server-side content inspection.
+
+---
+
+### Task 6 – Test benign filename handling and collisions
+
+1. Using the image editor or file manager, make a copy of the harmless PNG named **`Week 7 Image.png`** (spaces and mixed case); retain valid PNG image content.
+2. Upload it to the authorised DVWA File Upload page at the selected and recorded security level.
+3. Record the supplied filename and whether the server preserves, normalises or renames it; note any disclosed storage path or relevant error.
+4. Repeat the **same harmless upload once** to observe how the application handles a duplicate filename. Record whether it overwrites, renames, rejects or otherwise handles the collision, *only when supported by observable evidence*.
+5. Do **not** use traversal strings, operating-system directory paths or executable extensions.
+
+| Attempt | Client filename | Result/status | Returned filename/path | Observed collision behaviour |
 |---|---|---|---|---|
-| Low | `week7-image.png` | | | |
-| Low | `week7-note.txt` | | | |
-| Medium | `week7-image.png` | | | |
-| Medium | `week7-note.txt` | | | |
-| High | `week7-image.png` | | | |
-| High | `week7-note.txt` | | | |
+| Initial | `Week 7 Image.png` | | | Not applicable |
+| Repeat | `Week 7 Image.png` | | | |
 
-### Step 6 – Analyse Upload Validation
+**Evidence to capture:** Both upload requests/responses and the original versus returned filenames or paths.
 
-Using your evidence, briefly answer:
-
-1. Were both files accepted at Low, Medium and High security levels?
-2. Did DVWA handle the PNG image differently from the text file?
-3. What differences were observed in the upload requests and responses?
-4. What evidence suggests that DVWA checks file extensions, MIME types or actual file content?
-5. Was a server-side storage path disclosed for any successful upload?
-6. Did the selected security level change the observed validation behaviour?
-7. What additional authorised tests would be required to determine whether file-type restrictions could be bypassed?
-8. What server-side controls would you recommend to improve upload security?
-
-**Important:** Do not conclude that a vulnerability exists solely because a file was accepted. Support conclusions with the actual HTTP and application behaviour observed.
-
-### Evidence to Capture
-
-Save clearly labelled evidence showing:
-
-- Successful or unsuccessful uploads of both test files.
-- Low, Medium and High security settings.
-- Relevant upload requests and responses in Firefox Developer Tools.
-- Corresponding requests and responses in Burp Suite.
-- Any observed file-type restrictions or storage paths.
-- Completed security-level comparison table.
-
-### Expected Outcome
-
-Students should be able to:
-
-- Establish a reliable upload baseline.
-- Compare how DVWA handles genuine image and text files.
-- Identify observable file-type validation differences.
-- Inspect upload requests using Firefox Developer Tools and Burp Suite.
-- Distinguish file extensions and declared MIME types from actual file content.
-- Explain potential file-handling weaknesses without making unsupported vulnerability claims.
-- Recommend appropriate controls, including server-side allow-list validation, file-size limits, safe filename handling, secure storage locations and least-privilege access.
+**Expected outcome:** Describe observed filename normalisation and duplicate-handling behaviour, without assuming an overwrite occurred unless it was verified.
 
 ---
 
-### Evidence Handling and Security Requirements
+### Task 7 – Test modest file-size differences
 
-- Conduct testing only against the authorised DVWA training application.
-- Use harmless test files without scripts or executable payloads.
-- Do not test other applications, servers or external systems.
-- Redact `PHPSESSID`, authentication credentials and other session secrets from screenshots and shared reports.
-- Preserve relevant HTTP methods, request paths, parameters, status codes and response content.
-- Save evidence in the designated Week 7 evidence folder.
-- Report only vulnerabilities supported by observed evidence.
-- Perform required cleanup or restoration after completing the laboratory activities.
+1. Retain the small **100 × 100 PNG** as the baseline.
+2. In GIMP, create a **larger but still modest** genuine PNG (for example, **600 × 600 pixels**) named `week7-image-large.png`. Do not generate excessive traffic or unusually large files.
+3. Confirm actual file types and sizes:
 
----
+   ```bash
+   ls -lh week7-image.png week7-image-large.png
+   file week7-image.png week7-image-large.png
+   ```
 
-## Part B – File upload validation
+4. Upload both at the **same recorded DVWA security level**. Record each file's byte size, HTTP status, application message and acceptance/rejection.
+5. If a visible browser-side limit or server-side limit is reported, record its actual wording. Do not infer a numeric limit merely because one file succeeds and another fails.
 
-### Task 4 – Inspect the upload form
+| File | Actual size (bytes) | Security level | HTTP status | Accepted/rejected | Message / limit observed |
+|---|---|---|---|---|---|
+| `week7-image.png` | | | | | |
+| `week7-image-large.png` | | | | | |
 
-1. Open DVWA **File Upload**.
-2. Identify the form method and encoding type (e.g., multipart form data).
-3. Locate the upload field name and any visible file restrictions.
-4. Explain why client-side acceptance does not prove server-side validation.
+**Evidence to capture:** File sizes/types and corresponding upload requests and server responses.
 
-**Evidence to capture:** Form attributes and upload field.
-
-### Task 5 – Submit a valid image baseline
-
-1. Upload the benign `week7-image.png`.
-2. Record the filename, actual file type, size, HTTP request, status, and application message.
-3. If a file location is displayed, record the location **only within the authorised DVWA application**.
-4. Confirm whether the stored file can be viewed as an image, without attempting code execution.
-
-**Evidence to capture:** Screenshot of the upload result, multipart request and response.
-
-### Task 6 – Test a benign alternative file type
-
-1. Attempt to upload `week7-note.txt` without modifying its contents.
-2. Record whether the application accepts or rejects it.
-3. Compare the text-file result with the valid-image baseline.
-4. Do **not** infer that accepting `.txt` alone demonstrates a vulnerability; consider the intended upload policy.
-
-**Evidence to capture:** Accepted/rejected result, status and message.
-
-### Task 7 – Compare extension and declared content type
-
-1. In Burp, inspect the original multipart upload request for the image.
-2. Identify `filename` and the declared part `Content-Type`.
-3. In an authorised copy of the request, change **only** the declared part content type to a benign alternate value (e.g., `text/plain`) while keeping the original image bytes and filename unchanged.
-4. Submit once in Repeater and compare with the baseline.
-5. Restore the original request after testing.
-
-**Evidence to capture:** Side-by-side request changes and observed response.  
-**Interpretation prompt:** Does this establish server-side content inspection, or only show how the application treats a client-supplied header?
-
-### Task 8 – Test filename handling safely
-
-1. Upload a harmless image using a descriptive filename with a space or mixed case (e.g., `Week 7 Image.png`).
-2. Record whether the server preserves, normalises, or renames the filename.
-3. Observe any collision-handling behaviour by repeating a benign upload with the same name.
-4. **Do not** supply traversal sequences or filenames targeting operating-system directories.
-
-**Evidence to capture:** Original filename, returned filename/path, and messages.
-
-### Task 9 – Test file size limits
-
-1. Compare a small permitted image with a larger permitted image prepared for the lab.
-2. Record file sizes and results, without generating excessive traffic or large files.
-3. Note browser-level restrictions separately from server responses.
-
-**Evidence to capture:** Size, response status, message and any configured limit observed.
-
-### Task 10 – Compare DVWA security levels
-
-1. Repeat **one** benign upload scenario at **Low**, **Medium**, and **High** DVWA security.
-2. Record the same metrics for each level: input, HTTP status, response, file acceptance, and any changed validation message.
-3. If different security levels use different rules, describe only what the captured evidence demonstrates.
-
-**Evidence to capture:** Three labelled comparisons and a table.
+**Expected outcome:** Explain what the limited comparison does—and does not—establish about upload-size controls.
 
 ---
+
 
 ## Part C – File inclusion and path handling
 
