@@ -1,11 +1,11 @@
 # Week 7 Lab – File Handling Security in DVWA
 
-**Course:** ZSPS2113 – Ethical Hacking and Penetration Testing  
 **Tutorial / Stage:** File Handling  
-**Authorised target:** Damn Vulnerable Web Application (DVWA) on the designated Ubuntu-Server VM  
-**Testing workstation:** Kali-Attacker  
 **Suggested tools:** Firefox Developer Tools, Burp Suite Community Edition, text editor  
 **Scope:** DVWA **File Upload** and **File Inclusion** modules only
+
+## Estimated time ## 
+Approximately 2 hours for core activities, with additional time for optional advanced activities.
 
 > [!IMPORTANT]
 > Test only the authorised DVWA instance in the isolated lab. Use harmless, self-created text and image files. **Do not** upload executable web shells, attempt remote-code execution, access host operating-system secrets, or test paths outside the permitted DVWA training directories. Do not run these exercises against public websites.
