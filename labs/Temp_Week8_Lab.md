@@ -6,7 +6,8 @@
 ## Estimated time ## 
 Approximately 2 hours for core activities, with additional time for optional advanced activities.
 
-> **Scope and safety:** Work only on the instructor-authorised Juice Shop instance and accounts. Use fictitious test information, do not test other hosts, and do not access, change, or extract another student's information. Use only low-volume, manually initiated requests. Do not perform credential stuffing, automated brute force, denial-of-service, destructive changes, or payment transactions. Treat any unexpected access to another account's data as a finding; record only the minimum evidence required and stop that test.
+## Important ## 
+Work only on the instructor-authorised Juice Shop instance and accounts. Use fictitious test information, do not test other hosts, and do not access, change, or extract another student's information. Use only low-volume, manually initiated requests. Do not perform credential stuffing, automated brute force, denial-of-service, destructive changes, or payment transactions. Treat any unexpected access to another account's data as a finding; record only the minimum evidence required and stop that test.
 
 ## Learning objectives
 
