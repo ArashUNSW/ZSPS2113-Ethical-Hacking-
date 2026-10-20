@@ -23,7 +23,7 @@ By the end of this lab, students should be able to:
 ## Preparation and evidence conventions
 
 - Start the authorised Ubuntu-Server and Kali-Attacker VMs and confirm that the DVWA container is healthy.
-- Record the **actual DVWA address**, IP, port, DVWA version (if available), and security level. Do not assume these match another student's setup.
+- Record the **actual DVWA address**, IP, port, DVWA version (if available), and security level.
 - Create a Week 7 evidence directory on Kali:
 
 ```bash
