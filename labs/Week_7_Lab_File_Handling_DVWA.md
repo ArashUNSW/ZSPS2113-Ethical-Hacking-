@@ -1612,34 +1612,343 @@ Conclude by clearly stating:
 
 ### Suggested Summary Structure
 
-The completed narrative should follow this sequence:
 
-1. **Paragraph 1:** Authorised target, modules and baseline behaviour.
-2. **Paragraph 2:** File upload validation observations.
-3. **Paragraph 3:** File Inclusion observations and Burp comparisons.
-4. **Paragraph 4:** Demonstrated impact and remediation recommendations.
-5. **Paragraph 5:** Retesting, limitations and vulnerability validation conclusion.
+### Suggested Structure
 
-### Step 11 – Check the Word Count
+> File-handling security testing was conducted against the authorised **DVWA training application** using Browser Developer Tools and Burp Suite. Baseline testing was first performed to establish how the application normally handled file uploads and File Inclusion page requests before any modified inputs were introduced.
+>
+> File upload testing focused on **file types, MIME declarations, filenames, and file-size restrictions**. The evidence showed **[briefly describe the observed upload behaviour]**. The genuine PNG image was **[accepted/rejected]**, while the plain-text file was **[accepted/rejected]**. Comparisons across Low, Medium, and High security levels identified **[specific observable differences in validation or server responses]**.
+>
+> File Inclusion testing examined how the application processed the user-controlled **page parameter**. Normal requests successfully loaded **[authorised page names]**, while the controlled non-existent page request produced **[observed response or error]**. Browser Developer Tools and Burp Suite confirmed **[briefly describe HTTP status codes, request parameters, response differences, and any disclosed server-side information]**. The testing **[did/did not]** demonstrate unauthorised file inclusion.
+>
+> The demonstrated security impact was **[briefly state the impact supported by evidence]**. Recommended remediation includes **server-side file-type and content validation, extension allow-lists, file-size restrictions, safe filename handling, secure non-executable upload storage, fixed allow-lists for File Inclusion, safe error handling, and least-privilege permissions**. Remediation retesting was **[performed/not performed]**, and the results showed **[observed changes, or state that no code-level remediation was implemented]**.
+>
+> Testing was limited to the authorised DVWA application, designated File Upload and File Inclusion modules, and harmless test inputs. Based on the collected evidence, the tested file-handling weaknesses were classified as **[confirmed/potential/not validated]**. Do not assume broader impact, such as arbitrary file access, remote code execution, or server compromise, beyond what was directly demonstrated.
 
-After saving the Markdown file, run:
+**Expected Outcome:** A concise professional Findings Summary that accurately connects testing evidence, security interpretation, remediation and limitations without overstating the demonstrated impact.
 
-```bash
-wc -w ~/lab-evidence/week7/10-findings-summary.md
-```
 
-Use this as an initial check. Confirm the narrative word count separately if the file contains headings, tables or figure captions.
+# Part F – Advanced Optional Tasks
 
-Revise the report until the narrative contains **400–500 words**.
+**Objective:** Extend the Week 7 file-handling assessment by investigating server-side validation, upload storage behaviour, page-selection restrictions, and remediation effectiveness.
+
+**Target:** Authorised DVWA application on Ubuntu-Server.
+
+**Tools:** Firefox Developer Tools, Burp Suite (Proxy and Repeater), Kali Linux and GIMP.
+
+**Important:** These activities are optional and should be attempted only after completing the core Week 7 tasks. Keep all testing within the authorised DVWA environment. Do not use executable payloads, sensitive system files, or destructive techniques.
+
+---
+
+## Task 25 – Investigate File Extension and MIME-Type Validation
+
+**Objective:** Determine whether DVWA's upload validation relies on the submitted filename extension, the client-declared MIME type, or additional server-side checks.
+
+### Step 1 – Establish the Baseline
+
+1. Open **DVWA → File Upload**.
+2. Set the security level to **Medium**.
+3. Upload the genuine `week7-image.png` created earlier.
+4. Capture the request in **Burp Suite → Proxy → HTTP history**.
+5. Send the request to **Repeater**.
+6. Record the original filename, declared MIME type, HTTP status and application response.
+
+### Step 2 – Modify the MIME Declaration
+
+1. Duplicate the baseline request in Repeater.
+2. Locate the uploaded file's multipart `Content-Type` header.
+3. Change only the declared MIME type from `image/png` to `text/plain`.
+4. Keep the original filename and PNG image bytes unchanged.
+5. Send the modified request once.
+6. Record whether the file is accepted or rejected.
+
+**Important:** Do not change the actual file content or introduce scripts.
+
+### Step 3 – Test a Harmless Filename Extension Change
+
+1. Duplicate the original baseline request.
+2. Change only the submitted filename to `week7-image.txt`.
+3. Keep the original PNG image bytes and MIME declaration unchanged.
+4. Submit the controlled request once.
+5. Record the application response.
+
+### Step 4 – Compare the Results
+
+| Test | Filename | Declared MIME Type | Actual Content | Upload Result | HTTP Status |
+|---|---|---|---|---|---|
+| Baseline | `week7-image.png` | `image/png` | PNG image | | |
+| MIME modified | `week7-image.png` | `text/plain` | PNG image | | |
+| Extension modified | `week7-image.txt` | `image/png` | PNG image | | |
+
+### Questions
+
+1. Did changing the MIME declaration affect upload acceptance?
+2. Did changing the filename extension affect the result?
+3. What do the observations suggest about the validation controls?
+4. Can these results establish whether the server checks actual file content?
+5. What additional server-side checks would provide stronger validation?
 
 ### Evidence to Capture
 
-- Completed `10-findings-summary.md`.
-- Word-count verification.
-- Evidence references linked to the findings.
-- Explicit vulnerability validation and remediation-retest conclusions.
+- Original multipart upload request.
+- Modified MIME declaration request and response.
+- Modified filename-extension request and response.
+- Completed comparison table.
 
-**Expected Outcome:** A concise professional Findings Summary that accurately connects testing evidence, security interpretation, remediation and limitations without overstating the demonstrated impact.
+**Expected Outcome:** Students identify whether client-supplied filename and MIME information influence file acceptance, while recognising that these observations alone may not prove how the server validates actual content.
+
+---
+
+## Task 26 – Investigate Upload Storage and Filename Collision Handling
+
+**Objective:** Examine how DVWA stores uploaded files and handles repeated uploads using the same filename.
+
+### Step 1 – Upload the Baseline Image
+
+1. Open **DVWA → File Upload**.
+2. Set the security level to **Low**.
+3. Upload `week7-image.png`.
+4. Record the application response and any displayed storage path.
+5. If the uploaded image is accessible through the authorised application, confirm that it displays correctly.
+
+### Step 2 – Repeat the Upload
+
+1. Upload the same image again without changing its filename or contents.
+2. Record whether the application:
+   - Accepts the repeated upload.
+   - Rejects the duplicate.
+   - Renames the stored file.
+   - Preserves the original filename.
+   - Reports that an existing file has been replaced.
+
+Do not assume that an existing file was overwritten unless the evidence demonstrates it.
+
+### Step 3 – Test a Different Filename
+
+1. Create a copy of the genuine PNG image named `Week 7 Image.png`.
+2. Upload the copied image.
+3. Record how the application handles spaces and mixed-case characters.
+4. Compare the response with the original upload.
+
+### Step 4 – Analyse Storage Behaviour
+
+| Test | Submitted Filename | Result | Returned Filename / Path | Observed Storage Behaviour |
+|---|---|---|---|---|
+| Original upload | `week7-image.png` | | | |
+| Duplicate upload | `week7-image.png` | | | |
+| Filename variation | `Week 7 Image.png` | | | |
+
+### Questions
+
+1. Does DVWA preserve the original uploaded filename?
+2. Is there evidence of automatic filename generation or normalisation?
+3. What happens when the same filename is submitted repeatedly?
+4. Is the uploaded image accessible through the authorised application?
+5. What potential risks arise when applications trust user-supplied filenames?
+6. How could generated filenames and secure storage locations reduce these risks?
+
+### Evidence to Capture
+
+- Original upload result.
+- Duplicate upload result.
+- Filename variation result.
+- Any observed storage location.
+- Completed comparison table.
+
+**Expected Outcome:** Students analyse filename handling and collision behaviour and recommend secure storage practices without attempting unauthorised filesystem access.
+
+---
+
+## Task 27 – Assess File Inclusion Allow-List Behaviour
+
+**Objective:** Investigate how DVWA handles legitimate page identifiers and harmless unexpected values to assess whether page-selection restrictions are observable.
+
+### Step 1 – Capture a Legitimate Request
+
+1. Open **DVWA → File Inclusion**.
+2. Set the security level to **Low**.
+3. Select an application-provided page, such as `file1.php`.
+4. Capture the request in Burp Suite.
+5. Send the request to Repeater.
+6. Confirm that the expected page content is returned.
+
+### Step 2 – Test a Harmless Unexpected Page
+
+1. Duplicate the legitimate request.
+2. Change only the `page` parameter to:
+
+   ```text
+   week7-not-a-page.php
+   ```
+
+3. Send the modified request.
+4. Record the HTTP status, response length and any error message.
+
+### Step 3 – Test an Unrecognised Page Identifier
+
+1. Create another copy of the legitimate request.
+2. Change only the `page` value to:
+
+   ```text
+   week7-unknown-page
+   ```
+
+3. Send the request once.
+4. Compare the response with the previous tests.
+
+These inputs are fictitious page references. They do not target operating-system files or application configuration files.
+
+### Step 4 – Repeat at High Security
+
+1. Change DVWA security to **High**.
+2. Capture a fresh legitimate File Inclusion request.
+3. Repeat the two harmless unexpected page tests.
+4. Record any differences in response behaviour.
+
+### Step 5 – Record the Results
+
+| Security Level | Page Parameter Value | HTTP Status | Response Length | Result / Error |
+|---|---|---|---|---|
+| Low | `file1.php` | | | |
+| Low | `week7-not-a-page.php` | | | |
+| Low | `week7-unknown-page` | | | |
+| High | `file1.php` | | | |
+| High | `week7-not-a-page.php` | | | |
+| High | `week7-unknown-page` | | | |
+
+### Questions
+
+1. How does the application handle legitimate page identifiers?
+2. Are unexpected page values rejected or processed differently?
+3. Does High security produce different validation or error behaviour?
+4. Do the observations suggest a fixed page allow-list?
+5. Could the same observations be explained by another implementation?
+6. Why is source-code inspection or further authorised validation necessary before confirming an allow-list exists?
+
+### Evidence to Capture
+
+- Legitimate baseline request and response.
+- Both harmless modified requests.
+- Low- and High-security comparisons.
+- Completed results table.
+
+**Expected Outcome:** Students evaluate observable File Inclusion parameter handling and explain why invalid-page rejection alone does not prove comprehensive protection against file inclusion weaknesses.
+
+---
+
+## Task 28 – Design and Evaluate a Secure File-Handling Remediation Plan
+
+**Objective:** Develop an evidence-based remediation plan for one file-handling weakness or validation gap identified during Week 7 and design a measurable verification procedure.
+
+### Step 1 – Select a Finding
+
+Review the evidence collected during the core and advanced tasks.
+
+Choose one of the following, where supported by evidence:
+
+- File-type validation depends on client-supplied metadata.
+- Filename handling is insufficient or inconsistent.
+- Duplicate uploads create an observable storage concern.
+- File-size validation is absent or unclear.
+- Unknown page requests expose internal information.
+- File Inclusion page selection is insufficiently restricted.
+
+If no security weakness was validated, select a validation gap and identify the proposed control as a preventive best practice.
+
+### Step 2 – Recommend a Secure Design
+
+Explain an appropriate remediation for the selected finding.
+
+Examples include:
+
+| Finding or Validation Gap | Recommended Control |
+|---|---|
+| Reliance on uploaded file extensions | Server-side extension allow-list and content validation |
+| Reliance on declared MIME type | Verify actual file content where appropriate |
+| Unsafe filename handling | Generate unique server-side filenames |
+| Duplicate filename conflicts | Implement controlled collision handling |
+| Inadequate file-size restrictions | Enforce server-side size limits |
+| Unrestricted page selection | Map approved page identifiers to fixed server-side templates |
+| Detailed file errors | Use generic user-facing errors and secure internal logging |
+
+### Step 3 – Define the Verification Procedure
+
+Prepare a before-and-after retest using the same harmless input.
+
+Specify:
+
+1. The authorised endpoint being tested.
+2. The original test input.
+3. The observed behaviour before remediation.
+4. The proposed code or configuration change.
+5. The expected behaviour after remediation.
+6. The evidence required to confirm that the control works.
+7. A legitimate operation that should continue functioning.
+
+### Step 4 – Complete the Remediation Plan
+
+| Item | Description |
+|---|---|
+| Selected finding | |
+| Evidence reference | |
+| Demonstrated weakness or validation gap | |
+| Proposed remediation | |
+| Baseline test input | |
+| Before-remediation result | |
+| Expected after-remediation result | |
+| Legitimate functionality to verify | |
+| Remediation implemented? | |
+| Retest performed? | |
+| Remaining limitations | |
+
+### Step 5 – Write a Short Evaluation
+
+Write approximately **150–200 words** explaining:
+
+1. The selected finding and supporting evidence.
+2. The security risk it presents.
+3. Why the proposed control is appropriate.
+4. How remediation effectiveness would be tested.
+5. What results would demonstrate successful remediation.
+6. Whether the remediation was implemented or only proposed.
+7. What limitations remain.
+
+If no code or configuration change was performed, state:
+
+**Proposed retest only — no code change performed.**
+
+Changing DVWA security levels alone does not demonstrate that the proposed remediation was implemented.
+
+### Evidence to Capture
+
+- Selected finding and evidence reference.
+- Completed remediation plan.
+- Before-and-after verification design.
+- Written evaluation.
+- Actual retest evidence only if a remediation was implemented.
+
+**Expected Outcome:** Students design a technically justified remediation plan and distinguish proposed security improvements from implemented and verified fixes.
+
+---
+
+## Part F – Evidence and Submission Requirements
+
+For the advanced optional tasks:
+
+- Use only the authorised DVWA environment.
+- Preserve unchanged baseline requests before modifications.
+- Change one controlled variable at a time.
+- Use only harmless images, benign filenames and fictitious training page identifiers.
+- Do not upload executable scripts or malicious payloads.
+- Do not request operating-system files, credentials or application configuration files.
+- Redact `PHPSESSID`, passwords and other session secrets.
+- Document actual observations and avoid unsupported vulnerability claims.
+- Clearly identify optional activities that were not performed.
+- Do not present proposed remediation as completed remediation.
+- Save advanced evidence in the Week 7 evidence folder.
+
+**Final Expected Outcome:** Students develop a deeper understanding of upload metadata validation, filename and storage handling, File Inclusion restrictions, and evidence-based remediation verification while remaining within the authorised DVWA training environment.
+
 
 ---
 
