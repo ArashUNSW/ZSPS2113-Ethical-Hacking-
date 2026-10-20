@@ -20,31 +20,6 @@ By the end of this lab, students should be able to:
 4. Compare relevant HTTP requests and responses using Firefox Developer Tools and Burp Suite.
 5. Distinguish **demonstrated weaknesses** from unverified risks and recommend effective remediations.
 
-
-## Preparation and evidence conventions
-
-- Start the authorised Ubuntu-Server and Kali-Attacker VMs and confirm that the DVWA container is healthy.
-- Record the **actual DVWA address**, IP, port, DVWA version (if available), and security level.
-- Create a Week 7 evidence directory on Kali:
-
-```bash
-mkdir -p ~/lab-evidence/week7
-cd ~/lab-evidence/week7
-```
-
-- Create two harmless test files, without scripts or executable content:
-
-```bash
-printf 'Week 7 authorised upload test – plain text only.\n' > week7-note.txt
-```
-
-Create a small, genuine `.png` image using an approved image editor, named `week7-image.png`. Do not simply rename a text file to `.png` for the baseline.
-
-- Use Firefox Developer Tools (**Network** and **Storage** panels) and Burp Suite (**Proxy > HTTP history** and **Repeater**). Where possible, preserve one unchanged baseline request and compare only **one controlled variable** at a time.
-- **Redact** `PHPSESSID`, authentication credentials, and any other session secrets in screenshots and shared reports. Retain HTTP method, request path, relevant parameters, status, and response content.
-
----
-
 ## Part A – Prepare the Week 7 Environment
 
 ## Task 1 – Create the Week 7 Evidence Folder
@@ -103,9 +78,6 @@ Create a small PNG image using an approved image editor, or use Python with Pill
 
 ```python
 from PIL import Image
-
-image = Image.new("RGB", (100, 100), "lightgrey")
-image.save("week7-image.png")
 ```
 
 This creates a genuine 100 × 100 pixel image named `week7-image.png`.
