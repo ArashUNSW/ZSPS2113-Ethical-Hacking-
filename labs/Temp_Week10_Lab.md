@@ -5,7 +5,7 @@
 
 ## Estimated time
 
-Approximately **2 hours for core activities**, with additional time for report completion and optional advanced activities.
+Approximately **2 hours for the core practical assessment**, plus additional time for evidence review and the professional report. Complete only the instructor-approved scope; optional tasks require additional time.
 
 ---
 
@@ -116,14 +116,14 @@ ip -br addr
 ip route
 ```
 
-3. Confirm that the observed destination matches the instructor-issued target. Do not discover or scan a broader subnet merely to locate the target.
-4. If the instructor has permitted a connectivity check, send a **single bounded** request to an in-scope HTTP service:
+3. Compare the network details with the instructor-issued scope. Network addresses and routes alone do **not** establish isolation; confirm host-only or otherwise approved segmentation from the lab configuration or instructor. Do not scan a broader subnet merely to locate the target.
+4. If the instructor has permitted a connectivity check, send a **single bounded** request to an in-scope HTTP service. Substitute the authorised address, port and scheme before running the example:
 
 ```bash
 curl -I --max-time 10 http://<AUTHORISED_IP>:<APPROVED_PORT>/
 ```
 
-5. Record redirects and failures as observed; `302 Found`, `401 Unauthorized`, or `403 Forbidden` can be normal for a working service.
+5. Record redirects and failures as observed; `302 Found`, `401 Unauthorized`, or `403 Forbidden` can be normal for a working service. Do **not** follow redirects automatically to an unapproved host/path. If only HTTPS is authorised, use `https://` rather than `http://`.
 
 | Item | Observed value |
 |---|---|
@@ -149,7 +149,7 @@ The student verifies the **specific** consolidated target and allowed service wi
 
 ## Task 4 – Develop a Small Test Plan
 
-1. Select **two or three in-scope service features** from the instructor's scope (for example, an HTTP landing page, a designated API route, or an authorised service banner).
+1. Select **up to two or three in-scope service features** from the instructor's scope (for example, an HTTP landing page, a designated API route, or an authorised service banner). If only one feature is approved, assess that one and state the limitation.
 2. Identify the appropriate approved tool for each check.
 3. State what normal behaviour you expect and what evidence will establish it.
 4. Identify a safe stopping point and any testing risks.
@@ -173,13 +173,13 @@ A small, reproducible plan aligned with the defined subset of services.
 ## Task 5 – Identify Permitted Ports and Service Versions
 
 1. Consult the scope table; form a comma-separated list containing **only explicitly permitted ports**.
-2. If the instructor allows Nmap probing, perform one limited scan **against only the authorised IP and ports**, with no intrusive NSE scripts:
+2. **Only if the instructor expressly permits active service/version probing**, perform one limited scan against the authorised IP and permitted ports. Service detection sends additional probes, so it must not be treated as harmless or automatically approved:
 
 ```bash
 nmap -sT -sV --version-light -Pn -p <APPROVED_PORTS> <AUTHORISED_IP> -oN ~/lab-evidence/week10/02-service-inventory.txt
 ```
 
-3. If even service/version probing is not authorised, use instructor-provided service inventory or passive browser observations instead.
+3. Replace `<APPROVED_PORTS>` with the explicitly authorised comma-separated TCP ports and `<AUTHORISED_IP>` with the designated IP; do not enter literal angle-bracket placeholders. If service/version probing is not authorised, use the instructor-provided service inventory or normal approved browser observations instead. The `-Pn` flag does not grant permission to probe unlisted services.
 4. Record each open, closed, filtered, or unconfirmed service. Do not infer a vulnerability merely from a version string.
 
 | Host | Port/protocol | Observed service | Version/banner | State | Evidence reference |
@@ -200,14 +200,14 @@ A concise inventory of **in-scope services only**, including uncertainty where i
 ## Task 6 – Inspect Service Responses and Headers
 
 1. Select an approved web endpoint from Task 5.
-2. Capture an unchanged normal request using a browser or bounded `curl` request:
+2. Capture an unchanged normal request using the browser or a bounded `curl` request. Substitute the approved address, port, scheme and **exact authorised path**:
 
 ```bash
 curl -i --max-time 10 http://<AUTHORISED_IP>:<APPROVED_PORT>/<APPROVED_PATH>
 ```
 
 3. Record status, request path, redirects, response headers, visible page content, and relevant technology disclosures.
-4. Inspect only pages or routes identified in the approved scope; do not use broad directory brute forcing or crawling.
+4. Inspect only pages or routes identified in the approved scope; do not use broad directory brute forcing or crawling. Do not automatically follow any redirect outside the authorised scope.
 5. Distinguish expected diagnostic headers from demonstrable security problems.
 
 | Property | Observation |
@@ -269,7 +269,7 @@ A defensible, bounded representation of the authorised test surface.
 
 1. Choose one in-scope request from Task 6.
 2. In Burp **Proxy → HTTP history**, locate the request or use another approved request-capture method.
-3. If Burp is approved, send it to **Repeater** and resend **unchanged** once.
+3. If Burp is approved and the captured request is **read-only/idempotent**, send it to **Repeater** and resend **unchanged** once. Otherwise use an approved passive capture or a fresh instructor-authorised training state; do not replay login or state-changing actions merely for baseline reproduction.
 4. Record request method, path, permitted parameters, response status, body length, and content.
 5. Redact session IDs and credentials in evidence.
 
@@ -288,7 +288,7 @@ The original request and unchanged repeat response.
 
 ### Expected result
 
-A stable comparison point exists before any authorised input variation.
+A stable, safe comparison point exists before any authorised input variation. Any dynamic differences or inability to replay are recorded honestly.
 
 ---
 
@@ -317,13 +317,13 @@ One narrow, evidence-driven test hypothesis linked to an authorised service.
 ## Task 10 – Test One Benign Input Variation
 
 1. Preserve the unchanged request from Task 8.
-2. Change only **one benign variable** explicitly permitted in the lab, such as an invalid training identifier or harmless marker:
+2. Change only **one benign variable** explicitly permitted in the lab, such as an instructor-provided non-existent training identifier or harmless marker:
 
 ```text
 Week10Test
 ```
 
-3. Submit **once** using the approved browser/Burp interface; do not inject commands, enumerate real accounts, or request sensitive files.
+3. Submit **once** using the approved browser/Burp interface, **only if the request is safe to repeat**. Do not inject commands, enumerate real accounts, request sensitive files, or alter state without explicit approval.
 4. Compare the response to the baseline. A status code alone does not prove success or failure.
 5. If the application has no authorised modifiable input, record **Not applicable** and choose an approved non-invasive configuration comparison instead.
 
@@ -350,8 +350,8 @@ Students independently conduct a bounded test and explain the observed differenc
 
 1. If the scope provides a training account, inspect normal **logged-out** and **logged-in** behaviour at one permitted page.
 2. Use the supplied account only; never guess passwords or attempt other users' accounts.
-3. Record HTTP responses, redirect behaviour, and **cookie names only**. Keep token values hidden.
-4. Log out normally and attempt the same permitted page again.
+3. Record HTTP responses, redirect behaviour, and relevant **cookie/token/header names only**. Keep secret values out of shared screenshots and reports (retain valid authentication material in the actual request when needed to test the approved session).
+4. Log out normally and attempt the same permitted page again, using a fresh server request. Distinguish a cached page from new protected content returned by the server. Logout does not, by itself, prove token revocation.
 5. If no account or authentication feature is authorised, mark this task **Not applicable** and explain why.
 
 | State | Requested resource | Status/redirect | Content observed | Supported conclusion |
@@ -374,7 +374,7 @@ Students describe observed authentication/session behaviour without inferring ac
 
 1. Identify one instructor-approved rule, for example: a training resource accessible to a supplied account but not to an unauthenticated browser.
 2. Capture the expected request and response under the permitted state.
-3. Repeat only the **authorised comparison** (for example, after logout), using the same endpoint.
+3. Repeat only the **authorised read-only comparison** (for example, after logout), using the same endpoint. Inspect actual protected response content—not status alone—and avoid state-changing replays.
 4. Record whether the server enforces the rule; merely hiding a navigation link is not sufficient evidence.
 5. Do not change resource IDs to other students' objects or attempt privilege escalation outside an instructor-defined scenario.
 
@@ -394,7 +394,7 @@ A defensible access-control observation—or an explicit statement that the feat
 
 ## Task 13 – Compare a Second Approved Service or Feature
 
-1. Select a second in-scope service or feature identified in Task 4.
+1. Select a second in-scope service or feature identified in Task 4 **if the instructor approved more than one**. Otherwise record **Not applicable — only one feature authorised** and do not expand scope.
 2. Establish an unchanged baseline and, where permitted, one benign comparison.
 3. Record what is similar to or different from the first feature.
 4. Avoid assuming that one endpoint's behaviour applies to every service.
@@ -461,7 +461,7 @@ Students explain what the lab actually demonstrated and what remains only a pote
 
 1. Select up to **two** evidence-supported findings or validation gaps.
 2. Consider exposure, prerequisites, demonstrated impact, and any mitigating control.
-3. Assign a qualitative rating (**Low**, **Medium**, **High**) and justify it in 2–3 sentences. Use **Informational** for observations with no demonstrated exploitable weakness.
+3. Assign a qualitative rating (**Low**, **Medium**, **High**) only when evidence and context support risk; justify it in 2–3 sentences. Use **Informational** for observations with no demonstrated exploitable weakness, and label unvalidated concerns **Inconclusive** rather than giving them an unwarranted confirmed severity.
 4. A confirmed vulnerability requires direct evidence; a suspected issue should be classified **Inconclusive** or **Requires further verification**.
 
 | Finding | Validated / inconclusive / informational | Exposure/prerequisites | Demonstrated impact | Risk rating | Justification |
@@ -497,7 +497,7 @@ Remediation addresses identified behaviour and does not propose unrelated generi
 1. Choose one observation or weakness from Task 16.
 2. Preserve the original safe test case, endpoint, account, and comparison metric.
 3. Describe the specific **code/configuration change** that would be implemented by an authorised maintainer.
-4. Define the expected response after the fix and a check that normal functionality still works.
+4. Define the expected response after the fix and a check that normal functionality still works. Clearly separate **expected** from **actual observed** after-fix results.
 5. Do not claim the issue is fixed merely because the student changed a training security level or tried another endpoint.
 
 | Retest item | Before remediation | Expected after remediation | Actual after remediation, if tested |
@@ -540,7 +540,7 @@ An explicit, auditable remediation and retest status is included in the client r
 
 ## Task 20 – Save Required Week 10 Evidence
 
-Use consistent, descriptive filenames in `~/lab-evidence/week10/`.
+Use consistent, descriptive filenames in `~/lab-evidence/week10/`. The following is a **suggested deliverable inventory**, not evidence that the files already exist. Create only the files applicable to the approved activities.
 
 ```text
 01-scope.md
@@ -556,7 +556,9 @@ Use consistent, descriptive filenames in `~/lab-evidence/week10/`.
 11-mini-pentest-report.md
 ```
 
-Only create files for activities actually completed. Remove or redact credentials, tokens, private information and irrelevant scan results.
+For required narrative/table deliverables, create the named Markdown files even when the conclusion is **Not tested** or **No validated finding**. For screenshots or scan outputs, create files only when the activity was actually completed. Remove or redact credentials, tokens, private information and out-of-scope scan output.
+
+**File naming note:** `09-risk-and-remediation.md` is the findings table (Task 21), `10-retest-plan.md` documents the proposed/actual retest (Tasks 18–19), and `11-mini-pentest-report.md` contains the 400–500-word narrative (Task 22).
 
 | Check | Complete? |
 |---|---|
@@ -574,10 +576,16 @@ A clean and traceable evidence set suitable for marking and professional review.
 
 ## Task 21 – Create the Mini Penetration-Test Findings Table
 
-Create:
+Create or open the findings table:
 
 ```bash
 nano ~/lab-evidence/week10/09-risk-and-remediation.md
+```
+
+Also create or update the retest record with the before/after table from Tasks 18–19:
+
+```bash
+nano ~/lab-evidence/week10/10-retest-plan.md
 ```
 
 | Finding ID | In-scope asset / endpoint | Baseline | Test / observation | Evidence | Validation status | Risk | Mitigation | Retest status |
@@ -601,7 +609,7 @@ Create:
 nano ~/lab-evidence/week10/11-mini-pentest-report.md
 ```
 
-Write a **400–500-word narrative**, excluding headings, tables and figure captions. Include:
+Write a **400–500-word narrative**, excluding headings, tables and figure captions. Use the observations from the findings table, not fabricated findings. Include:
 
 1. **Scope and authorisation:** exact target and allowed subset of services.
 2. **Methodology:** approved tools, baseline checks, and bounded controlled testing.
@@ -625,7 +633,7 @@ Write a **400–500-word narrative**, excluding headings, tables and figure capt
 
 ### Writing guidance
 
-Focus on the **most important evidence**, not a chronological diary. Do not report untested weaknesses as confirmed or state that remediation was successful without an actual verified change.
+Check the narrative count with `wc -w ~/lab-evidence/week10/11-mini-pentest-report.md` as a preliminary check; remove headings/tables/captions from the count when present. Focus on the **most important evidence**, not a chronological diary. Do not report untested weaknesses as confirmed or state that remediation was successful without an actual verified change.
 
 ### Expected result
 
@@ -640,7 +648,7 @@ Check the report against the evidence and complete:
 - [ ] Exact target, approved services and exclusions are stated.
 - [ ] Selected tools were instructor-approved.
 - [ ] Service inventory contains only the defined scope.
-- [ ] Two baselines or in-scope feature checks are documented.
+- [ ] All authorised features are documented; at least two baselines where more than one feature was approved, otherwise the one-feature limitation is stated.
 - [ ] A controlled comparison and its actual response are included.
 - [ ] Evidence is labelled, readable and redacted.
 - [ ] Findings distinguish observations from assumptions.
@@ -667,7 +675,7 @@ The report is internally consistent and every substantive security claim has a s
 ls -lh ~/lab-evidence/week10/
 ```
 
-5. Submit the professional report, findings table, scope table, attack-surface map, selected screenshots and retest plan/evidence.
+5. Submit the professional report, findings table, scope table, attack-surface map, selected screenshots and retest plan/evidence **as required by the instructor**. Document any permitted activity that was unavailable or not applicable.
 6. Do not include live credentials, session identifiers, internal secrets or out-of-scope output.
 
 ### Expected result
@@ -687,7 +695,7 @@ Evaluate whether two instructor-approved services present different observable s
 
 ### Steps
 
-1. Select two services already identified as in scope.
+1. Select two services already identified as in scope. If fewer than two are approved, mark this optional task **Not applicable**; do not expand scope.
 2. Compare permitted access methods, authentication requirements and information returned.
 3. Note differences in exposure and prerequisites.
 4. Do not treat a difference in a banner or response status alone as a confirmed vulnerability.
@@ -843,3 +851,4 @@ This mini penetration test uses the following workflow:
 Students independently examine a **defined subset of services** on the consolidated lab target using only approved tools and techniques. The final deliverable is a concise, evidence-supported report that identifies what was tested, what was actually observed, what risk is justified, what should be fixed, and whether the proposed control was implemented and retested.
 
 Optional activities deepen this work through cross-service comparison, request-flow tracing, false-positive review and regression-test design.
+
