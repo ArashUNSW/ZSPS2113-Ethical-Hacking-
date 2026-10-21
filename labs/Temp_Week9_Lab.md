@@ -40,6 +40,37 @@ Use **Browser Developer Tools** to examine browser and HTTP behaviour, **Burp Su
 
 ---
 
+## Part A – Prepare the Week 9 Environment
+
+### Task 1 – Create the Week 9 Evidence Folder
+
+1. On **Kali-Attacker**, open a terminal.
+2. Create a Week 9 evidence folder:
+
+```bash
+mkdir -p ~/lab-evidence/week9
+```
+
+3. Change into the folder:
+```bash
+cd ~/lab-evidence/week9
+```
+
+4. Confirm the current path:
+```bash
+pwd
+```
+
+### Evidence to capture
+
+Take one screenshot showing the Week 9 evidence folder.
+
+### Expected result
+
+```text
+/home/<your-user>/lab-evidence/week9
+```
+
 # Part A – Environment Verification and Baseline
 
 ## Task 1 – Confirm the authorised WebGoat and WebWolf services
