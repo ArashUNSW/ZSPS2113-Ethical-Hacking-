@@ -1331,8 +1331,6 @@ Write approximately **100–150 words** explaining:
 
 ---
 
-
-
 ---
 
 ## Task 18 – Consolidate and Validate Week 7 Evidence
@@ -1424,59 +1422,13 @@ Completed summary file, checked narrative length and evidence references.
 
 **Expected result:** A concise professional Findings Summary that accurately connects testing evidence, security interpretation, remediation and limitations without overstating the demonstrated impact.
 
-
-
----
-
-## Task 21 – Validate the Final Report
-
-Before submission, confirm:
-
-- [ ] Authorised target, IP/URL, security levels and both modules are documented.
-- [ ] A normal baseline and a controlled comparison exist for both File Upload and File Inclusion.
-- [ ] File types and file sizes were verified with `file` and `ls -lh`.
-- [ ] Browser Developer Tools and Burp evidence is legible, labelled and linked to the findings table.
-- [ ] All session identifiers, credentials and secrets are redacted in submitted evidence.
-- [ ] Observed behaviour, validated weaknesses, possible risks and inconclusive results are clearly distinguished.
-- [ ] Recommended controls and remediation retest status are explicit.
-- [ ] Scope, limitations, and cleanup/restoration status are recorded.
-- [ ] `09-findings-table.md` is complete.
-- [ ] `10-findings-summary.md` contains **400–500 narrative words**.
-
-### Expected result
-
-The report is internally consistent, complete and evidence based.
-
----
-
-## Task 22 – Clean Up and Submit
-
-1. Remove only Week 7 test uploads if the lab instructions explicitly authorise their removal. Do not delete unrelated files, application data or Docker volumes.
-2. Restore the DVWA security setting specified by your instructor and any other changed lab settings. Record **Not performed** if cleanup was not authorised or possible.
-3. Confirm the reporting files exist:
-
-   ```bash
-   ls -lh ~/lab-evidence/week7/09-findings-table.md ~/lab-evidence/week7/10-findings-summary.md
-   ```
-
-4. Submit the findings table, 400–500-word summary, selected labelled HTTP screenshots, relevant diagrams and any required supporting tables using the instructed submission process.
-5. Do not include live credentials, session IDs or unauthorised content.
-
-### Evidence to capture
-
-Final directory listing, submitted evidence inventory and brief cleanup/restoration record.
-
-### Expected result
-
-The lab is returned to its agreed state and the student submits a professional evidence-linked report.
-
 ---
 
 # Part F – Advanced Optional Tasks
 
-**Optional:** Tasks 23–26 are extensions for students who have completed the core activities. Use harmless files and fictitious page names; do not access system files or upload executable content.
+**Optional:** Tasks 21–24 are extensions for students who have completed the core activities. Use harmless files and fictitious page names; do not access system files or upload executable content.
 
-## Task 23 – Compare Filename Extension with Declared MIME Type
+## Task 21 – Compare Filename Extension with Declared MIME Type
 
 1. At a recorded security level, capture a valid PNG upload and preserve an unchanged baseline in Burp Repeater.
 2. In one copy, change **only** the part-level MIME declaration to `text/plain`, retaining the PNG filename and genuine PNG bytes.
@@ -1500,7 +1452,7 @@ Students distinguish extension checks from client-declared MIME checks and expla
 
 ---
 
-## Task 24 – Inspect Safe Storage and File Delivery
+## Task 22 – Inspect Safe Storage and File Delivery
 
 1. Use an **already uploaded** genuine PNG; do not repeat the core collision tests.
 2. If DVWA provides an authorised link, open the stored image in the browser and locate its retrieval request in Developer Tools / Burp.
@@ -1526,7 +1478,7 @@ Students assess storage and file-delivery behaviour without making unsupported e
 
 ---
 
-## Task 25 – Compare Alternative Benign Inclusion Identifiers
+## Task 23 – Compare Alternative Benign Inclusion Identifiers
 
 1. At **Low** security, preserve a successful `page=file1.php` request (or an actual legitimate name provided by DVWA).
 2. Compare the previously tested `page=week7-not-a-page.php` with a second clearly fictitious value `page=week7-unknown-page`.
@@ -1553,7 +1505,7 @@ Students evaluate whether different invalid identifiers produce consistent handl
 
 ---
 
-## Task 26 – Design a Security Regression Test
+## Task 24 – Design a Security Regression Test
 
 1. Select **one** evidence-supported finding or validation gap from Tasks 4–17.
 2. Specify a proposed server-side change (e.g. fixed page identifier allow-list, safe filename generation, content validation, size restriction or generic error handling).
