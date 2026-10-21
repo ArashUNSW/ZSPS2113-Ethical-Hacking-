@@ -13,7 +13,7 @@ Approximately **2 hours for core guided activities**, with additional time for i
 
 By the end of this lab, students should be able to:
 
-- Verify the authorised WebGoat/WebWolf environment and record the published ports and application paths.
+- Verify the authorised WebGoat environment and WebWolf connectivity when the assigned lesson requires it.
 - Identify the learning objective, normal inputs and expected permissions of an instructor-designated lesson.
 - Capture and reproduce a safe baseline request using Browser Developer Tools and Burp Suite.
 - Investigate guided access-control, injection, session/token or server-side parsing behaviour.
@@ -40,46 +40,27 @@ Use **Browser Developer Tools** to examine browser and HTTP behaviour, **Burp Su
 
 ---
 
-## Part A – Prepare the Week 9 Environment
+# Part A – Environment Preparation and Baseline
 
-### Task 1 – Create the Week 9 Evidence Folder
+## Task 1 – Create the Evidence Folder and Verify WebGoat/WebWolf
 
-1. On **Kali-Attacker**, open a terminal.
-2. Create a Week 9 evidence folder:
+**Objective:** Prepare an evidence directory, verify the authorised training target and identify the actual application endpoints before testing.
+
+### Step 1 – Prepare the evidence folder
+
+On **Kali-Attacker**:
 
 ```bash
 mkdir -p ~/lab-evidence/week9
-```
-
-3. Change into the folder:
-```bash
 cd ~/lab-evidence/week9
-```
-
-4. Confirm the current path:
-```bash
 pwd
 ```
 
-### Evidence to capture
+The expected directory is `/home/<your-user>/lab-evidence/week9` (replace the placeholder with your actual username).
 
-Take one screenshot showing the Week 9 evidence folder.
+### Step 2 – Verify the authorised target
 
-### Expected result
-
-```text
-/home/<your-user>/lab-evidence/week9
-```
-
-# Part A – Environment Verification and Baseline
-
-## Task 1 – Confirm the authorised WebGoat and WebWolf services
-
-**Objective:** Verify that both applications are reachable and correctly identify their training roles.
-
-### Steps
-
-1. Start **Ubuntu-Server** and **Kali-Attacker** in the authorised lab environment.
+1. Start **Ubuntu-Server** and **Kali-Attacker** using the assigned isolated lab network.
 2. On Ubuntu-Server, run:
 
    ```bash
@@ -87,29 +68,36 @@ Take one screenshot showing the Week 9 evidence folder.
    sudo docker ps
    ```
 
-3. Record the Ubuntu-Server IP and **actual host-to-container port mappings** for WebGoat and WebWolf.
-4. On Kali-Attacker, open each application in Firefox using the mapped ports. For example, use `http://192.168.1.100:8081/WebGoat/` only if that address and port match your environment. Obtain the WebWolf URL from the container mapping or course instructions.
-5. Verify that WebGoat shows its login or lesson interface and WebWolf shows its expected training interface.
-6. Do not guess credentials or alter other containers. If a service is unavailable, consult the earlier Docker lab instructions and report the issue.
+3. On Kali-Attacker, run `ip -br addr` and verify the authorised lab network.
+4. Record the **actual** host-to-container port mappings and addresses for WebGoat and WebWolf. The two applications may be exposed through the same container and different mapped ports; do not assume that they require separate containers.
+5. In Firefox, open WebGoat using its instructor-provided URL. For example, `http://192.168.1.100:8081/WebGoat/` is valid **only if confirmed** in your lab.
+6. If a selected lesson requires WebWolf, open its assigned URL and verify its page is reachable. Otherwise, record **Not required for assigned lessons**; WebWolf availability is not a prerequisite for unrelated WebGoat lessons.
+7. Do not guess passwords, restart shared containers or substitute public WebGoat/WebWolf sites. If WebGoat is unavailable, follow earlier lab troubleshooting and contact the instructor.
+
+### Complete the table below
 
 | Item | Observed value |
 |---|---|
-| Kali-Attacker IP | |
-| Authorised Ubuntu-Server IP | |
-| Lab network / isolation | |
-| WebGoat image/container and published port | |
-| WebGoat URL | |
-| WebWolf image/container and published port | |
-| WebWolf URL | |
-| Browser accessibility / redirect | |
-| Service health or troubleshooting notes | |
+| Kali-Attacker IP / interface | |
+| Ubuntu-Server IP / interface | |
+| Isolation / authorised network | |
+| WebGoat container/image/status | |
+| WebGoat published port / URL | |
+| WebWolf port / URL (if required) | |
+| Initial browser HTTP status / redirect | |
+| WebGoat reachable? | Yes / No |
+| WebWolf required and reachable? | Yes / No / Not required |
+| Troubleshooting / limitations | |
 
 ### Evidence to capture
 
- Container status, published ports, WebGoat and WebWolf landing pages, and the completed table.  
+Capture the evidence-folder path, relevant `docker ps` port mapping, and the authorised application landing page. Capture WebWolf only if needed for an assigned lesson. Redact secrets in shared captures.
+
 ### Expected result
 
- The two authorised services are correctly identified and accessible, or a documented setup limitation explains why testing cannot continue.
+The evidence directory exists, the WebGoat target is verified, and WebWolf is identified or marked not required.
+
+---
 
 ## Task 2 – Prepare evidence and capture a normal HTTP baseline
 
@@ -117,19 +105,13 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Steps
 
-1. On Kali-Attacker, create the evidence folder:
-
-   ```bash
-   mkdir -p ~/lab-evidence/week9
-   ```
-
-2. Sign into WebGoat using only the supplied lab account or create the training account if directed by the instructor.
-3. Open Firefox Developer Tools (**F12 → Network**) and enable persistent request logging.
-4. Open Burp Suite **Proxy → HTTP history**. Use a browser configured to proxy through Burp; confirm a WebGoat request appears.
-5. Select an assigned lesson and observe its introductory instructions **without modifying inputs**.
-6. Capture a normal request associated with opening or using the lesson. Record method, path, parameter names, status, response and any redirect.
-7. Send the captured request to **Repeater**, retain an unchanged baseline tab, and resend only if the request has no unintended state change. For state-changing requests, use an instructor-approved fresh training state instead.
-8. Record any dynamic elements (for example, changing tokens) that make exact response lengths differ between otherwise equivalent requests.
+1. Sign into WebGoat using only the supplied lab account or create the training account if directed by the instructor.
+2. Open Firefox Developer Tools (**F12 → Network**) and enable persistent request logging.
+2. Open Burp Suite **Proxy → HTTP history**. Use a browser configured to proxy through Burp; confirm a WebGoat request appears.
+2. Select an assigned lesson and observe its introductory instructions **without modifying inputs**.
+2. Capture a normal request associated with opening or using the lesson. Record method, path, parameter names, status, response and any redirect.
+2. Send the captured request to **Repeater**, retain an unchanged baseline tab, and resend only if the request has no unintended state change. For state-changing requests, use an instructor-approved fresh training state instead.
+2. Record any dynamic elements (for example, changing tokens) that make exact response lengths differ between otherwise equivalent requests.
 
 | Lesson / page | Method | Path | Parameters (names only) | HTTP status | Normal response / redirect | Evidence filename |
 |---|---|---|---|---|---|---|
@@ -137,10 +119,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- Evidence directory, Browser Network entry, baseline Burp request/response, and table.  
+Evidence directory, Browser Network entry, baseline Burp request/response, and table.  
 ### Expected result
 
- A reproducible or appropriately qualified baseline and a safe evidence collection workflow.
+A reproducible or appropriately qualified baseline and a safe evidence collection workflow.
 
 ---
 
@@ -165,10 +147,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- Lesson title/instructions, normal request and response, and permission map.  
+Lesson title/instructions, normal request and response, and permission map.  
 ### Expected result
 
- A clear distinction between permitted behaviour and the authorisation rule the guided lesson is examining.
+A clear distinction between permitted behaviour and the authorisation rule the guided lesson is examining.
 
 ## Task 4 – Compare an authorised request with one controlled access variation
 
@@ -192,10 +174,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- Two labelled request/response pairs, any WebGoat success indicator, completed comparison table.  
+Two labelled request/response pairs, any WebGoat success indicator, completed comparison table.  
 ### Expected result
 
- An evidence-based access-control finding or explicit non-validation.
+An evidence-based access-control finding or explicit non-validation.
 
 ---
 
@@ -226,10 +208,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- Lesson screen, baseline Browser/Burp request and response, table.  
+Lesson screen, baseline Browser/Burp request and response, table.  
 ### Expected result
 
- A documented baseline suitable for a controlled injection comparison.
+A documented baseline suitable for a controlled injection comparison.
 
 ## Task 6 – Perform the lesson-provided controlled injection comparison
 
@@ -239,7 +221,7 @@ Take one screenshot showing the Week 9 evidence folder.
 
 1. Read the lesson's authorised example or guided input instructions. Use **only that lesson's benign training values**.
 2. In Repeater or the lesson UI, apply one controlled variation and capture its result.
-3. Where the selected lesson requires a true/false comparison, submit the two **lesson-provided** alternatives separately, preserving the rest of the request.
+3. Only where the selected lesson explicitly requires a true/false comparison, submit the two **lesson-provided** alternatives separately, preserving the rest of the request.
 4. Record HTTP status, response length, returned records or messages, and any error output. A syntax error alone is not proof of the full exploitability or underlying code implementation.
 5. Identify whether the lesson's expected behaviour was demonstrated. Record its success indicator if applicable.
 6. Avoid database extraction beyond lesson samples, destructive statements, production endpoints, and unapproved payload variations.
@@ -254,10 +236,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- Controlled Burp comparison and lesson completion proof if achieved.  
+Controlled Burp comparison and lesson completion proof if achieved.  
 ### Expected result
 
- Accurate interpretation of the guided injection behaviour and its limitations.
+Accurate interpretation of the guided injection behaviour and its limitations.
 
 ## Task 7 – Examine a server-side parsing lesson, if assigned
 
@@ -284,10 +266,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- Normal and modified requests/responses, completed table, assigned lesson status.  
+Normal and modified requests/responses, completed table, assigned lesson status.  
 ### Expected result
 
- Evidence-based parsing observations and relevant mitigation ideas.
+Evidence-based parsing observations and relevant mitigation ideas.
 
 ---
 
@@ -301,7 +283,7 @@ Take one screenshot showing the Week 9 evidence folder.
 
 1. Open an instructor-selected **session or token** lesson if available.
 2. Identify the training login/session boundary and the request that transitions the application into an authenticated state.
-3. In Browser Developer Tools and Burp, identify **cookie/header names only** and any relevant token-bearing request fields; do not record secret values.
+3. In Browser Developer Tools and Burp, identify **cookie/header names only in recorded or submitted evidence** and any relevant token-bearing request fields; do not include secret values in notes, tables or submitted evidence (the live HTTP capture may contain them).
 4. Compare a request before authentication with a request after authentication, using the lesson UI and account provided.
 5. Observe how the application handles logout, expiry or a deliberately invalid training token **only if directed by the lesson**.
 6. Record whether session persistence, rejection or other expected behaviour is observable. Do not claim token forgery or bypass unless the controlled lesson validates it.
@@ -314,10 +296,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- Redacted header/name comparison, state-change responses, lesson outcome.  
+Redacted header/name comparison, state-change responses, lesson outcome.  
 ### Expected result
 
- An authentication/session flow with appropriate privacy and evidence handling.
+An authentication/session flow with appropriate privacy and evidence handling.
 
 ## Task 9 – Use WebWolf for an assigned training callback or message
 
@@ -338,10 +320,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- WebGoat instruction/trigger and WebWolf resulting observation, with secrets redacted.  
+WebGoat instruction/trigger and WebWolf resulting observation, with secrets redacted.  
 ### Expected result
 
- A correctly correlated authorised training event, or a documented reason WebWolf was not used.
+A correctly correlated authorised training event, or a documented reason WebWolf was not used.
 
 ## Task 10 – Compare token/session and WebWolf observations
 
@@ -350,17 +332,17 @@ Take one screenshot showing the Week 9 evidence folder.
 ### Steps
 
 1. Select one request/response pair from Task 8 or one correlated WebGoat–WebWolf event from Task 9.
-2. Draw a simple data-flow diagram showing: **Browser → WebGoat → validation/action → WebWolf (only if used) → response/outcome**.
+2. Draw a simple data-flow diagram showing: **Browser → WebGoat → validation/action → response/outcome**, adding a **WebWolf event branch** only when the selected lesson actually uses WebWolf.
 3. Mark where untrusted input enters, where authorisation or token validation should happen, and where secrets could be exposed if controls fail.
 4. Write approximately **100–150 words** linking the diagram to observed evidence.
 5. State explicitly whether a vulnerability was actually demonstrated or only a normal workflow was observed.
 
 ### Evidence to capture
 
- Annotated diagram and short interpretation.  
+Annotated diagram and short interpretation.  
 ### Expected result
 
- A clear, evidence-linked explanation of the lesson's trust boundary and mitigation needs.
+A clear, evidence-linked explanation of the lesson's trust boundary and mitigation needs.
 
 ---
 
@@ -391,10 +373,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- Completed Markdown table with valid references.  
+Completed Markdown table with valid references.  
 ### Expected result
 
- An auditable summary of what the student actually tested and completed.
+An auditable summary of what the student actually tested and completed.
 
 ## Task 12 – Write mitigation notes for each selected lesson
 
@@ -417,10 +399,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- Completed mitigation notes table.  
+Completed mitigation notes table.  
 ### Expected result
 
- Actionable, correctly scoped mitigation advice linked to lesson evidence.
+Actionable, correctly scoped mitigation advice linked to lesson evidence.
 
 ## Task 13 – Design a remediation verification comparison
 
@@ -445,10 +427,10 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Evidence to capture
 
- Before/after design, plus actual retest evidence only if implemented.  
+Before/after design, plus actual retest evidence only if implemented.  
 ### Expected result
 
- A reproducible plan for checking the recommended control.
+A reproducible plan for checking the recommended control.
 
 ## Task 14 – Write the 400–500-word Findings Summary
 
@@ -469,18 +451,29 @@ Take one screenshot showing the Week 9 evidence folder.
 
 ### Suggested structure
 
-Guided advanced testing was conducted against the authorised **WebGoat** application at **[address]**, with **WebWolf** used **[where required / not required]**, using Firefox Developer Tools and Burp Suite. Baseline requests for the selected lessons showed **[normal behaviour]**.
-The designated **access-control lesson [name/step]** tested **[resource/function and intended permission]**. Comparing the authorised request with **[guided controlled variation]** produced **[response]**, supporting **[conclusion about access-control enforcement]**.
-The designated **injection / parsing lesson [name/step]** tested **[input]**. Burp comparisons showed **[observed response difference]**. Any additional **token/session or WebWolf** observations showed **[actual result, or state not assigned]**.
-The demonstrated impact was **[evidence-supported result]**; **[potential risk]** remains unvalidated. Recommended mitigation includes **[specific authorisation checks, safe queries/parsing, session controls, as applicable]**. Remediation was **[implemented and retested / proposed only]**.
-Testing was limited to the authorised training accounts, designated lessons and benign guided inputs. The lesson outcomes were **[completed/attempted]**, and the security findings were **[validated/not validated/inconclusive]**. No broader production-system impact is claimed.
+> Guided advanced testing was conducted against the authorised **WebGoat** application at **[address]**, with **WebWolf** **[used as required / not required]**, using Browser Developer Tools and Burp Suite. Baseline requests for the designated lessons showed **[normal observed behaviour]**.
+>
+> The **access-control lesson [name/step]** examined **[resource/function and intended permission]**. Comparing the authorised request with **[lesson-provided controlled variation]** produced **[actual response/content]**, supporting **[evidence-based interpretation]**.
+>
+> The **injection or parsing lesson [name/step]** tested **[input and request parameter]**. The controlled Burp comparison showed **[observed difference]**. The assigned **session/token or WebWolf** activity **[result, or not assigned/not required]**.
+>
+> The demonstrated impact was **[observed effect]**; **[potential wider risk]** was not tested. Recommended mitigation includes **[relevant server-side access checks, prepared statements, safer parsing or session controls]**. Remediation **[was implemented and retested / was proposed only]**.
+>
+> Testing was restricted to the authorised training accounts, lessons and controlled inputs. Lesson completion was **[completed/attempted/not assigned]**, while the tested security weakness was **[validated/not validated/inconclusive]**. No impact outside the training application is claimed.
+
+### Writing guidance
+
+- Adapt the template to **only the lessons actually assigned and performed**; do not invent results or complete every topic by default.
+- Summarise evidence rather than narrating every task.
+- Keep lesson completion separate from vulnerability validation.
+- Specify if no source-code remediation was implemented. An ordinary lesson retry does not prove a fix.
 
 ### Evidence to capture
 
- Summary and narrative word count.  
+Summary and narrative word count.  
 ### Expected result
 
- A concise report that accurately distinguishes training completion, vulnerability validation, and wider security implications.
+A concise report that accurately distinguishes training completion, vulnerability validation, and wider security implications.
 
 ## Task 15 – Validate evidence, clean up and submit
 
@@ -501,7 +494,7 @@ Testing was limited to the authorised training accounts, designated lessons and 
 
 ### Submission checklist
 
-- [ ] WebGoat and WebWolf addresses and authorised scope are recorded.
+- [ ] Authorised WebGoat address and scope recorded; WebWolf URL recorded if required (otherwise marked Not required).
 - [ ] Assigned lesson names and steps are stated exactly.
 - [ ] Normal baseline and controlled variation are captured for each tested lesson.
 - [ ] Burp requests/responses are labelled and readable.
@@ -516,18 +509,19 @@ Testing was limited to the authorised training accounts, designated lessons and 
 
 ### Expected result
 
- A complete, traceable Week 9 guided-lesson report with mitigation notes.
+A complete, traceable Week 9 guided-lesson report with mitigation notes.
 
 ---
 
 # Part F – Advanced Lessons (Optional)
 
-The following activities are optional. Attempt them only after completing the instructor-assigned core lessons.
-
-
-> These are optional and do not replace instructor-designated core lessons. Use only existing training roles, lessons and endpoints.
+These tasks are optional and do not replace instructor-designated core lessons. Attempt them only with the required accounts and permissions.
 
 ## Task 16 – Compare function-level and object-level access control
+
+**Advanced Lab, Optional**
+
+### Steps
 
 1. If the installed WebGoat offers both lesson types, select one example of each using the provided lab identities.
 2. Map whether the requested **function** is allowed and whether the specific **object** belongs to the current training identity.
@@ -540,15 +534,18 @@ The following activities are optional. Attempt them only after completing the in
 | Function level | | | | | |
 | Object level | | | | | |
 
-**Evidence:** Two comparisons and a short **100–150-word** explanation of the difference.  
-### Expected result
-
- Ability to distinguish function permission from record ownership checks.
-
 ### Evidence to capture
 
-Capture the assigned lesson or controlled comparison, with readable request/response details, redacted secrets and a clear evidence filename.
+Two comparisons and a short **100–150-word** explanation of the difference.
+
+### Expected result
+
+Ability to distinguish function permission from record ownership checks.
 ## Task 17 – Examine token lifetime and invalidation in a guided lesson
+
+**Advanced Lab, Optional**
+
+### Steps
 
 1. Select an assigned token/session lesson that explicitly supports logout, expiry, or invalid-token checks.
 2. Capture normal authenticated behaviour and a guided post-logout/expired/invalid-token request using the training account.
@@ -556,15 +553,18 @@ Capture the assigned lesson or controlled comparison, with readable request/resp
 4. Compare the server's response; distinguish UI caching from renewed server-side authorisation.
 5. Identify recommended rotation, expiry, revocation and cookie controls applicable to the observed issue.
 
-**Evidence:** Redacted state-transition comparison and mitigation notes.  
-### Expected result
-
- Clear explanation of session validation versus mere token presence.
-
 ### Evidence to capture
 
-Capture the assigned lesson or controlled comparison, with readable request/response details, redacted secrets and a clear evidence filename.
+Redacted state-transition comparison and mitigation notes.
+
+### Expected result
+
+Clear explanation of session validation versus mere token presence.
 ## Task 18 – Correlate WebWolf events with WebGoat requests
+
+**Advanced Lab, Optional**
+
+### Steps
 
 1. Select a designated lesson that uses WebWolf as an auxiliary training service.
 2. Record the initial WebGoat request path and the action expected to produce the WebWolf event.
@@ -573,15 +573,18 @@ Capture the assigned lesson or controlled comparison, with readable request/resp
 5. Draw a flow diagram linking the trigger, destination, event and lesson outcome.
 6. Explain what the event proves and what it does **not** prove (for example, an observed callback is not automatically evidence of arbitrary access to other systems).
 
-**Evidence:** Trigger/callback pair, correlation table and diagram.  
-### Expected result
-
- Correct interpretation of a training callback within its scope.
-
 ### Evidence to capture
 
-Capture the assigned lesson or controlled comparison, with readable request/response details, redacted secrets and a clear evidence filename.
+Trigger/callback pair, correlation table and diagram.
+
+### Expected result
+
+Correct interpretation of a training callback within its scope.
 ## Task 19 – Produce a miniature security regression test plan
+
+**Advanced Lab, Optional**
+
+### Steps
 
 1. Choose a validated lesson finding or well-defined validation gap.
 2. Define one legitimate request that **must continue to work** and one guided prohibited request that **must be blocked** after a hypothetical fix.
@@ -597,11 +600,11 @@ Capture the assigned lesson or controlled comparison, with readable request/resp
 **Evidence:** Regression table and short verification rationale.  
 ### Expected result
 
- A practical verification plan that preserves legitimate application behaviour.
+A practical verification plan that preserves legitimate application behaviour.
 
 ---
 
-## Suggested evidence filenames
+# Suggested Evidence Filenames
 
 | Filename | Purpose |
 |---|---|
@@ -619,11 +622,6 @@ Capture the assigned lesson or controlled comparison, with readable request/resp
 | `09-lesson-evidence-table.md` | Completed lesson evidence matrix |
 | `10-findings-summary.md` | 400–500-word professional summary |
 
-**Final lab outcome:** Students complete selected WebGoat guided lessons, document relevant WebWolf observations when required, produce evidence-supported interpretations, and connect those results to practical mitigation and verification strategies. A completed lesson does not, by itself, establish a vulnerability outside the authorised training application.
-
-### Evidence to capture
-
-Capture the assigned lesson or controlled comparison, with readable request/response details, redacted secrets and a clear evidence filename.
 
 ---
 
@@ -704,4 +702,5 @@ The main mitigation outcomes are:
 - **Reporting → labelled lesson evidence, mitigation notes and evidence-based conclusions**
 
 Optional advanced work extends this workflow with role/object comparisons, token-lifecycle inspection, WebWolf event correlation and regression-test design.
+
 
