@@ -36,7 +36,13 @@ Test only the assigned Juice Shop instance and instructor-approved accounts. Do 
 
 ```bash
 mkdir -p ~/lab-evidence/week8
+```
+
+```bash
 cd ~/lab-evidence/week8
+```
+
+```bash
 pwd
 ```
 
@@ -56,16 +62,19 @@ The working directory is `/home/<your-user>/lab-evidence/week8`.
 
 ### Step 1 – Confirm the target VM
 
-1. On **Ubuntu-Server**, run `ip -br addr` and record the IP of the assigned lab interface.
-2. Run `sudo docker ps` to identify the running Juice Shop container, container image, status and published port. If missing/unhealthy, follow the earlier lab setup and ask the instructor; do not substitute a public Juice Shop instance.
-3. On Kali-Attacker, confirm its assigned lab IP using `ip -br addr`. Record how the machines are connected and whether the lab is isolated.
+1. On **Ubuntu-Server**, run to identify the running Juice Shop container, container image, status and published port. If missing/unhealthy, follow the earlier lab setup and ask the instructor; do not substitute a public Juice Shop instance.
+
+```bash
+sudo docker ps
+```
 
 ### Step 2 – Load the application
 
-1. Open Firefox on Kali-Attacker and visit the **authorised** Juice Shop address (example only: `http://192.168.1.100:3000/`).
-2. Check the home page displays and record the final browser URL. Do not log in yet.
-3. Press **F12**, select **Network**, enable **Persist Logs**, and reload once.
-4. Select the document request and record method, path, status, redirect `Location` (if any) and final page. Observe that later SPA navigation may not reload the document.
+1. Open Firefox on Kali-Attacker and visit the **authorised** Juice Shop address (example only)
+   : `http://192.168.1.100:3000/`).
+3. Check the home page displays and record the final browser URL. Do not log in yet.
+4. Press **F12**, select **Network**, enable **Persist Logs**, and reload once.
+5. Select the document request and record method, path, status, redirect `Location` (if any) and final page. Observe that later SPA navigation may not reload the document.
 
 ### Step 3 – Select your proxy
 
