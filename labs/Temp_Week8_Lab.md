@@ -4,6 +4,10 @@
 **Testing workstation:** Kali-Attacker  
 **Tools:** Firefox Developer Tools and **either** Burp Suite Community Edition **or** OWASP ZAP  
 
+## Estimated time
+
+Approximately 2 hours for core activities, with additional time for the optional advanced tasks.
+
 ## Learning objectives
 
 By completing the lab, students will be able to: 
@@ -14,48 +18,39 @@ By completing the lab, students will be able to:
 - Assess client-side routing and one benign business rule
 - Report only impacts demonstrated by evidence
 
+## Scenario
+
+**Kali-Attacker** independently examines the authorised **OWASP Juice Shop** application hosted on **Ubuntu-Server**. Students follow visible application workflows, map genuine client-to-API requests and conduct a small number of controlled read-only access checks using instructor-approved accounts.
+
 ## Important
 Test only the assigned Juice Shop instance and instructor-approved accounts. Do not use public demo servers, production systems, another student's records, or guessed administrative paths. Avoid brute force, credential stuffing, destructive actions, automated crawling, payment/checkout, and high-volume testing. Use low-volume manual requests and fictitious account information. Where a response unexpectedly reveals another user's data, do not explore further; redact, preserve minimal evidence and report it to the instructor.
 
 > **Accuracy reminder:** Juice Shop versions and interfaces differ. Endpoint names, login responses, authentication storage, roles, and error statuses must be **observed**, not assumed. No particular vulnerability is guaranteed to appear in a configured instance.
 
-## Part A – Prepare the Week 8 Environment
+# Part A – Prepare the Week 8 Environment and Establish Baselines
 
-### Task 1 – Create the Week 8 Evidence Folder
+## Task 1 – Create the Week 8 Evidence Folder
 
-1. Start Kali-Attacker and Ubuntu-Server using the authorised lab environment.
-2. Use the actual Ubuntu-Server IP and mapped port. An **illustrative** URL is `http://192.168.1.100:3000/`; it is not a required address.
-3. Select **one interception tool** for the lab: **Burp Suite → Proxy → HTTP history / Repeater**, or **ZAP → History / Requester (Manual Request Editor)**. The Firefox **Network**, **Storage**, **Inspector**, and **Debugger/Sources** panels are also used.
-4. Create a Week 8 evidence folder:
+1. On **Kali-Attacker**, open a terminal.
+2. Create and enter the Week 8 evidence folder:
 
 ```bash
 mkdir -p ~/lab-evidence/week8
-```
-
-3. Change into the folder:
-```bash
 cd ~/lab-evidence/week8
-```
-
-4. Confirm the current path:
-```bash
 pwd
 ```
 
 ### Evidence to capture
 
-Take one screenshot showing the Week 8 evidence folder.
+Capture the terminal showing the newly created evidence directory.
 
 ### Expected result
 
-```text
-/home/<your-user>/lab-evidence/week8
-```
+The working directory is `/home/<your-user>/lab-evidence/week8`.
 
 ---
-# Part A – Authorised Environment and Browser Baselines
 
-## Task 1 – Verify the authorised Juice Shop target
+## Task 2 – Verify the authorised Juice Shop target
 
 **Objective:** Confirm the service, isolation and initial HTTP behaviour before any testing.
 
@@ -101,13 +96,13 @@ Take one screenshot showing the Week 8 evidence folder.
 
 ---
 
-## Task 2 – Establish a public browsing and API baseline
+## Task 3 – Establish a public browsing and API baseline
 
 **Objective:** Distinguish ordinary SPA navigation, static assets and client-visible API requests.
 
 ### Step 1 – Browse without authentication
 
-1. Open a new private browser session; confirm you are signed out.
+1. Open a fresh private browser session configured to use the selected proxy; confirm you are signed out.
 2. Browse **home/products**, one **product detail** page and the **login page**, using only visible links. Do not add items to someone else’s basket or checkout.
 3. In Firefox Network filter **Fetch/XHR**, then look separately at **Doc**, **JS**, and **CSS** traffic to distinguish API calls from static resources.
 
@@ -141,7 +136,7 @@ Take one screenshot showing the Week 8 evidence folder.
 # Part B – Authentication and Session Behaviour
 
 
-## Task 3 – Compare unsuccessful and successful authentication
+## Task 4 – Compare unsuccessful and successful authentication
 
 **Objective:** Document login behaviour and the observable session mechanism using one authorised account.
 
@@ -186,9 +181,9 @@ Take one screenshot showing the Week 8 evidence folder.
 ---
 
 
-## Task 4 – Evaluate logout and unauthenticated replay
+## Task 5 – Evaluate logout and unauthenticated replay
 
-**Objective:** Determine whether the server serves a protected *read-only* resource without authentication.
+**Objective:** Determine whether a protected *read-only* resource requires authentication; assess logout behaviour separately without assuming server-side token revocation.
 
 ### Step 1 – Capture your own protected baseline
 
@@ -198,12 +193,12 @@ Take one screenshot showing the Week 8 evidence folder.
 
 ### Step 2 – Perform normal logout
 
-1. Use the application’s Logout action. Observe any logout request and browser storage change.
+1. Use the application’s Logout action. Observe any logout request and browser storage change. If no explicit server-side logout request is captured, record that fact.
 2. Revisit the protected page using the UI and record whether the content is served from a new response or browser cache.
 
 ### Step 3 – Compare absent authentication
 
-1. For the **same read-only** request, make a controlled proxy copy and remove only the Authorization header or session cookie as applicable. Do **not** change object IDs.
+1. For the **same read-only** request, make a controlled proxy copy and omit the relevant authentication header or cookie (rather than simply replaying a pre-logout bearer token). Do **not** change object IDs.
 2. Send once, then record status and whether actual protected data was returned. A public error page with HTTP 200 is **not** a validated bypass.
 3. If unexpected private data appears, stop and retain only a minimal redacted record.
 
@@ -218,7 +213,7 @@ Take one screenshot showing the Week 8 evidence folder.
 ### Interpretation questions
 
 1. Was protected content delivered by a new server response or merely displayed from cache?
-2. Does logout demonstrate token revocation, or only a UI/storage change?
+2. What evidence establishes whether logout cleared client state, invoked server-side invalidation, or left token revocation untested?
 
 **Evidence to capture:** Logout request/state, before/after protected response and comparison table.
 
@@ -230,7 +225,7 @@ Take one screenshot showing the Week 8 evidence folder.
 # Part C – API Mapping and Access-Control Testing
 
 
-## Task 5 – Construct a client-visible API inventory
+## Task 6 – Construct a client-visible API inventory
 
 **Objective:** Build an endpoint map from actual interactions, not guessed URLs.
 
@@ -269,13 +264,13 @@ Take one screenshot showing the Week 8 evidence folder.
 ---
 
 
-## Task 6 – Compare access with and without authentication
+## Task 7 – Compare access with and without authentication
 
 **Objective:** Check whether the server enforces authentication for two selected read-only endpoints.
 
 ### Step 1 – Choose requests
 
-1. From Task 5 choose one apparently public read-only endpoint and one read-only endpoint involving your own account, if available.
+1. From Task 6 choose one apparently public read-only endpoint and one read-only endpoint involving your own account, if available.
 2. Capture their normal requests and save unchanged copies.
 
 ### Step 2 – Make one-variable comparisons
@@ -308,14 +303,14 @@ Take one screenshot showing the Week 8 evidence folder.
 ---
 
 
-## Task 7 – Perform approved object-level authorisation comparison (conditional)
+## Task 8 – Perform approved object-level authorisation comparison (conditional)
 
 **Objective:** Assess ownership checks without accessing uninvolved users or enumerating IDs.
 
 ### Step 1 – Confirm prerequisite authorisation
 
 1. Proceed **only** if the instructor expressly provides two isolated test accounts (A and B) and specifically approves cross-account object comparisons.
-2. If not supplied, record **“Not performed – second authorised account or permission unavailable”** and continue to Task 8. There is no penalty for this safety condition in the core task.
+2. If not supplied, record **“Not performed – second authorised account or permission unavailable”** and continue to Task 9. This is an authorised-scope limitation, not a failed test.
 
 ### Step 2 – Capture each owner baseline
 
@@ -351,7 +346,7 @@ Take one screenshot showing the Week 8 evidence folder.
 # Part D – Client-Side Discovery and Business-Logic Assessment
 
 
-## Task 8 – Map client-side routes to observed API requests
+## Task 9 – Map client-side routes to observed API requests
 
 **Objective:** Explain how visible SPA routes, scripts and actual backend calls relate.
 
@@ -397,9 +392,9 @@ Own account -(read-only view)----> [captured endpoint] --> [status]
 ---
 
 
-## Task 9 – Document one harmless business-logic workflow
+## Task 10 – Document one harmless business-logic workflow
 
-**Objective:** Establish expected behaviour of a visible application rule using only benign UI actions.
+**Objective:** Establish an observable baseline for a benign UI business rule; this exercise does not by itself prove server-side business-rule enforcement or a vulnerability.
 
 ### Step 1 – Select an allowed workflow
 
@@ -415,7 +410,7 @@ Own account -(read-only view)----> [captured endpoint] --> [status]
 ### Step 3 – Make one benign UI variation
 
 1. Change a single normal value (such as a different ordinary search term).
-2. Record resulting UI and request/response. Keep other conditions unchanged.
+2. Record resulting UI and request/response. Keep other conditions unchanged, including the selected account and authentication state.
 3. Explain whether the behaviour follows the apparent UI rule and what server-side checks remain untested.
 
 ### Results table
@@ -436,13 +431,13 @@ Own account -(read-only view)----> [captured endpoint] --> [status]
 ---
 
 
-## Task 10 – Compare one client-side control with server responses
+## Task 11 – Compare one client-originated read-only request with server responses
 
 **Objective:** Use a single harmless read-only parameter modification to test an observable business rule.
 
 ### Step 1 – Choose a suitable request
 
-1. From Task 9 choose an ordinary read-only request that includes a non-sensitive, user-controlled input (for example a search term).
+1. From Task 10 choose an ordinary read-only request that includes a non-sensitive, user-controlled input (for example a search term).
 2. Send an unchanged copy to Repeater/ZAP Requester and capture baseline response.
 
 ### Step 2 – Make one controlled change
@@ -481,7 +476,7 @@ Own account -(read-only view)----> [captured endpoint] --> [status]
 # Part E – Reporting, Evidence Review and Restoration
 
 
-## Task 11 – Create the endpoint and access-control map
+## Task 12 – Create the endpoint and access-control map
 
 **Objective:** Consolidate the application endpoints and evidence into a reviewable Markdown deliverable.
 
@@ -495,7 +490,7 @@ nano ~/lab-evidence/week8/09-endpoint-map.md
 
 ### Step 2 – Consolidate direct observations
 
-1. Use Task 5’s actual endpoint inventory and Task 8’s UI→API mappings. Aim for six distinct requests **where available**; justify fewer without inventing endpoints.
+1. Use Task 6’s actual endpoint inventory and Task 9’s UI→API mappings. Aim for six distinct requests **where available**; justify fewer without inventing endpoints.
 2. For each request record method, path, safe parameter names, authentication context, response status, access comparison and evidence filename.
 3. Reference account-specific and optional cross-account results only if tested under the stated restrictions.
 
@@ -527,13 +522,13 @@ nano ~/lab-evidence/week8/09-endpoint-map.md
 ---
 
 
-## Task 12 – Assess security impact and recommend remediation
+## Task 13 – Assess security impact and recommend remediation
 
 **Objective:** Separate demonstrated results, potential risks and proposed controls.
 
 ### Step 1 – Identify supported findings
 
-1. Review Tasks 3–10 and list only demonstrated behaviour.
+1. Review Tasks 4–11 and list only demonstrated behaviour.
 2. Identify whether it affected access to **your** test-account content, session state, public data or a benign workflow.
 3. Record potential impacts separately; avoid treating unperformed cross-account tests as confirmed IDOR/BOLA.
 
@@ -568,7 +563,7 @@ nano ~/lab-evidence/week8/09-endpoint-map.md
 ---
 
 
-## Task 13 – Write a 400–500-word professional Findings Summary
+## Task 14 – Write a 400–500-word professional Findings Summary
 
 **Objective:** Summarise authentication, API discovery, access controls and benign business logic concisely.
 
@@ -596,9 +591,9 @@ Use **400–500 narrative words**, excluding headings, tables and captions.
 
 ### Step 3 – Check technical accuracy
 
-1. Link every material statement to Task 11’s evidence map or an explicitly named screenshot.
+1. Link every material statement to Task 12’s evidence map or an explicitly named screenshot.
 2. Differentiate **status codes** from returned protected content, **client storage** from server-side validation, and **potential** from **demonstrated** impact.
-3. If fewer than six endpoints were accessible, disclose the limitation. If Task 7 was not approved, say so rather than inventing cross-account evidence.
+3. If fewer than six endpoints were accessible, disclose the limitation. If Task 8 was not approved, say so rather than inventing cross-account evidence.
 
 ### Step 4 – Check word count
 
@@ -622,7 +617,7 @@ If the file has headings or tables, check the narrative separately; revise to 40
 ---
 
 
-## Task 14 – Verify report evidence and submit
+## Task 15 – Verify report evidence and prepare submission
 
 **Objective:** Quality-check the assessment before upload to Moodle or the instructor-specified location.
 
@@ -630,34 +625,34 @@ If the file has headings or tables, check the narrative separately; revise to 40
 
 1. Confirm `09-endpoint-map.md` and `10-findings-summary.md` exist and open correctly.
 2. Check screenshots are labelled, legible, correctly matched to endpoints and contain **no unredacted secret values**.
-3. Ensure optional Task 7 is explicitly marked performed/not performed, and all claims have direct supporting evidence.
+3. Ensure optional Task 8 is explicitly marked performed/not performed, and all claims have direct supporting evidence.
 
 ### Step 2 – Complete the checklist
 
 Mark the checklist below honestly; record any unavailable features as limitations rather than generating artificial evidence.
 
-### Step 3 – Submit
+### Step 3 – Prepare for submission
 
-1. Submit the two Markdown files and selected screenshots using the course submission method.
+1. Prepare the two Markdown files and selected screenshots for submission; complete Task 16 restoration before final upload.
 2. Do not upload raw HAR files or proxy projects if they expose tokens or private content; use sanitised extracts instead.
 
-### Results table
+### Final validation checklist
 
-| Check | Done? |
+| Check | Complete? |
 |---|---|
-| Authorised URL, host, Docker state and scope recorded | [ ] |
-| Unauthenticated browsing baseline captured | [ ] |
-| Failed/successful login and logout tested | [ ] |
-| At least six observed endpoints mapped, or limitation stated | [ ] |
-| Public and protected read-only comparisons included | [ ] |
-| Cross-account testing authorised or clearly not performed | [ ] |
-| Three client-side UI→API mappings included | [ ] |
-| One benign business rule compared | [ ] |
-| Evidence legible and secret values redacted | [ ] |
-| Findings distinguish confirmed / inconclusive / untested | [ ] |
-| Remediation and actual/proposed retest status explicit | [ ] |
-| Findings Summary 400–500 narrative words | [ ] |
-| Lab restoration or cleanup documented | [ ] |
+| Authorised URL, host, Docker state and scope recorded | Yes / No |
+| Unauthenticated browsing baseline captured | Yes / No |
+| Failed/successful login and logout tested | Yes / No |
+| Up to six distinct observed endpoints mapped (or limitation stated) | Yes / No |
+| Public and protected read-only comparisons included | Yes / No |
+| Cross-account testing authorised or clearly not performed | Yes / No |
+| Three client-side UI→API mappings included | Yes / No |
+| One benign business rule compared | Yes / No |
+| Evidence legible and secret values redacted | Yes / No |
+| Findings distinguish confirmed / inconclusive / untested | Yes / No |
+| Remediation and actual/proposed retest status explicit | Yes / No |
+| Findings Summary 400–500 narrative words | Yes / No |
+| Lab restoration or cleanup documented | Yes / No |
 
 **Evidence to capture:** Completed quality checklist and final file listing.
 
@@ -666,7 +661,7 @@ Mark the checklist below honestly; record any unavailable features as limitation
 ---
 
 
-## Task 15 – Restore the authorised lab state
+## Task 16 – Restore the authorised lab state and submit
 
 **Objective:** Return application and testing tools to their agreed settings without affecting shared data.
 
@@ -686,6 +681,7 @@ Mark the checklist below honestly; record any unavailable features as limitation
 1. Confirm no request replay or automated testing is still running.
 2. List your evidence folder using `ls -lh ~/lab-evidence/week8/`.
 3. Write a short cleanup note describing exactly what was done and what was not performed.
+4. Submit the sanitised endpoint map, findings summary, selected labelled evidence, and cleanup note using the instructor-specified submission method.
 
 ### Results table
 
@@ -709,7 +705,7 @@ Mark the checklist below honestly; record any unavailable features as limitation
 **These tasks are optional.** Complete them only when the instructor specifically authorises the necessary accounts, objects and testing conditions; they are not prerequisites for the core lab report.
 
 
-## Task 16 – Compare authorised role-specific access
+## Task 17 – Compare authorised role-specific access
 
 **Objective:** Observe server-side role enforcement using only instructor-provided accounts and a named, permitted read-only function.
 
@@ -748,7 +744,7 @@ Mark the checklist below honestly; record any unavailable features as limitation
 ---
 
 
-## Task 17 – Compare fresh login, logout and session state
+## Task 18 – Compare fresh login, logout and session state
 
 **Objective:** Document whether observable authentication material and server responses change across normal session transitions.
 
@@ -761,7 +757,7 @@ Mark the checklist below honestly; record any unavailable features as limitation
 
 1. Log out through the UI and attempt ordinary access to the same page.
 2. Log back in with the same approved account, then capture the same protected read-only request.
-3. Compare whether browser storage keys, redacted token fingerprints (locally only) and server responses differ. Do not share full token values.
+3. Compare whether browser storage keys, locally computed token fingerprints (do not include token values or fingerprints in shared submissions) and server responses differ. Do not share full token values.
 
 ### Step 3 – Interpret carefully
 
@@ -787,7 +783,7 @@ Mark the checklist below honestly; record any unavailable features as limitation
 ---
 
 
-## Task 18 – Build an extended route-to-API dependency diagram
+## Task 19 – Build an extended route-to-API dependency diagram
 
 **Objective:** Show at least five observed visible screens/routes and the real requests they trigger.
 
@@ -804,7 +800,7 @@ Mark the checklist below honestly; record any unavailable features as limitation
 
 ### Step 3 – Review evidence
 
-1. Cross-reference diagram nodes with screenshot filenames and Task 5 endpoint IDs.
+1. Cross-reference diagram nodes with screenshot filenames and Task 6 endpoint IDs.
 2. Explain one route that did not generate a new document request.
 
 ### Results table
@@ -828,7 +824,7 @@ Mark the checklist below honestly; record any unavailable features as limitation
 ---
 
 
-## Task 19 – Design a measurable authorisation remediation retest
+## Task 20 – Design a measurable authorisation remediation retest
 
 **Objective:** Specify a before/after plan for one demonstrated weakness or validation gap without claiming fixes not performed.
 
@@ -871,6 +867,12 @@ Mark the checklist below honestly; record any unavailable features as limitation
 
 ---
 
+# Troubleshooting
+
+If the application is unavailable, check `ip -br addr`, `sudo docker ps` and the instructor-provided port on Ubuntu-Server. If Burp or ZAP records no traffic, check the browser proxy settings and active interception listener. Record unavailable features and unexpected application responses as limitations, without substituting guessed endpoints or external targets.
+
+---
+
 # Suggested Evidence Filenames
 
 | Filename | Purpose |
@@ -896,4 +898,5 @@ Mark the checklist below honestly; record any unavailable features as limitation
 Students should be able to (1) recognise API calls made by a single-page application, (2) document login, session and logout behaviour, (3) map observable endpoints, (4) evaluate limited request- and object-level access controls within expressly authorised accounts, (5) distinguish client-side routing from backend enforcement, (6) evaluate one benign business-logic rule, and (7) produce professionally structured, evidence-linked findings and remediation recommendations with clearly stated limitations.
 
 **Final reminder:** No particular vulnerable endpoint or access-control flaw is presumed. Assess only what the evidence actually demonstrates.
+
 
