@@ -1,4 +1,4 @@
-# Week 4 Lab – Injection Testing
+# Week 4 Lab – SQL Injection Testing
 
 Targets: DVWA / WebGoat
 
