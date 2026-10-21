@@ -109,15 +109,26 @@ Take one screenshot showing the Week 7 evidence folder.
    printf 'Week 7 authorised upload test - plain text only.\n' > week7-note.txt
    ```
 
-2. Using **GIMP** (or another approved image editor), create a genuine **100 × 100 pixel** image, optionally with a light-grey background. Export it as **`week7-image.png`**, into `~/lab-evidence/week7/`, alongside `week7-note.txt`. Do **not** rename a text file to `.png`.
-3. Verify the file sizes and detected types:
+2. Using **GIMP** (or another approved image editor), create a genuine **100 × 100 pixel** image.
+
+   ```bash
+   sudo apt install gimp -y
+   ```
+
+   Then launch it with:
+   ```bash
+   gimp
+   ```
+   
+6. Export it as **`week7-image.png`**, into `~/lab-evidence/week7/`, alongside `week7-note.txt`.
+7. Verify the file sizes and detected types:
 
    ```bash
    ls -lh week7-note.txt week7-image.png
    file week7-note.txt week7-image.png
    ```
 
-4. Confirm both files exist, the text file is recognised as text, and the PNG is recognised as PNG image data. Neither file should contain scripts or executable content.
+8. Confirm both files exist, the text file is recognised as text, and the PNG is recognised as PNG image data. Neither file should contain scripts or executable content.
 
 **Evidence to capture:** Terminal output showing both filenames, their sizes and their detected file types.
 
