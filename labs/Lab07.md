@@ -150,7 +150,7 @@ Take one screenshot showing the Week 7 evidence folder.
 
 #### Step 2 – Establish the Low-security upload baseline
 
-1. Open Firefox Developer Tools (**Network**, with **Persist Logs** enabled).
+1. Open Firefox Developer Tools (**Network**, with **Persist Logs** enabled (go to settings)).
 2. Upload **`week7-image.png`**. Record the original filename, verified file type and size; acceptance/rejection; HTTP status; application message; and disclosed storage path, if any.
 3. Where the application provides an authorised link to a successfully stored image, verify that it can be viewed **as an image only**. Do not attempt execution or access outside DVWA.
 4. Upload **`week7-note.txt`** without changing it. Record the same details and compare the results with the PNG baseline.
