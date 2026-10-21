@@ -3,28 +3,26 @@
 **Suggested tools:** Firefox Developer Tools, Burp Suite Community Edition, text editor  
 **Scope:** DVWA **File Upload** and **File Inclusion** modules only
 
-## Estimated time ## 
-Approximately 2 hours for core activities, with additional time for optional advanced activities.
+## Estimated time
+
+Approximately **2–3 hours of core activities**, which may be divided across multiple lab sessions; additional time is required for optional tasks. Prioritise instructor-designated core tasks if a shorter session is scheduled.
 
 ## Important
 Test only the authorised DVWA instance in the isolated lab. Use harmless, self-created text and image files. **Do not** upload executable web shells, attempt remote-code execution, access host operating-system secrets, or test paths outside the permitted DVWA training directories. Do not run these exercises against public websites.
 
-## Learning objectives
+## Learning Objectives
 
 By the end of this lab, students should be able to:
 
 - Establish an evidence-based baseline for DVWA file handling.
 - Assess how uploaded filenames, file types, sizes, and server responses are handled.
-- Observe local file inclusion and path-validation behaviour using benign training files and controlled paths.
+- Examine file-inclusion page selection and path-validation behaviour using authorised application links and fictitious benign page values; do not assume a vulnerability was validated.
 - Compare relevant HTTP requests and responses using Firefox Developer Tools and Burp Suite.
 - Distinguish **demonstrated weaknesses** from unverified risks and recommend effective remediations.
 
 ## Part A – Prepare the Week 7 Environment
 
-### Task 1 – Create the Week 7 Evidence Folder
-
-- Start the authorised Ubuntu-Server and Kali-Attacker VMs and confirm that the DVWA container is healthy.
-- Record the **actual DVWA address**, IP, port, DVWA version (if available), and security level.
+## Task 1 – Create the Week 7 Evidence Folder
 
 1. On **Kali-Attacker**, open a terminal.
 2. Create a Week 7 evidence folder:
@@ -63,9 +61,9 @@ Take one screenshot showing the Week 7 evidence folder.
 
 > **Scope:** Perform all tests only against the authorised DVWA training instance. Use harmless files without scripts or executable content. Redact credentials, `PHPSESSID` values and other session secrets in all shared evidence.
 
-### Task 2 – Confirm DVWA and identify file-handling modules
+## Task 2 – Confirm DVWA and identify file-handling modules
 
-1. Start **Kali-Attacker** and **Ubuntu-Server**. On Ubuntu-Server, identify the authorised lab IP address:
+1. Confirm **Kali-Attacker** and **Ubuntu-Server** are running. On Ubuntu-Server, identify the authorised lab IP address:
 
    ```bash
    ip -br addr
@@ -99,19 +97,19 @@ Take one screenshot showing the Week 7 evidence folder.
 
 **Evidence to capture:** Ubuntu IP, `docker ps`, DVWA URL, both module pages, the relevant Firefox Network entries and completed environment record.
 
-**Expected outcome:** The authorised application and its file-handling entry points have been verified without submitting modified inputs.
+**Expected result:** The authorised application and its file-handling entry points have been verified without submitting modified inputs.
 
 ---
 
-### Task 3 – Create and verify harmless upload test files
+## Task 3 – Create and verify harmless upload test files
 
-1. On **Kali-Attacker**, open a terminal and create the plain-text file:
+1. On **Kali-Attacker**, change to the evidence folder and create the plain-text file:
 
    ```bash
    printf 'Week 7 authorised upload test - plain text only.\n' > week7-note.txt
    ```
 
-2. Using **GIMP** (or another approved image editor), create a genuine **100 × 100 pixel** image, optionally with a light-grey background. Export it as **`week7-image.png`**, into the same directory as `week7-note.txt`. Do **not** rename a text file to `.png`.
+2. Using **GIMP** (or another approved image editor), create a genuine **100 × 100 pixel** image, optionally with a light-grey background. Export it as **`week7-image.png`**, into `~/lab-evidence/week7/`, alongside `week7-note.txt`. Do **not** rename a text file to `.png`.
 3. Verify the file sizes and detected types:
 
    ```bash
@@ -123,15 +121,15 @@ Take one screenshot showing the Week 7 evidence folder.
 
 **Evidence to capture:** Terminal output showing both filenames, their sizes and their detected file types.
 
-**Expected outcome:** Two genuine, harmless files are ready for upload comparison.
+**Expected result:** Two genuine, harmless files are ready for upload comparison.
 
 ---
 
-## Part C – File Upload Baseline and Security-Level Comparison
+# Part C – File Upload Baseline and Targeted Validation
 
 **Objective:** Establish reliable image and text-file upload baselines and compare observable upload validation at Low, Medium and High DVWA security levels.
 
-### Task 4 – Inspect the upload form and compare harmless uploads
+## Task 4 – Inspect the upload form and compare harmless uploads
 
 #### Step 1 – Inspect the form before submitting
 
@@ -175,15 +173,15 @@ Briefly explain what the evidence shows about extension checks, declared MIME ty
 
 **Evidence to capture:** Upload form attributes, file sizes/types, labelled Firefox and Burp upload requests/responses, any authorised image-viewing result and the six-row comparison table.
 
-**Expected outcome:** A documented baseline for harmless PNG/text uploads and a like-for-like security-level comparison.
+**Expected result:** A documented baseline for harmless PNG/text uploads and a like-for-like security-level comparison.
 
 ---
 
-## Part D – Targeted Upload Validation Checks
+## Targeted Upload Validation Checks
 
 **Objective:** Investigate distinct aspects of server-side file handling without repeating the full security-level baseline.
 
-### Task 5 – Test handling of the declared MIME type
+## Task 5 – Test handling of the declared MIME type
 
 1. Choose the **successful or most informative image-upload request** from Task 4 as your baseline, and retain an unchanged copy.
 2. In Burp Repeater identify the multipart file part's `filename` and `Content-Type` headers. Do not confuse the *multipart part* `Content-Type` with the overall request header's multipart boundary.
@@ -201,11 +199,11 @@ Briefly explain what the evidence shows about extension checks, declared MIME ty
 
 **Evidence to capture:** Labelled baseline and modified multipart request snippets and their responses, with session secrets redacted.
 
-**Expected outcome:** Explain how DVWA treats a changed client-declared MIME type, without claiming that this alone proves or disproves server-side content inspection.
+**Expected result:** Explain how DVWA treats a changed client-declared MIME type, without claiming that this alone proves or disproves server-side content inspection.
 
 ---
 
-### Task 6 – Test benign filename handling and collisions
+## Task 6 – Test benign filename handling and collisions
 
 1. Using the image editor or file manager, make a copy of the harmless PNG named **`Week 7 Image.png`** (spaces and mixed case); retain valid PNG image content.
 2. Upload it to the authorised DVWA File Upload page at the selected and recorded security level.
@@ -220,11 +218,11 @@ Briefly explain what the evidence shows about extension checks, declared MIME ty
 
 **Evidence to capture:** Both upload requests/responses and the original versus returned filenames or paths.
 
-**Expected outcome:** Describe observed filename normalisation and duplicate-handling behaviour, without assuming an overwrite occurred unless it was verified.
+**Expected result:** Describe observed filename normalisation and duplicate-handling behaviour, without assuming an overwrite occurred unless it was verified.
 
 ---
 
-### Task 7 – Test modest file-size differences
+## Task 7 – Test modest file-size differences
 
 1. Retain the small **100 × 100 PNG** as the baseline.
 2. In GIMP, create a **larger but still modest** genuine PNG (for example, **600 × 600 pixels**) named `week7-image-large.png`. Do not generate excessive traffic or unusually large files.
@@ -245,12 +243,13 @@ Briefly explain what the evidence shows about extension checks, declared MIME ty
 
 **Evidence to capture:** File sizes/types and corresponding upload requests and server responses.
 
-**Expected outcome:** Explain what the limited comparison does—and does not—establish about upload-size controls.
+**Expected result:** Explain what the limited comparison does—and does not—establish about upload-size controls.
 
 ---
 
 
-# Part C – File Inclusion and Path Handling
+
+# Part D – File Inclusion and Path Handling
 
 **Objective:** Examine how DVWA selects and loads application pages using URL parameters, establish normal file inclusion behaviour, test how the application handles an invalid page reference, and compare path validation across Low, Medium and High security levels.
 
@@ -262,7 +261,7 @@ Briefly explain what the evidence shows about extension checks, declared MIME ty
 
 ---
 
-## Task 11 – Observe Normal File Inclusion Navigation
+## Task 8 – Observe Normal File Inclusion Navigation
 
 **Objective:** Identify how DVWA uses a URL parameter to select application pages and establish the expected behaviour when legitimate navigation links are used.
 
@@ -353,7 +352,7 @@ Complete the following table.
 4. Did each application-provided link return the expected content?
 5. Does the observed behaviour demonstrate that the parameter affects page selection? Explain using your evidence.
 
-### Evidence to Capture
+### Evidence to capture
 
 - DVWA File Inclusion page showing the available links.
 - Browser address bar showing a selected page parameter.
@@ -361,11 +360,11 @@ Complete the following table.
 - Response content for at least two legitimate page selections.
 - Completed normal navigation table.
 
-**Expected Outcome:** Students identify the page-selection parameter, record legitimate page values and establish the expected behaviour of normal File Inclusion navigation.
+**Expected result:** Students identify the page-selection parameter, record legitimate page values and establish the expected behaviour of normal File Inclusion navigation.
 
 ---
 
-## Task 12 – Establish a Controlled Path Baseline Using Burp Repeater
+## Task 9 – Establish a Controlled Path Baseline Using Burp Repeater
 
 **Objective:** Capture a legitimate File Inclusion request and reproduce its normal behaviour using Burp Suite before modifying any request parameters.
 
@@ -384,10 +383,10 @@ An example request may resemble:
 ```http
 GET /vulnerabilities/fi/?page=file1.php HTTP/1.1
 Host: 192.168.1.100
-Cookie: PHPSESSID=[REDACTED]; security=low
+Cookie: PHPSESSID=<session-value-not-shown>; security=low
 ```
 
-**Note:** The example is illustrative. Use the actual request captured from your lab environment.
+**Note:** This example is illustrative. For live testing, retain your authorised browser session cookie in Burp; redact its value only when saving or sharing evidence. Do not paste a literal redaction placeholder into a live request.
 
 ### Step 2 – Send the Request to Repeater
 
@@ -444,25 +443,25 @@ Do not modify the `page` parameter at this stage.
 3. Were any differences observed between the two responses?
 4. Why is an unchanged baseline useful before testing an invalid page parameter?
 
-### Evidence to Capture
+### Evidence to capture
 
 - Original request in Burp Proxy HTTP history.
 - Unchanged request in Burp Repeater.
 - Corresponding response showing legitimate page content.
 - Evidence of the repeated request and completed baseline table.
 
-**Expected Outcome:** Students establish a repeatable HTTP baseline for a legitimate File Inclusion request, allowing controlled comparisons with modified page parameters.
+**Expected result:** Students establish a repeatable HTTP baseline for a legitimate File Inclusion request, allowing controlled comparisons with modified page parameters.
 
 ---
 
-## Task 13 – Test a Non-Existent Benign Page
+## Task 10 – Test a Non-Existent Benign Page
 
 **Objective:** Determine how DVWA handles an invalid page reference and whether its response exposes implementation details.
 
 ### Step 1 – Preserve the Baseline
 
 1. Open Burp Repeater.
-2. Locate the legitimate File Inclusion request from Task 12.
+2. Locate the legitimate File Inclusion request from Task 9.
 3. Duplicate the Repeater tab or retain an unchanged copy.
 4. Confirm that the original baseline request remains available for comparison.
 
@@ -526,7 +525,7 @@ Answer the following questions:
 
 **Important:** A warning that a file could not be opened may suggest that the supplied value reached a file-handling function. However, this alone does not validate a local file inclusion vulnerability or demonstrate access to unauthorised files.
 
-### Evidence to Capture
+### Evidence to capture
 
 - Original legitimate request.
 - Modified request containing `week7-not-a-page.php`.
@@ -534,17 +533,17 @@ Answer the following questions:
 - Any displayed error or fallback message.
 - Completed baseline-versus-modified comparison table.
 
-**Expected Outcome:** Students determine how DVWA responds to an unknown page reference and distinguish file-handling errors from evidence of successful unauthorised file inclusion.
+**Expected result:** Students determine how DVWA responds to an unknown page reference and distinguish file-handling errors from evidence of successful unauthorised file inclusion.
 
 ---
 
-## Task 14 – Compare File Inclusion Validation Across Security Levels
+## Task 11 – Compare File Inclusion Validation Across Security Levels
 
 **Objective:** Compare how DVWA handles legitimate and non-existent page references at Low, Medium and High security levels.
 
 ### Step 1 – Confirm the Low-Security Results
 
-Use the observations already collected in Tasks 12 and 13.
+Use the observations already collected in Tasks 9 and 10.
 
 Record:
 
@@ -619,20 +618,20 @@ Using the completed table, answer:
 
 **Important:** Do not conclude that a security level prevents all file inclusion vulnerabilities merely because the fictitious page was rejected. Likewise, do not claim a confirmed vulnerability based only on an error message.
 
-### Evidence to Capture
+### Evidence to capture
 
 - Legitimate and invalid page requests at each security level.
 - Relevant Burp Repeater responses.
 - Screenshots of any differences in errors, redirects or displayed content.
 - Completed six-row comparison table.
 
-**Expected Outcome:** Students identify and explain observable differences in page-selection and file-handling behaviour across Low, Medium and High security levels while avoiding unsupported conclusions about vulnerability validation.
+**Expected result:** Students identify and explain observable differences in page-selection and file-handling behaviour across Low, Medium and High security levels while avoiding unsupported conclusions about vulnerability validation.
 
 ---
 
-## Task 15 – Assess File Inclusion Risks and Recommend Remediation
+## Task 12 – Assess File Inclusion Risks and Recommend Remediation
 
-**Objective:** Interpret the observed behaviour from Tasks 11–14, identify potential security risks and recommend controls for safer server-side file handling.
+**Objective:** Interpret the observed behaviour from Tasks 8–11, identify potential security risks and recommend controls for safer server-side file handling.
 
 ### Step 1 – Explain the Page-Selection Mechanism
 
@@ -643,7 +642,7 @@ Using your evidence, briefly explain:
 3. What the application returns when a valid page is selected.
 4. What happens when a non-existent page is requested.
 
-Reference the relevant request and response evidence from Tasks 11–14.
+Reference the relevant request and response evidence from Tasks 8–11.
 
 ### Step 2 – Distinguish Observed Behaviour from Potential Risk
 
@@ -652,7 +651,7 @@ Complete the following table.
 | Observation | Supported Interpretation | Unsupported Conclusion |
 |---|---|---|
 | Legitimate page loads | The application recognises the selected page value | All page values are unrestricted |
-| Non-existent page produces an error | The application rejects or cannot process that page reference | Local file inclusion is confirmed |
+| Non-existent page produces an error | The application could not display the requested page; the precise validation mechanism is not established | Local file inclusion is confirmed |
 | Server-side path appears in an error | Implementation information may be disclosed | Sensitive files can be accessed |
 | Behaviour changes at High security | The application handles the tested input differently | Every file inclusion weakness is prevented |
 
@@ -700,18 +699,18 @@ Write approximately **150–200 words** addressing:
 
 Your interpretation must distinguish actual observations from assumptions or potential security impacts.
 
-### Evidence to Capture
+### Evidence to capture
 
 - Completed observation and interpretation table.
 - Completed remediation table.
 - Written 150–200-word security interpretation.
-- References to supporting HTTP evidence from Tasks 11–14.
+- References to supporting HTTP evidence from Tasks 8–11.
 
-**Expected Outcome:** Students understand the security implications of user-controlled file-selection parameters, identify evidence-based file-handling risks and recommend appropriate server-side validation controls.
+**Expected result:** Students understand the security implications of user-controlled file-selection parameters, identify evidence-based file-handling risks and recommend appropriate server-side validation controls.
 
 ---
 
-## Part C – Evidence and Security Requirements
+## Part D – Evidence and Security Requirements
 
 Students must:
 
@@ -731,19 +730,20 @@ Students must:
 ---
 
 
-# Part D – Server-Side Handling and Impact Assessment
+
+# Part E – Server-Side Handling, Risk and Reporting
 
 **Objective:** Analyse how DVWA processes uploaded files and file inclusion requests, distinguish demonstrated security weaknesses from potential risks, recommend secure file-handling controls, and design appropriate remediation verification tests.
 
 **Target:** Authorised DVWA application running on Ubuntu-Server.
 
-**Tools:** Firefox Developer Tools, Burp Suite (Proxy and Repeater), and existing evidence from Parts B and C.
+**Tools:** Firefox Developer Tools, Burp Suite (Proxy and Repeater), and existing evidence from Parts C and D.
 
 **Important:** This part primarily involves analysing previously captured evidence. Repeat requests only when necessary to clarify an observation. Do not introduce executable files, malicious payloads, sensitive file paths, or requests outside the authorised lab scope.
 
 ---
 
-## Task 16 – Map the File-Handling Data Flow
+## Task 13 – Map the File-Handling Data Flow
 
 **Objective:** Create a simple diagram illustrating how untrusted user input travels from the browser to the DVWA server and how upload and file inclusion requests should be validated.
 
@@ -857,24 +857,24 @@ Write approximately **100–150 words** explaining:
 4. Why validation should be enforced on the server rather than relying only on browser controls.
 5. How rejected requests should be handled.
 
-### Evidence to Capture
+### Evidence to capture
 
 - Completed file-handling data-flow diagram.
 - Clearly labelled untrusted input locations.
 - Validation and rejection points.
 - Short explanation of the diagram.
 
-**Expected Outcome:** Students can map upload and file inclusion request flows, identify trust boundaries, and explain the role of server-side validation and safe rejection handling.
+**Expected result:** Students can map upload and file inclusion request flows, identify trust boundaries, and explain the role of server-side validation and safe rejection handling.
 
 ---
 
-## Task 17 – Review HTTP Response Headers and Error Handling
+## Task 14 – Review HTTP Response Headers and Error Handling
 
 **Objective:** Examine how DVWA responds to successful and unsuccessful file-handling requests and determine whether the responses disclose unnecessary implementation details.
 
 ### Step 1 – Select Relevant Requests
 
-Using your evidence from Parts B and C, select the following requests where available:
+Using your evidence from Parts C and D, select the following requests where available:
 
 1. A successful or normally processed file upload.
 2. A rejected or unsuccessful file upload.
@@ -954,7 +954,7 @@ Answer the following questions:
 
 **Important:** Report information exposure only when the response directly displays internal details. Do not infer sensitive information disclosure merely from an HTTP error code.
 
-### Evidence to Capture
+### Evidence to capture
 
 - At least one normal file-handling response.
 - At least one rejected or unsuccessful response, if observed.
@@ -962,17 +962,17 @@ Answer the following questions:
 - Completed HTTP response comparison table.
 - A short interpretation of any demonstrated information disclosure.
 
-**Expected Outcome:** Students can interpret HTTP responses and distinguish normal application errors from observable information disclosure.
+**Expected result:** Students can interpret HTTP responses and distinguish normal application errors from observable information disclosure.
 
 ---
 
-## Task 18 – Assess Demonstrated and Potential Security Impact
+## Task 15 – Assess Demonstrated and Potential Security Impact
 
 **Objective:** Evaluate the security implications of the file-handling results and distinguish confirmed observations from possible consequences that were not demonstrated.
 
 ### Step 1 – Review Previous Evidence
 
-Review the results recorded in Parts B and C, including:
+Review the results recorded in Parts C and D, including:
 
 - Valid PNG image uploads.
 - Plain-text file uploads.
@@ -1065,24 +1065,24 @@ Use one of the following forms as appropriate:
 - **Not validated:** The test did not demonstrate the claimed weakness.
 - **Inconclusive:** The available evidence is insufficient to confirm or exclude the weakness.
 
-### Evidence to Capture
+### Evidence to capture
 
 - Completed security impact table.
 - References to relevant screenshots and HTTP responses.
 - A short statement distinguishing validated findings from potential risks.
 - Explanation of any limitations affecting the conclusions.
 
-**Expected Outcome:** Students can produce evidence-based security findings without overstating the consequences of observed file-handling behaviour.
+**Expected result:** Students can produce evidence-based security findings without overstating the consequences of observed file-handling behaviour.
 
 ---
 
-## Task 19 – Recommend Secure File-Handling Controls
+## Task 16 – Recommend Secure File-Handling Controls
 
 **Objective:** Recommend appropriate security controls for file uploads and file inclusion, linking each recommendation to an observed weakness or clearly identifying it as a preventive best practice.
 
 ### Step 1 – Review the Findings
 
-Review the results from Tasks 11–18 and identify:
+Review the results from the earlier upload, inclusion and impact tasks and identify:
 
 1. Any demonstrated file-type validation issues.
 2. Any unexpected filename or storage behaviour.
@@ -1184,18 +1184,18 @@ At least one explanation should address upload validation, and one should addres
 5. Why should applications avoid exposing detailed filesystem errors?
 6. How can least-privilege permissions reduce the consequences of a file-handling weakness?
 
-### Evidence to Capture
+### Evidence to capture
 
 - Completed recommendations table.
 - Explanations of at least three recommended controls.
 - References linking recommendations to observed evidence.
 - Identification of preventive recommendations where no weakness was directly validated.
 
-**Expected Outcome:** Students can propose realistic, technically appropriate remediation controls and explain how those controls address file-handling risks.
+**Expected result:** Students can propose realistic, technically appropriate remediation controls and explain how those controls address file-handling risks.
 
 ---
 
-## Task 20 – Design a Remediation Verification Test
+## Task 17 – Design a Remediation Verification Test
 
 **Objective:** Design a controlled retest that could determine whether a recommended file-handling security control successfully addresses an observed weakness or validation gap.
 
@@ -1307,7 +1307,7 @@ Write approximately **100–150 words** explaining:
 5. Whether the remediation was implemented and tested.
 6. What limitations remain.
 
-### Evidence to Capture
+### Evidence to capture
 
 - Selected finding and corresponding baseline evidence.
 - Proposed remediation control.
@@ -1316,17 +1316,82 @@ Write approximately **100–150 words** explaining:
 - Clear statement of retest status.
 - Actual retest evidence, only if remediation was implemented.
 
-**Expected Outcome:** Students can design a controlled remediation verification procedure, distinguish proposed testing from completed retesting, and define measurable evidence of successful security improvements.
+**Expected result:** Students can design a controlled remediation verification procedure, distinguish proposed testing from completed retesting, and define measurable evidence of successful security improvements.
 
 ---
 
-## Task 21 – Write a 400–500-Word Findings Summary
+
+
+---
+
+## Task 18 – Consolidate and Validate Week 7 Evidence
+
+1. On Kali-Attacker, list the evidence folder:
+
+   ```bash
+   ls -lh ~/lab-evidence/week7/
+   ```
+
+2. Confirm that screenshots clearly show the authorised URL, request path, controlled input, response status and relevant application content.
+3. Include the file-handling data-flow diagram and impact/remediation tables from Tasks 13–17.
+4. Redact session identifiers, passwords and any unrelated sensitive values **only in submitted copies**. Preserve the technical details necessary for independent review.
+5. Where a test was not performed or did not produce a rejection, mark it **Not tested** or **Not observed** rather than creating evidence.
+
+### Evidence to capture
+
+A readable evidence index linking each screenshot or request/response capture to its task and test outcome.
+
+### Expected result
+
+A verified evidence set is ready to support the findings table and summary.
+
+---
+
+## Task 19 – Create the Week 7 Findings Table
+
+Create the Markdown findings file:
+
+```bash
+nano ~/lab-evidence/week7/09-findings-table.md
+```
+
+Use the evidence from the core tasks and complete the following table. Include only tests actually performed.
+
+| Area / test | Endpoint and parameter | Normal baseline | Controlled variation | HTTP and application response | Evidence reference | Validated weakness? | Remediation / prevention |
+|---|---|---|---|---|---|---|---|
+| Image versus text upload | | | | | | | |
+| Declared MIME-type change | | | | | | | |
+| Filename / collision handling | | | | | | | |
+| File-size comparison | | | | | | | |
+| Legitimate page inclusion | | | | | | | |
+| Unknown benign page | | | | | | | |
+| Security-level comparison | | | | | | | |
+
+Use **Validated**, **Not validated**, **Inconclusive**, or **Not tested** in the finding column. A normal feature or an error message alone is not proof of a vulnerability. Clearly label preventive best practices separately from remediation of validated weaknesses.
+
+### Evidence to capture
+
+`09-findings-table.md`, with correct references to supporting screenshots and HTTP responses.
+
+### Expected result
+
+Each claim is traceable to an observed test and a relevant mitigation.
+
+---
+
+## Task 20 – Write a 400–500-Word Findings Summary
 
 **Objective:** Produce a concise professional report that connects the Week 7 evidence, technical observations, security implications, remediation recommendations, retesting status and limitations.
 
-Use evidence from the core Tasks 1–20. Optional advanced activities do not need to be included.
+Use evidence from the core Tasks 1–19. Optional advanced activities do not need to be included.
 
-Write approximately 400–500 words in a concise professional style.
+Create the summary file:
+
+```bash
+nano ~/lab-evidence/week7/10-findings-summary.md
+```
+
+Write **400–500 words of narrative** in a concise professional style. The suggested five paragraphs are a template, **not** a completed report. Describe only tests performed and include actual IP/URL, parameter names, observations, security-level results, evidence references, remediation recommendations, retest status and limitations.
 
 ### Suggested Structure
 
@@ -1340,358 +1405,244 @@ Write approximately 400–500 words in a concise professional style.
 >
 > Testing was limited to the authorised DVWA application, designated File Upload and File Inclusion modules, and harmless test inputs. Based on the collected evidence, the tested file-handling weaknesses were classified as **[confirmed/potential/not validated]**. Do not assume broader impact, such as arbitrary file access, remote code execution, or server compromise, beyond what was directly demonstrated.
 
-**Expected Outcome:** A concise professional Findings Summary that accurately connects testing evidence, security interpretation, remediation and limitations without overstating the demonstrated impact.
+Use `wc -w ~/lab-evidence/week7/10-findings-summary.md` for a preliminary count; exclude tables, figure captions and headings when checking the **narrative** limit. Explicitly state **“Proposed retest only — no code change performed”** if applicable. A security-level comparison is not proof of implemented code remediation.
 
-# Part F – Advanced Analysis Tasks (Optional)
+### Evidence to capture
 
-**Objective:** Extend the Week 7 file-handling assessment by investigating server-side validation, upload storage behaviour, page-selection restrictions, and remediation effectiveness.
+Completed summary file, checked narrative length and evidence references.
 
-**Target:** Authorised DVWA application on Ubuntu-Server.
+**Expected result:** A concise professional Findings Summary that accurately connects testing evidence, security interpretation, remediation and limitations without overstating the demonstrated impact.
 
-**Tools:** Firefox Developer Tools, Burp Suite (Proxy and Repeater), Kali Linux and GIMP.
 
-**Important:** These activities are optional and should be attempted only after completing the core Week 7 tasks. Keep all testing within the authorised DVWA environment. Do not use executable payloads, sensitive system files, or destructive techniques.
 
 ---
 
-## Task 22 – Investigate File Extension and MIME-Type Validation
+## Task 21 – Validate the Final Report
 
-**Objective:** Determine whether DVWA's upload validation relies on the submitted filename extension, the client-declared MIME type, or additional server-side checks.
+Before submission, confirm:
 
-### Step 1 – Establish the Baseline
+- [ ] Authorised target, IP/URL, security levels and both modules are documented.
+- [ ] A normal baseline and a controlled comparison exist for both File Upload and File Inclusion.
+- [ ] File types and file sizes were verified with `file` and `ls -lh`.
+- [ ] Browser Developer Tools and Burp evidence is legible, labelled and linked to the findings table.
+- [ ] All session identifiers, credentials and secrets are redacted in submitted evidence.
+- [ ] Observed behaviour, validated weaknesses, possible risks and inconclusive results are clearly distinguished.
+- [ ] Recommended controls and remediation retest status are explicit.
+- [ ] Scope, limitations, and cleanup/restoration status are recorded.
+- [ ] `09-findings-table.md` is complete.
+- [ ] `10-findings-summary.md` contains **400–500 narrative words**.
 
-1. Open **DVWA → File Upload**.
-2. Set the security level to **Medium**.
-3. Upload the genuine `week7-image.png` created earlier.
-4. Capture the request in **Burp Suite → Proxy → HTTP history**.
-5. Send the request to **Repeater**.
-6. Record the original filename, declared MIME type, HTTP status and application response.
+### Expected result
 
-### Step 2 – Modify the MIME Declaration
-
-1. Duplicate the baseline request in Repeater.
-2. Locate the uploaded file's multipart `Content-Type` header.
-3. Change only the declared MIME type from `image/png` to `text/plain`.
-4. Keep the original filename and PNG image bytes unchanged.
-5. Send the modified request once.
-6. Record whether the file is accepted or rejected.
-
-**Important:** Do not change the actual file content or introduce scripts.
-
-### Step 3 – Test a Harmless Filename Extension Change
-
-1. Duplicate the original baseline request.
-2. Change only the submitted filename to `week7-image.txt`.
-3. Keep the original PNG image bytes and MIME declaration unchanged.
-4. Submit the controlled request once.
-5. Record the application response.
-
-### Step 4 – Compare the Results
-
-| Test | Filename | Declared MIME Type | Actual Content | Upload Result | HTTP Status |
-|---|---|---|---|---|---|
-| Baseline | `week7-image.png` | `image/png` | PNG image | | |
-| MIME modified | `week7-image.png` | `text/plain` | PNG image | | |
-| Extension modified | `week7-image.txt` | `image/png` | PNG image | | |
-
-### Questions
-
-1. Did changing the MIME declaration affect upload acceptance?
-2. Did changing the filename extension affect the result?
-3. What do the observations suggest about the validation controls?
-4. Can these results establish whether the server checks actual file content?
-5. What additional server-side checks would provide stronger validation?
-
-### Evidence to Capture
-
-- Original multipart upload request.
-- Modified MIME declaration request and response.
-- Modified filename-extension request and response.
-- Completed comparison table.
-
-**Expected Outcome:** Students identify whether client-supplied filename and MIME information influence file acceptance, while recognising that these observations alone may not prove how the server validates actual content.
+The report is internally consistent, complete and evidence based.
 
 ---
 
-## Task 23 – Investigate Upload Storage and Filename Collision Handling
+## Task 22 – Clean Up and Submit
 
-**Objective:** Examine how DVWA stores uploaded files and handles repeated uploads using the same filename.
+1. Remove only Week 7 test uploads if the lab instructions explicitly authorise their removal. Do not delete unrelated files, application data or Docker volumes.
+2. Restore the DVWA security setting specified by your instructor and any other changed lab settings. Record **Not performed** if cleanup was not authorised or possible.
+3. Confirm the reporting files exist:
 
-### Step 1 – Upload the Baseline Image
-
-1. Open **DVWA → File Upload**.
-2. Set the security level to **Low**.
-3. Upload `week7-image.png`.
-4. Record the application response and any displayed storage path.
-5. If the uploaded image is accessible through the authorised application, confirm that it displays correctly.
-
-### Step 2 – Repeat the Upload
-
-1. Upload the same image again without changing its filename or contents.
-2. Record whether the application:
-   - Accepts the repeated upload.
-   - Rejects the duplicate.
-   - Renames the stored file.
-   - Preserves the original filename.
-   - Reports that an existing file has been replaced.
-
-Do not assume that an existing file was overwritten unless the evidence demonstrates it.
-
-### Step 3 – Test a Different Filename
-
-1. Create a copy of the genuine PNG image named `Week 7 Image.png`.
-2. Upload the copied image.
-3. Record how the application handles spaces and mixed-case characters.
-4. Compare the response with the original upload.
-
-### Step 4 – Analyse Storage Behaviour
-
-| Test | Submitted Filename | Result | Returned Filename / Path | Observed Storage Behaviour |
-|---|---|---|---|---|
-| Original upload | `week7-image.png` | | | |
-| Duplicate upload | `week7-image.png` | | | |
-| Filename variation | `Week 7 Image.png` | | | |
-
-### Questions
-
-1. Does DVWA preserve the original uploaded filename?
-2. Is there evidence of automatic filename generation or normalisation?
-3. What happens when the same filename is submitted repeatedly?
-4. Is the uploaded image accessible through the authorised application?
-5. What potential risks arise when applications trust user-supplied filenames?
-6. How could generated filenames and secure storage locations reduce these risks?
-
-### Evidence to Capture
-
-- Original upload result.
-- Duplicate upload result.
-- Filename variation result.
-- Any observed storage location.
-- Completed comparison table.
-
-**Expected Outcome:** Students analyse filename handling and collision behaviour and recommend secure storage practices without attempting unauthorised filesystem access.
-
----
-
-## Task 27 – Assess File Inclusion Allow-List Behaviour
-
-**Objective:** Investigate how DVWA handles legitimate page identifiers and harmless unexpected values to assess whether page-selection restrictions are observable.
-
-### Step 1 – Capture a Legitimate Request
-
-1. Open **DVWA → File Inclusion**.
-2. Set the security level to **Low**.
-3. Select an application-provided page, such as `file1.php`.
-4. Capture the request in Burp Suite.
-5. Send the request to Repeater.
-6. Confirm that the expected page content is returned.
-
-### Step 2 – Test a Harmless Unexpected Page
-
-1. Duplicate the legitimate request.
-2. Change only the `page` parameter to:
-
-   ```text
-   week7-not-a-page.php
+   ```bash
+   ls -lh ~/lab-evidence/week7/09-findings-table.md ~/lab-evidence/week7/10-findings-summary.md
    ```
 
-3. Send the modified request.
-4. Record the HTTP status, response length and any error message.
+4. Submit the findings table, 400–500-word summary, selected labelled HTTP screenshots, relevant diagrams and any required supporting tables using the instructed submission process.
+5. Do not include live credentials, session IDs or unauthorised content.
 
-### Step 3 – Test an Unrecognised Page Identifier
+### Evidence to capture
 
-1. Create another copy of the legitimate request.
-2. Change only the `page` value to:
+Final directory listing, submitted evidence inventory and brief cleanup/restoration record.
 
-   ```text
-   week7-unknown-page
-   ```
+### Expected result
 
-3. Send the request once.
-4. Compare the response with the previous tests.
+The lab is returned to its agreed state and the student submits a professional evidence-linked report.
 
-These inputs are fictitious page references. They do not target operating-system files or application configuration files.
+---
 
-### Step 4 – Repeat at High Security
+# Part F – Advanced Optional Tasks
 
-1. Change DVWA security to **High**.
-2. Capture a fresh legitimate File Inclusion request.
-3. Repeat the two harmless unexpected page tests.
-4. Record any differences in response behaviour.
+**Optional:** Tasks 23–26 are extensions for students who have completed the core activities. Use harmless files and fictitious page names; do not access system files or upload executable content.
 
-### Step 5 – Record the Results
+## Task 23 – Compare Filename Extension with Declared MIME Type
 
-| Security Level | Page Parameter Value | HTTP Status | Response Length | Result / Error |
+1. At a recorded security level, capture a valid PNG upload and preserve an unchanged baseline in Burp Repeater.
+2. In one copy, change **only** the part-level MIME declaration to `text/plain`, retaining the PNG filename and genuine PNG bytes.
+3. In another copy of the original baseline, change **only** the filename extension to `.txt`, retaining the original PNG content and part-level MIME declaration.
+4. Submit each controlled variation once. Record request method, the exact single change, HTTP status, acceptance/rejection message and storage path if disclosed.
+5. Explain what the results suggest about client-supplied metadata and why they do **not** prove content validation.
+
+| Test | Filename | Declared MIME | Real content | Outcome / evidence |
 |---|---|---|---|---|
-| Low | `file1.php` | | | |
+| Original | `week7-image.png` | `image/png` | Genuine PNG | |
+| MIME changed | `week7-image.png` | `text/plain` | Same PNG | |
+| Extension changed | `week7-image.txt` | `image/png` | Same PNG | |
+
+### Evidence to capture
+
+Three labelled multipart requests and responses, with sensitive values redacted.
+
+### Expected result
+
+Students distinguish extension checks from client-declared MIME checks and explain the limits of black-box inference.
+
+---
+
+## Task 24 – Inspect Safe Storage and File Delivery
+
+1. Use an **already uploaded** genuine PNG; do not repeat the core collision tests.
+2. If DVWA provides an authorised link, open the stored image in the browser and locate its retrieval request in Developer Tools / Burp.
+3. Record the retrieval URL, HTTP status, response `Content-Type`, `Content-Disposition` (if present), `Cache-Control` (if relevant), and whether the browser displays the image.
+4. Compare the upload response with the subsequent image-retrieval response. Record whether the server exposes a storage location, without navigating outside the authorised DVWA application.
+5. Recommend safe serving/storage controls, noting that viewing an image alone cannot prove the directory is non-executable.
+
+| Property | Upload response | Image retrieval response |
+|---|---|---|
+| URL / path | | |
+| Status | | |
+| Content-Type | | |
+| Content-Disposition | | |
+| Visible behaviour | | |
+
+### Evidence to capture
+
+Authorised image retrieval and relevant HTTP response headers, or document **Not available**.
+
+### Expected result
+
+Students assess storage and file-delivery behaviour without making unsupported execution claims.
+
+---
+
+## Task 25 – Compare Alternative Benign Inclusion Identifiers
+
+1. At **Low** security, preserve a successful `page=file1.php` request (or an actual legitimate name provided by DVWA).
+2. Compare the previously tested `page=week7-not-a-page.php` with a second clearly fictitious value `page=week7-unknown-page`.
+3. Retain request method, path and other parameters; modify only `page`.
+4. Repeat only the same benign variations at **High** security using a newly captured, valid session request.
+5. Record status, response length measured consistently, visible warning/fallback behaviour and any actual disclosure of internal paths.
+
+| Level | Page value | Status | Response length | Visible result |
+|---|---|---|---|---|
+| Low | Legitimate page | | | |
 | Low | `week7-not-a-page.php` | | | |
 | Low | `week7-unknown-page` | | | |
-| High | `file1.php` | | | |
+| High | Legitimate page | | | |
 | High | `week7-not-a-page.php` | | | |
 | High | `week7-unknown-page` | | | |
 
-### Questions
+### Evidence to capture
 
-1. How does the application handle legitimate page identifiers?
-2. Are unexpected page values rejected or processed differently?
-3. Does High security produce different validation or error behaviour?
-4. Do the observations suggest a fixed page allow-list?
-5. Could the same observations be explained by another implementation?
-6. Why is source-code inspection or further authorised validation necessary before confirming an allow-list exists?
+Comparable requests/responses and a written conclusion distinguishing rejection from proof of an allow-list.
 
-### Evidence to Capture
+### Expected result
 
-- Legitimate baseline request and response.
-- Both harmless modified requests.
-- Low- and High-security comparisons.
-- Completed results table.
-
-**Expected Outcome:** Students evaluate observable File Inclusion parameter handling and explain why invalid-page rejection alone does not prove comprehensive protection against file inclusion weaknesses.
+Students evaluate whether different invalid identifiers produce consistent handling without testing unauthorised paths.
 
 ---
 
-## Task 28 – Design and Evaluate a Secure File-Handling Remediation Plan
+## Task 26 – Design a Security Regression Test
 
-**Objective:** Develop an evidence-based remediation plan for one file-handling weakness or validation gap identified during Week 7 and design a measurable verification procedure.
+1. Select **one** evidence-supported finding or validation gap from Tasks 4–17.
+2. Specify a proposed server-side change (e.g. fixed page identifier allow-list, safe filename generation, content validation, size restriction or generic error handling).
+3. Design two benign checks: one legitimate action that must continue to work, and one controlled invalid action that should be rejected or handled safely.
+4. Keep each before/after input constant and define the expected HTTP response, application message and evidence.
+5. Record **“Proposed retest only — no code change performed”** if no server-side fix was implemented. Do not claim that changing DVWA's security label constitutes code remediation.
 
-### Step 1 – Select a Finding
+| Check | Before evidence | Proposed control | Expected after result | Actually retested? |
+|---|---|---|---|---|
+| Legitimate operation | | | | |
+| Controlled invalid input | | | | |
 
-Review the evidence collected during the core and advanced tasks.
+Write a 150–200-word explanation of why the controls address the selected risk, how both checks will be measured, and what limitations remain.
 
-Choose one of the following, where supported by evidence:
+### Evidence to capture
 
-- File-type validation depends on client-supplied metadata.
-- Filename handling is insufficient or inconsistent.
-- Duplicate uploads create an observable storage concern.
-- File-size validation is absent or unclear.
-- Unknown page requests expose internal information.
-- File Inclusion page selection is insufficiently restricted.
+Regression design, baseline references and actual after-remediation evidence only if a change was implemented.
 
-If no security weakness was validated, select a validation gap and identify the proposed control as a preventive best practice.
+### Expected result
 
-### Step 2 – Recommend a Secure Design
-
-Explain an appropriate remediation for the selected finding.
-
-Examples include:
-
-| Finding or Validation Gap | Recommended Control |
-|---|---|
-| Reliance on uploaded file extensions | Server-side extension allow-list and content validation |
-| Reliance on declared MIME type | Verify actual file content where appropriate |
-| Unsafe filename handling | Generate unique server-side filenames |
-| Duplicate filename conflicts | Implement controlled collision handling |
-| Inadequate file-size restrictions | Enforce server-side size limits |
-| Unrestricted page selection | Map approved page identifiers to fixed server-side templates |
-| Detailed file errors | Use generic user-facing errors and secure internal logging |
-
-### Step 3 – Define the Verification Procedure
-
-Prepare a before-and-after retest using the same harmless input.
-
-Specify:
-
-1. The authorised endpoint being tested.
-2. The original test input.
-3. The observed behaviour before remediation.
-4. The proposed code or configuration change.
-5. The expected behaviour after remediation.
-6. The evidence required to confirm that the control works.
-7. A legitimate operation that should continue functioning.
-
-### Step 4 – Complete the Remediation Plan
-
-| Item | Description |
-|---|---|
-| Selected finding | |
-| Evidence reference | |
-| Demonstrated weakness or validation gap | |
-| Proposed remediation | |
-| Baseline test input | |
-| Before-remediation result | |
-| Expected after-remediation result | |
-| Legitimate functionality to verify | |
-| Remediation implemented? | |
-| Retest performed? | |
-| Remaining limitations | |
-
-### Step 5 – Write a Short Evaluation
-
-Write approximately **150–200 words** explaining:
-
-1. The selected finding and supporting evidence.
-2. The security risk it presents.
-3. Why the proposed control is appropriate.
-4. How remediation effectiveness would be tested.
-5. What results would demonstrate successful remediation.
-6. Whether the remediation was implemented or only proposed.
-7. What limitations remain.
-
-If no code or configuration change was performed, state:
-
-**Proposed retest only — no code change performed.**
-
-Changing DVWA security levels alone does not demonstrate that the proposed remediation was implemented.
-
-### Evidence to Capture
-
-- Selected finding and evidence reference.
-- Completed remediation plan.
-- Before-and-after verification design.
-- Written evaluation.
-- Actual retest evidence only if a remediation was implemented.
-
-**Expected Outcome:** Students design a technically justified remediation plan and distinguish proposed security improvements from implemented and verified fixes.
-
----
-
-## Part F – Evidence and Submission Requirements
-
-For the advanced optional tasks:
-
-- Use only the authorised DVWA environment.
-- Preserve unchanged baseline requests before modifications.
-- Change one controlled variable at a time.
-- Use only harmless images, benign filenames and fictitious training page identifiers.
-- Do not upload executable scripts or malicious payloads.
-- Do not request operating-system files, credentials or application configuration files.
-- Redact `PHPSESSID`, passwords and other session secrets.
-- Document actual observations and avoid unsupported vulnerability claims.
-- Clearly identify optional activities that were not performed.
-- Do not present proposed remediation as completed remediation.
-- Save advanced evidence in the Week 7 evidence folder.
-
-**Final Expected Outcome:** Students develop a deeper understanding of upload metadata validation, filename and storage handling, File Inclusion restrictions, and evidence-based remediation verification while remaining within the authorised DVWA training environment.
-
+Students design measurable security regression tests and distinguish proposals from validated fixes.
 
 ---
 
 # Suggested Evidence Filenames
 
-Use descriptive filenames for the evidence collected throughout the lab.
+Use clear, task-linked filenames. Multiple screenshots per task may be used. Provide only evidence actually collected.
 
 | Filename | Purpose |
 |---|---|
-| `01-target-and-modules.png` | Authorised DVWA target and module identification |
-| `02-upload-form.png` | File Upload form and attributes |
-| `03-image-upload-baseline.png` | Valid PNG upload baseline |
-| `04-text-upload-comparison.png` | Plain-text upload comparison |
-| `05-mime-request-comparison.png` | MIME declaration comparison in Burp |
-| `06-filename-and-size.png` | Filename handling and file-size testing |
-| `07-upload-security-levels.png` | Low/Medium/High upload comparison |
-| `08-inclusion-baseline.png` | Legitimate File Inclusion page selection |
-| `09-inclusion-unknown-page.png` | Non-existent benign page response |
-| `10-inclusion-security-levels.png` | File Inclusion security-level comparison |
-| `11-file-handling-data-flow.png` | File-handling data-flow diagram |
-| `12-response-header-comparison.png` | Normal and failed HTTP response comparison |
-| `13-remediation-retest.png` | Retest evidence, only if performed |
+| `01-evidence-folder.png` | Week 7 evidence directory |
+| `02-dvwa-environment.png` | Authorised target, running container and selected modules |
+| `03-test-file-types.png` | Genuine PNG/text file verification |
+| `04-upload-form.png` | Form method, encoding and file field |
+| `05-upload-baselines.png` | PNG versus TXT upload outcomes |
+| `06-upload-level-comparison.png` | Low/Medium/High upload results |
+| `07-mime-comparison.png` | Controlled part-level MIME change |
+| `08-filename-collision.png` | Filename and duplicate handling |
+| `09-file-size.png` | File size comparison |
+| `10-inclusion-navigation.png` | Normal page links and parameter |
+| `11-inclusion-repeater.png` | Reproducible legitimate page request |
+| `12-inclusion-invalid.png` | Fictitious unknown-page response |
+| `13-inclusion-levels.png` | Low/Medium/High inclusion comparison |
+| `14-data-flow.png` | File-handling data-flow diagram |
+| `15-error-header-comparison.png` | Response headers and error handling |
+| `16-retest.png` | **Only** if actual remediation retesting occurred |
 | `09-findings-table.md` | Evidence-linked findings table |
-| `10-findings-summary.md` | 400–500-word professional Findings Summary |
-
-**Note:** Only submit evidence for activities actually completed. Do not create screenshots or retest results that were not observed.
+| `10-findings-summary.md` | 400–500-word professional narrative |
 
 ---
 
-**Final Lab Outcome:** Students produce an evidence-based assessment of DVWA file handling, including upload validation, page-selection controls, server-side behaviour, security implications, remediation recommendations and testing limitations.
+# Troubleshooting
 
+## DVWA is not available
+
+On Ubuntu-Server check:
+
+```bash
+ip -br addr
+sudo docker ps
+```
+
+On Kali-Attacker use the actual IP and published port:
+
+```bash
+curl -I http://<UBUNTU_IP>:<PUBLISHED_PORT>/
+```
+
+If the container is absent or unhealthy, follow earlier labs' approved setup instructions. Do not change unrelated containers or the lab network without permission.
+
+## Burp does not show the requests
+
+Check the browser's proxy configuration, Burp listener, correct browser profile and **Proxy → HTTP history**. Filter by the authorised target IP. For upload requests, find the multipart request rather than only the File Upload page's initial GET request.
+
+## Responses differ unexpectedly
+
+Verify the security-level cookie, authorised session, request method, file bytes, field name, MIME declaration and measured response-length definition. Record actual responses and make one controlled modification at a time.
+
+---
+
+# Knowledge Check
+
+1. Why is a genuine PNG different from a renamed text file?
+2. Why does a `200 OK` upload response not prove the file was stored?
+3. How do the filename extension, declared MIME type and real file content differ?
+4. What information does a controlled MIME header change establish—and what does it not establish?
+5. How can filename collision handling be evaluated without destructive uploads?
+6. Why should file-size limits be enforced by the server?
+7. What does a File Inclusion page-selection parameter do?
+8. Why is a missing-file warning insufficient to prove unauthorised local file inclusion?
+9. Why is a fixed page identifier allow-list a useful defence?
+10. What is the difference between an observed impact and a potential risk?
+11. Why are security-level comparisons not code-level remediation retests?
+12. What evidence is needed to claim that remediation was implemented and effective?
+
+---
+
+# Summary
+
+**Verify environment → Create safe files → Establish upload baseline → Compare controlled variations → Check file inclusion → Evaluate responses and impact → Recommend mitigations → Design retest → Report**
+
+The core lab assesses authorised **DVWA File Upload and File Inclusion** behaviours using harmless inputs, Firefox Developer Tools and Burp Suite. Final outcomes are an evidence-linked findings table, a 400–500-word professional summary, and accurate statements about validated weaknesses and limitations. Optional activities investigate additional upload metadata, safe file delivery, benign page identifiers and regression-test design.
 
