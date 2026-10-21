@@ -1,4 +1,4 @@
-# Week 8 Lab – Modern Application Testing with OWASP Juice Shop
+# Week 8 Lab – Web Application Attack Surface Testing with OWASP Juice Shop
 
 **Authorised target:** Instructor-provided OWASP Juice Shop on Ubuntu-Server  
 **Testing workstation:** Kali-Attacker  
