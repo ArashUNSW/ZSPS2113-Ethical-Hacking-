@@ -467,24 +467,20 @@ Take one screenshot showing the Week 9 evidence folder.
 4. State separately whether lessons were **completed** and whether a vulnerability was **validated** in each area.
 5. Check the file with `wc -w` for an initial count, then verify the narrative count if it includes Markdown tables or headings.
 
-### Suggested five-paragraph structure
+### Suggested structure
 
-> Guided advanced testing was conducted against the authorised **WebGoat** application at **[address]**, with **WebWolf** used **[where required / not required]**, using Firefox Developer Tools and Burp Suite. Baseline requests for the selected lessons showed **[normal behaviour]**.
->
-> The designated **access-control lesson [name/step]** tested **[resource/function and intended permission]**. Comparing the authorised request with **[guided controlled variation]** produced **[response]**, supporting **[conclusion about access-control enforcement]**.
->
-> The designated **injection / parsing lesson [name/step]** tested **[input]**. Burp comparisons showed **[observed response difference]**. Any additional **token/session or WebWolf** observations showed **[actual result, or state not assigned]**.
->
-> The demonstrated impact was **[evidence-supported result]**; **[potential risk]** remains unvalidated. Recommended mitigation includes **[specific authorisation checks, safe queries/parsing, session controls, as applicable]**. Remediation was **[implemented and retested / proposed only]**.
->
-> Testing was limited to the authorised training accounts, designated lessons and benign guided inputs. The lesson outcomes were **[completed/attempted]**, and the security findings were **[validated/not validated/inconclusive]**. No broader production-system impact is claimed.
+Guided advanced testing was conducted against the authorised **WebGoat** application at **[address]**, with **WebWolf** used **[where required / not required]**, using Firefox Developer Tools and Burp Suite. Baseline requests for the selected lessons showed **[normal behaviour]**.
+The designated **access-control lesson [name/step]** tested **[resource/function and intended permission]**. Comparing the authorised request with **[guided controlled variation]** produced **[response]**, supporting **[conclusion about access-control enforcement]**.
+The designated **injection / parsing lesson [name/step]** tested **[input]**. Burp comparisons showed **[observed response difference]**. Any additional **token/session or WebWolf** observations showed **[actual result, or state not assigned]**.
+The demonstrated impact was **[evidence-supported result]**; **[potential risk]** remains unvalidated. Recommended mitigation includes **[specific authorisation checks, safe queries/parsing, session controls, as applicable]**. Remediation was **[implemented and retested / proposed only]**.
+Testing was limited to the authorised training accounts, designated lessons and benign guided inputs. The lesson outcomes were **[completed/attempted]**, and the security findings were **[validated/not validated/inconclusive]**. No broader production-system impact is claimed.
 
 ### Evidence to capture
 
  Summary and narrative word count.  
 ### Expected result
 
- A concise report accurately distinguishing training completion, vulnerability validation and wider security implications.
+ A concise report that accurately distinguishes training completion, vulnerability validation, and wider security implications.
 
 ## Task 15 – Validate evidence, clean up and submit
 
