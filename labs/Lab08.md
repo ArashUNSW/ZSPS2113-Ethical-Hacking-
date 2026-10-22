@@ -200,9 +200,10 @@ http://192.168.1.100:3000/
 
 ### Step 1 – Capture your own protected baseline
 
-1. While signed in, choose a normal **read-only** account-specific UI page. Avoid account changes or purchases.
-2. Capture the corresponding HTTP request, response status and safe indication of your own account context.
-3. Keep a copy of the request as an unchanged baseline in the proxy.
+1. In Burp Suite.
+2. While signed in, choose a normal **read-only** account-specific UI page. Avoid account changes or purchases.
+3. Capture the corresponding HTTP request, response status and safe indication of your own account context.
+4. Keep a copy of the request as an unchanged baseline in the proxy.
 
 ### Step 2 – Perform normal logout
 
@@ -212,7 +213,7 @@ http://192.168.1.100:3000/
 ### Step 3 – Compare absent authentication
 
 1. For the **same read-only** request, make a controlled proxy copy and omit the relevant authentication header or cookie (rather than simply replaying a pre-logout bearer token). Do **not** change object IDs.
-2. Send once, then record status and whether actual protected data was returned. A public error page with HTTP 200 is **not** a validated bypass.
+2. Send the modified copy of the same request through your proxy tool using Burp Suite Repeater, then record the status and whether actual protected data was returned. A public error page with HTTP 200 is **not** a validated bypass.
 3. If unexpected private data appears, stop and retain only a minimal redacted record.
 
 ### Results table
@@ -283,12 +284,12 @@ http://192.168.1.100:3000/
 
 ### Step 1 – Choose requests
 
-1. From Task 6 choose one apparently public read-only endpoint and one read-only endpoint involving your own account, if available.
+1. From Task 6, choose one apparently public read-only endpoint and one read-only endpoint involving your own account, if available.
 2. Capture their normal requests and save unchanged copies.
 
 ### Step 2 – Make one-variable comparisons
 
-1. In Repeater or ZAP Requester, duplicate a request and remove only applicable authentication material. Keep path, method, safe parameters and account context unchanged.
+1. In Burp Repeater or ZAP Requester, duplicate a request and remove only applicable authentication material. Keep path, method, safe parameters and account context unchanged.
 2. Send each modified **read-only** request once; record status, data shape and whether account-specific information remains accessible.
 3. Compare the server responses rather than relying only on status codes or visible UI behaviour.
 
@@ -322,8 +323,8 @@ http://192.168.1.100:3000/
 
 ### Step 1 – Confirm prerequisite authorisation
 
-1. Proceed **only** if the instructor expressly provides two isolated test accounts (A and B) and specifically approves cross-account object comparisons.
-2. If not supplied, record **“Not performed – second authorised account or permission unavailable”** and continue to Task 9. This is an authorised-scope limitation, not a failed test.
+1. Use two test accounts, labelled Account A and Account B, for the cross-account comparison. Confirm that both accounts are isolated lab accounts and that the activity is limited to the authorised Juice Shop training environment.
+2. Use Account A to create or identify the object being tested, then use Account B only for the approved comparison. Do not use real accounts, other students’ accounts, or objects outside the designated lab scope.
 
 ### Step 2 – Capture each owner baseline
 
