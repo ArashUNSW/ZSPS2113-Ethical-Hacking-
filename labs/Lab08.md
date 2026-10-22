@@ -367,7 +367,7 @@ http://192.168.1.100:3000/
 ### Step 1 – Observe routes and scripts
 
 1. In Firefox open **Inspector**, **Debugger/Sources**, and **Network**.
-2. Navigate through at least three visible screens (for example product list, search, own account). Record any changed browser route and whether a document reload occurred.
+2. Navigate through at least three visible screens on Juice Shop(for example, search, Account, contact). DevTools → Network → HTML: #/search, #/account, #/contact. Record any changed browser route and whether a document reload occurred.
 3. Note loaded JavaScript filenames and publicly exposed application configuration **without searching for secrets** or guessing hidden administrative routes.
 
 ### Step 2 – Link actions to endpoints
@@ -451,8 +451,8 @@ Own account -(read-only view)----> [captured endpoint] --> [status]
 
 ### Step 1 – Choose a suitable request
 
-1. From Task 10 choose an ordinary read-only request that includes a non-sensitive, user-controlled input (for example a search term).
-2. Send an unchanged copy to Repeater/ZAP Requester and capture baseline response.
+1. From Task 10, choose an ordinary read-only request that includes a non-sensitive, user-controlled input (for example, a search term).
+2. Send an unchanged copy to Burp Repeater/ZAP Requester and capture the baseline response.
 
 ### Step 2 – Make one controlled change
 
@@ -462,7 +462,7 @@ Own account -(read-only view)----> [captured endpoint] --> [status]
 ### Step 3 – Compare and interpret
 
 1. Compare server results to the browser UI rule.
-2. State exactly what the single test shows; note any limitation.
+2. State exactly what the single test shows; note any limitations.
 3. Return to the normal UI value; do not leave altered records or settings.
 
 ### Results table
@@ -675,7 +675,7 @@ Mark the checklist below honestly; record any unavailable features as limitation
 ---
 
 
-## Task 16 – Restore the authorised lab state and submit
+## Task 16 – Restore the authorised lab state
 
 **Objective:** Return application and testing tools to their agreed settings without affecting shared data.
 
@@ -695,7 +695,6 @@ Mark the checklist below honestly; record any unavailable features as limitation
 1. Confirm no request replay or automated testing is still running.
 2. List your evidence folder using `ls -lh ~/lab-evidence/week8/`.
 3. Write a short cleanup note describing exactly what was done and what was not performed.
-4. Submit the sanitised endpoint map, findings summary, selected labelled evidence, and cleanup note using the instructor-specified submission method.
 
 ### Results table
 
