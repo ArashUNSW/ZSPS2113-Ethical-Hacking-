@@ -235,7 +235,6 @@ http://192.168.1.100:3000/
 
 ---
 
-
 # Part C – API Mapping and Access-Control Testing
 
 
@@ -307,7 +306,7 @@ http://192.168.1.100:3000/
 
 ### Interpretation questions
 
-1. What does `401`, `403`, a redirect or `200` mean **in this specific response**?
+1. What do `401`, `403`, a redirect or `200` mean **in this specific response**?
 2. Which server-provided field indicates whether restricted data was exposed?
 
 **Evidence to capture:** Paired redacted request/response captures and comparison table.
@@ -324,7 +323,8 @@ http://192.168.1.100:3000/
 ### Step 1 – Confirm prerequisite authorisation
 
 1. Use two test accounts, labelled Account A and Account B, for the cross-account comparison. Confirm that both accounts are isolated lab accounts and that the activity is limited to the authorised Juice Shop training environment.
-2. Use Account A to create or identify the object being tested, then use Account B only for the approved comparison. Do not use real accounts, other students’ accounts, or objects outside the designated lab scope.
+2. Example: Account A: accountA@example.com, Account B: accountB@example.com
+3. Use Account A to create or identify the object being tested, then use Account B only for the approved comparison. Do not use real accounts, other students’ accounts, or objects outside the designated lab scope.
 
 ### Step 2 – Capture each owner baseline
 
@@ -378,7 +378,7 @@ http://192.168.1.100:3000/
 
 ### Step 3 – Draw a simple map
 
-Use a Markdown code block or diagram editor to produce a screen → action → observed endpoint → response diagram. Example:
+Use a Markdown code block or diagram editor to show the relationship between the screen/action, captured endpoint, and observed response status. Example:
 
 ```text
 Product list --(normal browsing)--> [captured endpoint] --> [status]
