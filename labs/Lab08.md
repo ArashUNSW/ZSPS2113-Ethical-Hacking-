@@ -357,7 +357,7 @@ http://192.168.1.100:3000/
 ---
 
 
-# Part D – Client-Side Discovery and Business-Logic Assessment
+# Part D – Client-Side Discovery and Business Logic Testing
 
 
 ## Task 9 – Map client-side routes to observed API requests
