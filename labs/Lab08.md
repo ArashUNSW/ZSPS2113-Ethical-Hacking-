@@ -78,12 +78,12 @@ http://192.168.1.100:3000/
 
 3. Check the home page displays and record the final browser URL. Do not log in yet.
 4. Press **F12**, select **Network**, enable **Persist Logs**, and reload once.
-5. Select the document request and record method, path, status, redirect `Location` (if any) and final page. Observe that later SPA navigation may not reload the document.
+5. Select the document request and record the method, path, status, redirect `Location` (if any) and final page. Observe that later SPA navigation may not reload the document.
 
 ### Step 3 – Select your proxy
 
 1. Start either Burp Suite or ZAP and configure a lab browser to use it. Confirm the proxy history records your request to the authorised Juice Shop host.
-2. Do not enable active scanners or automated spidering. Record which proxy will be used for all subsequent tasks.
+2. Use the selected proxy only for manual request/response inspection. Do not enable active scanning, spidering, or other automated attack features. Record whether you are using Burp Suite or OWASP ZAP for the remaining tasks.
 
 ### Results table
 
@@ -117,7 +117,7 @@ http://192.168.1.100:3000/
 
 1. Open a fresh private browser session configured to use the selected proxy; confirm you are signed out.
 2. Browse **home/products**, one **product detail** page and the **login page**, using only visible links. Do not add items to someone else’s basket or checkout.
-3. In Firefox Network filter **Fetch/XHR**, then look separately at **Doc**, **JS**, and **CSS** traffic to distinguish API calls from static resources.
+3. In Firefox Network filter **Fetch/XHR**, then look separately at **HTML(Doc)**, **JS**, and **CSS** traffic to distinguish API calls from static resources.
 
 ### Step 2 – Inspect two baseline requests
 
@@ -155,7 +155,7 @@ http://192.168.1.100:3000/
 
 ### Step 1 – Prepare the login baseline
 
-1. Ask the instructor for the approved test account or register only if expressly permitted.
+1. Log in to your existing OWASP Juice Shop account or register a new account.
 2. Open the visible login page and keep Firefox **Network** and your proxy history available.
 3. Identify the actual login request endpoint and method; avoid assuming a path or response format.
 
