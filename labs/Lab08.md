@@ -71,7 +71,11 @@ sudo docker ps
 ### Step 2 – Load the application
 
 1. Open Firefox on Kali-Attacker and visit the **authorised** Juice Shop address (example only)
-   : `http://192.168.1.100:3000/`).
+
+```text
+http://192.168.1.100:3000/
+```
+
 3. Check the home page displays and record the final browser URL. Do not log in yet.
 4. Press **F12**, select **Network**, enable **Persist Logs**, and reload once.
 5. Select the document request and record method, path, status, redirect `Location` (if any) and final page. Observe that later SPA navigation may not reload the document.
