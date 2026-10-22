@@ -52,7 +52,13 @@ On **Kali-Attacker**:
 
 ```bash
 mkdir -p ~/lab-evidence/week9
+```
+
+```bash
 cd ~/lab-evidence/week9
+```
+
+```bash
 pwd
 ```
 
@@ -63,14 +69,23 @@ The expected directory is `/home/<your-user>/lab-evidence/week9` (replace the pl
 1. Start **Ubuntu-Server** and **Kali-Attacker** using the assigned isolated lab network.
 2. On Ubuntu-Server, run:
 
-   ```bash
-   ip -br addr
-   sudo docker ps
-   ```
+```bash
+sudo docker ps
+```
 
-3. On Kali-Attacker, run `ip -br addr` and verify the authorised lab network.
+3. On Kali-Attacker, run and verify the authorised lab network.
+
+```bash
+ip -br addr
+```
+
 4. Record the **actual** host-to-container port mappings and addresses for WebGoat and WebWolf. The two applications may be exposed through the same container and different mapped ports; do not assume that they require separate containers.
-5. In Firefox, open WebGoat using its instructor-provided URL. For example, `http://192.168.1.100:8081/WebGoat/` is valid **only if confirmed** in your lab.
+5. In Firefox, open WebGoat using URL. For example,
+
+```text
+http://192.168.1.100:8081/WebGoat/
+```
+
 6. If a selected lesson requires WebWolf, open its assigned URL and verify its page is reachable. Otherwise, record **Not required for assigned lessons**; WebWolf availability is not a prerequisite for unrelated WebGoat lessons.
 7. Do not guess passwords, restart shared containers or substitute public WebGoat/WebWolf sites. If WebGoat is unavailable, follow earlier lab troubleshooting and contact the instructor.
 
@@ -106,12 +121,12 @@ The evidence directory exists, the WebGoat target is verified, and WebWolf is id
 ### Steps
 
 1. Sign into WebGoat using only the supplied lab account or create the training account if directed by the instructor.
-2. Open Firefox Developer Tools (**F12 → Network**) and enable persistent request logging.
-2. Open Burp Suite **Proxy → HTTP history**. Use a browser configured to proxy through Burp; confirm a WebGoat request appears.
-2. Select an assigned lesson and observe its introductory instructions **without modifying inputs**.
-2. Capture a normal request associated with opening or using the lesson. Record method, path, parameter names, status, response and any redirect.
-2. Send the captured request to **Repeater**, retain an unchanged baseline tab, and resend only if the request has no unintended state change. For state-changing requests, use an instructor-approved fresh training state instead.
-2. Record any dynamic elements (for example, changing tokens) that make exact response lengths differ between otherwise equivalent requests.
+2. Open Firefox Developer Tools (**F12 → Network**) and enable Persistent request logging.
+3. Open Burp Suite **Proxy → HTTP history**. Use a browser configured to proxy through Burp; confirm a WebGoat request appears.
+4. Select an assigned lesson and observe its introductory instructions **without modifying inputs**.
+5. Capture a normal request associated with opening or using the lesson. Record method, path, parameter names, status, response and any redirect.
+6. Send the captured request to **Repeater**, retain an unchanged baseline tab, and resend only if the request has no unintended state change. For state-changing requests, use an instructor-approved fresh training state instead.
+7. Record any dynamic elements (for example, changing tokens) that make exact response lengths differ between otherwise equivalent requests.
 
 | Lesson / page | Method | Path | Parameters (names only) | HTTP status | Normal response / redirect | Evidence filename |
 |---|---|---|---|---|---|---|
