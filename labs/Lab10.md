@@ -28,7 +28,7 @@ By the end of this lab, students should be able to:
 
 ## Scenario
 
-You are acting as a junior penetration tester conducting a **mini assessment** for a client. The client has provided an **authorised consolidated lab target**, but only a **defined subset of its services** is in scope. Your task is to perform an independent, evidence-led assessment within the agreed rules, prioritise one or two meaningful findings, and explain what the client should do next.
+You are acting as a penetration tester conducting a **mini assessment** for a client. The client has provided an **authorised consolidated lab target**, but only a **defined subset of its services** is in scope. Your task is to perform an independent, evidence-led assessment within the agreed rules, prioritise one or two meaningful findings, and explain what the client should do next.
 
 **Kali-Attacker** is your testing workstation. **Ubuntu-Server** or another instructor-designated VM hosts the consolidated target. The instructor will supply the actual target address, permitted services, accounts, test window, and any prohibited operations. Do **not** assume earlier labs' ports or applications are automatically in scope.
 
