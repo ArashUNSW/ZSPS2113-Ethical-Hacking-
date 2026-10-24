@@ -80,7 +80,7 @@ ip -br addr
 ```
 
 4. Record the **actual** host-to-container port mappings and addresses for WebGoat and WebWolf. The two applications may be exposed through the same container and different mapped ports; do not assume that they require separate containers.
-5. In Firefox, open WebGoat using URL. For example,
+5. On Kali-Attacker, open Firefox and access WebGoat using the URL. For example,
 
 ```text
 http://192.168.1.100:8081/WebGoat/
