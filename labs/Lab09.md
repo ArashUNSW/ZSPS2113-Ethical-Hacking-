@@ -102,7 +102,7 @@ http://192.168.1.100:8080/WebGoat/
 http://192.168.1.100:9090/WebWolf/
 ```
 
-5. Do not guess passwords, restart shared containers or substitute public WebGoat/WebWolf sites. If WebGoat is unavailable, follow earlier lab troubleshooting and contact the instructor.
+5. Register an account for each application, then sign in.
 
 ### Complete the table below
 
