@@ -67,7 +67,43 @@ The expected directory is `/home/<your-user>/lab-evidence/week9` (replace the pl
 ### Step 2 – Verify the authorised target
 
 1. Start **Ubuntu-Server** and **Kali-Attacker** using the assigned isolated lab network.
+
 2. On Ubuntu-Server, run:
+
+```bash
+docker pull webgoat/webgoat
+```
+
+```bash
+docker run --name webgoat -it \
+  -p 127.0.0.1:8080:8080 \
+  -p 127.0.0.1:9090:9090 \
+  webgoat/webgoat
+```
+
+```bash
+sudo docker ps
+```
+
+If WebGoat is marked “unhealthy”. Its container is running, but its configured health check is failing. You need to remove and recreate it:
+
+```bash
+sudo docker stop webgoat
+```
+
+```bash
+sudo docker rm webgoat
+```
+
+Then create it correctly:
+
+```bash
+sudo docker run -d --name webgoat \
+-p 8081:8080 \
+webgoat/webgoat
+```
+
+Then check:
 
 ```bash
 sudo docker ps
@@ -80,6 +116,7 @@ ip -br addr
 ```
 
 4. Record the **actual** host-to-container port mappings and addresses for WebGoat and WebWolf. The two applications may be exposed through the same container and different mapped ports; do not assume that they require separate containers.
+
 5. On Kali-Attacker, open Firefox and access WebGoat using the URL. For example,
 
 ```text
