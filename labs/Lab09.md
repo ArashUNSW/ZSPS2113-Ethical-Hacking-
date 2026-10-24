@@ -71,60 +71,38 @@ The expected directory is `/home/<your-user>/lab-evidence/week9` (replace the pl
 2. On Ubuntu-Server, run:
 
 ```bash
-docker pull webgoat/webgoat
+sudo docker pull webgoat/webgoat
 ```
 
 ```bash
-docker run --name webgoat -it \
+sudo docker run --name webgoat -it \
   -p 127.0.0.1:8080:8080 \
   -p 127.0.0.1:9090:9090 \
   webgoat/webgoat
 ```
 
+3. Then test the ports directly:
 ```bash
-sudo docker ps
-```
-
-If WebGoat is marked “unhealthy”. Its container is running, but its configured health check is failing. You need to remove and recreate it:
-
-```bash
-sudo docker stop webgoat
+curl -I http://127.0.0.1:8080/WebGoat
 ```
 
 ```bash
-sudo docker rm webgoat
+curl -I http://127.0.0.1:9090/WebWolf
 ```
 
-Then create it correctly:
+If they are running, you should get an HTTP response such as 200, 302, or another valid server response.
 
-```bash
-sudo docker run -d --name webgoat \
--p 8081:8080 \
-webgoat/webgoat
-```
-
-Then check:
-
-```bash
-sudo docker ps
-```
-
-3. On Kali-Attacker, run and verify the authorised lab network.
-
-```bash
-ip -br addr
-```
-
-4. Record the **actual** host-to-container port mappings and addresses for WebGoat and WebWolf. The two applications may be exposed through the same container and different mapped ports; do not assume that they require separate containers.
-
-5. On Kali-Attacker, open Firefox and access WebGoat using the URL. For example,
+4. Then open Firefox on Kali:
 
 ```text
-http://192.168.1.100:8081/WebGoat/
+http://192.168.1.100:8080/WebGoat/
 ```
 
-6. If a selected lesson requires WebWolf, open its assigned URL and verify its page is reachable. Otherwise, record **Not required for assigned lessons**; WebWolf availability is not a prerequisite for unrelated WebGoat lessons.
-7. Do not guess passwords, restart shared containers or substitute public WebGoat/WebWolf sites. If WebGoat is unavailable, follow earlier lab troubleshooting and contact the instructor.
+```text
+http://192.168.1.100:9090/WebWolf/
+```
+
+5. Do not guess passwords, restart shared containers or substitute public WebGoat/WebWolf sites. If WebGoat is unavailable, follow earlier lab troubleshooting and contact the instructor.
 
 ### Complete the table below
 
